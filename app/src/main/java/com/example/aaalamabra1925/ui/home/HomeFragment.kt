@@ -1,6 +1,5 @@
 package com.example.aaalamabra1925.ui.home
 
-import android.Manifest
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +17,8 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.ImageButton
 import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
 
 class HomeFragment : Fragment() {
 
@@ -26,8 +27,8 @@ class HomeFragment : Fragment() {
     private var mCompassOverlay: CompassOverlay? = null
     private var mScaleBarOverlay: ScaleBarOverlay? = null
     private var mRotationGestureOverlay: RotationGestureOverlay? = null
-    protected var btCenterMap: ImageButton? = null
-    protected var btFollowMe: ImageButton? = null
+    private var btCenterMap: ImageButton? = null
+    private var btFollowMe: ImageButton? = null
     private var lm: LocationManager? = null
 
     override fun onCreateView(
@@ -43,17 +44,18 @@ class HomeFragment : Fragment() {
         Configuration.getInstance().userAgentValue = context!!.packageName
         val dm = this.context!!.resources.displayMetrics
 
-        val mCompassOverlay = CompassOverlay(
+        mCompassOverlay = CompassOverlay(
             context, InternalCompassOrientationProvider(context),
             mapView
         )
-        val mLocationOverlay = MyLocationNewOverlay(
+        mLocationOverlay = MyLocationNewOverlay(
             GpsMyLocationProvider(context),
             mapView
         )
 
-        val myMapController = mapView.controller;
+        val myMapController = mapView.controller
         myMapController.setZoom(15.0)
+        myMapController.setCenter(GeoPoint(37.1970, -3.624))
 
         mScaleBarOverlay = ScaleBarOverlay(mapView)
         mScaleBarOverlay!!.setCentred(true)
@@ -69,11 +71,18 @@ class HomeFragment : Fragment() {
         mapView.overlays.add(mCompassOverlay)
         mapView.overlays.add(mScaleBarOverlay)
 
+        mLocationOverlay!!.enableMyLocation()
+        mLocationOverlay!!.enableFollowLocation()
+        mLocationOverlay!!.isOptionsMenuEnabled = true
+        mCompassOverlay!!.enableCompass()
 
-        mLocationOverlay.enableMyLocation()
-        mLocationOverlay.enableFollowLocation()
-        mLocationOverlay.isOptionsMenuEnabled = true
-        mCompassOverlay.enableCompass()
+        val test = Marker(mapView)
+        test.position = GeoPoint(38.0, -3.0)
+        test.textLabelFontSize = 40
+        test.setTextIcon("text")
+        test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+        mapView.overlays.add(test)
+
         return root
     }
 }
