@@ -28,4 +28,6 @@ class SlideshowFragment : Fragment() {
         })
         return root
     }
+
+
 }
