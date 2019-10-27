@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = this.findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -45,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        /* onPress={e => console.log(e.nativeEvent)} */
+
+        /* navView.onIndoorBuiHelloldingFocused={ e => t = Toast.maketext(this@MainActivity, “Dentro de un edificio”, Toast.LENGTH_LONG)
+            t. show() }
+
+         */
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
