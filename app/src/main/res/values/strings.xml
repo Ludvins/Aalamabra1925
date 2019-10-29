@@ -9,8 +9,9 @@
 
     <string name="menu_home">Map</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_ip">Interest Point Menu</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="communicate">Communicate</string>
 </resources>

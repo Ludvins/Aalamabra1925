@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
-class NoteDbManager(context: Context) {
+class DbManager(context: Context) {
 
-    private val dbName = "Todo"
+    private val dbName = "Aaalamabra1925"
     private val dbTable = "InteresPoint"
     private val colId = "Id"
     private val colTitle = "Title"
