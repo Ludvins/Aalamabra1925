@@ -16,9 +16,12 @@ import org.osmdroid.views.overlay.ScaleBarOverlay
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.ImageButton
+import android.widget.Toast
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.infowindow.InfoWindow
 
 class HomeFragment : Fragment() {
 
@@ -54,8 +57,8 @@ class HomeFragment : Fragment() {
         )
 
         val myMapController = mapView.controller
-        myMapController.setZoom(15.0)
-        myMapController.setCenter(GeoPoint(37.1970, -3.624))
+        myMapController.setZoom(18.0)
+        //myMapController.setCenter(GeoPoint(37.1970, -3.624))
 
         mScaleBarOverlay = ScaleBarOverlay(mapView)
         mScaleBarOverlay!!.setCentred(true)
@@ -77,12 +80,20 @@ class HomeFragment : Fragment() {
         mCompassOverlay!!.enableCompass()
 
         val test = Marker(mapView)
-        test.position = GeoPoint(38.0, -3.0)
+        test.position = GeoPoint(37.197152, -3.624137)
         test.textLabelFontSize = 40
-        test.setTextIcon("text")
+        //test.setTextIcon("Etiqueta de prueba")
         test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+        //test.icon = R.drawable.current_position_tennis_ball
+        test.infoWindow = null
         mapView.overlays.add(test)
+        
+        test.setOnMarkerClickListener { marker, mapView ->
+            Toast.makeText(this.activity,  "Marker's Listener invoked" , Toast.LENGTH_LONG).show()
+            true
+        }
 
         return root
     }
 }
+

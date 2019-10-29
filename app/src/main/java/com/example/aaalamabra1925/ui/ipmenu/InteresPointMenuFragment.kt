@@ -1,6 +1,5 @@
 package com.example.aaalamabra1925.ui.ipmenu
 
-import android.content.ContentValues
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
