@@ -26,6 +26,8 @@ class InteresPointMenuFragment : Fragment() {
 
         val mainList = this.list_view
         listAdapter = IPAdapter(this.context!!, list)
+
+        //TODO Fix this. Mainlist seems to be null.
         mainList.adapter = listAdapter
 
         list.add(InterestPoint(0, "test", "test2"))
