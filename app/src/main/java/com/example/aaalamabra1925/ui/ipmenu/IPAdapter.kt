@@ -29,11 +29,9 @@ class IPAdapter(context: Context, private val dataSource: MutableList<InterestPo
 
         val rowView = this.inflater.inflate(R.layout.ip_list_item, parent, false)
         val titleTextView = rowView.findViewById(R.id.title) as TextView
-        val contentTextView = rowView.findViewById(R.id.content) as TextView
-        val note = getItem(position) as InterestPoint
+        val ip = getItem(position) as InterestPoint
 
-        titleTextView.text = note.title
-        contentTextView.text = note.content
+        titleTextView.text = ip.title
 
         return rowView
     }
