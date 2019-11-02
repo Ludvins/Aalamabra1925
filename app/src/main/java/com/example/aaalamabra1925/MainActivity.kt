@@ -47,12 +47,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        /* onPress={e => console.log(e.nativeEvent)} */
-
-        /* navView.onIndoorBuiHelloldingFocused={ e => t = Toast.maketext(this@MainActivity, “Dentro de un edificio”, Toast.LENGTH_LONG)
-            t. show() }
-
-         */
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
