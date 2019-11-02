@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import androidx.core.content.contentValuesOf
 
 class DbManager(context: Context) {
 
@@ -14,10 +15,11 @@ class DbManager(context: Context) {
     private val colId = "Id"
     private val colTitle = "Title"
     private val colContent = "Content"
+    private val colLocationType = "LocationType"
     private val dbVersion = 1
 
-    private val CREATE_TABLE_SQL =
-            "CREATE TABLE IF NOT EXISTS $dbTable ($colId INTEGER PRIMARY KEY, $colTitle TEXT, $colContent TEXT);"
+    private val createTableSql =
+            "CREATE TABLE IF NOT EXISTS $dbTable ($colId INTEGER PRIMARY KEY, $colTitle TEXT, $colContent TEXT, $colLocationType INTEGER);"
     private var db: SQLiteDatabase? = null
 
     init {
@@ -55,7 +57,7 @@ class DbManager(context: Context) {
         private var context: Context? = context
 
         override fun onCreate(db: SQLiteDatabase?) {
-            db!!.execSQL(CREATE_TABLE_SQL)
+            db!!.execSQL(createTableSql)
             Toast.makeText(this.context, " database is created", Toast.LENGTH_LONG).show()
         }
 
