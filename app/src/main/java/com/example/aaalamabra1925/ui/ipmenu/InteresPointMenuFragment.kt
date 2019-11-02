@@ -11,7 +11,7 @@ import com.example.aaalamabra1925.R
 
 class InteresPointMenuFragment : Fragment() {
 
-    private val list = mutableListOf(InterestPoint(0, "test", "test"))
+    private val list = mutableListOf<InterestPoint>()
     private var listAdapter : IPAdapter? = null
 
     override fun onCreateView(
@@ -27,12 +27,13 @@ class InteresPointMenuFragment : Fragment() {
 
         mainList.adapter = listAdapter
 
+        loadQueryAll()
         return root
     }
 
     override fun onResume() {
         super.onResume()
-        //loadQueryAll()
+        loadQueryAll()
     }
 
     private fun loadQueryAll() {
@@ -45,11 +46,13 @@ class InteresPointMenuFragment : Fragment() {
         if (cursor.moveToFirst()) {
 
             do {
-                val id = cursor.getInt(cursor.getColumnIndex("Id"))
-                val title = cursor.getString(cursor.getColumnIndex("Title"))
-                val content = cursor.getString(cursor.getColumnIndex("Content"))
-
-                list.add(InterestPoint(id, title, content))
+                val locationType = cursor.getInt(cursor.getColumnIndex("LocationType"))
+                if (locationType == 1) {
+                    val id = cursor.getInt(cursor.getColumnIndex("Id"))
+                    val title = cursor.getString(cursor.getColumnIndex("Title"))
+                    val content = cursor.getString(cursor.getColumnIndex("Content"))
+                    list.add(InterestPoint(id, title, content))
+                }
 
             } while (cursor.moveToNext())
         }
