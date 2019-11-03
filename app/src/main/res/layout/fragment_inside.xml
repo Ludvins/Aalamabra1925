@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/mapapb">
+    android:layout_height="match_parent">
+
+    <!-- ContextCompat.getDrawable(context, R.drawable.ready) -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ip1"
@@ -24,3 +25,4 @@
         app:srcCompat="@drawable/marker_default"
         android:focusable="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
