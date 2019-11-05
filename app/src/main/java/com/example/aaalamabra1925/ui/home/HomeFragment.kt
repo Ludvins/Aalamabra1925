@@ -27,7 +27,6 @@ import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.gms.common.api.GoogleApi
 import com.google.android.gms.location.*
 import org.osmdroid.config.Configuration
@@ -75,7 +74,7 @@ class HomeFragment : Fragment() {
     }
 */
 
-    /* ESTO PUEDE FUNCIONAR
+
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -90,35 +89,36 @@ class HomeFragment : Fragment() {
 
         mLastLocation = location
         if (mLastLocation != null) {
-        // Update the UI from here
+            // Update the UI from here
         }
+    }
 
 
-        fun startLocationUpdates() {
+    fun startLocationUpdates() {
 
-            // Create the location request to start receiving updates
-            val mLocationRequest = LocationRequest()
-            mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            mLocationRequest!!.interval = INTERVAL
-            mLocationRequest!!.fastestInterval = FASTEST_INTERVAL
+         // Create the location request to start receiving updates
+         val mLocationRequest = LocationRequest()
+         mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+         mLocationRequest!!.interval = INTERVAL
+         mLocationRequest!!.fastestInterval = FASTEST_INTERVAL
 
-            // Create LocationSettingsRequest object using location request
-            val builder = LocationSettingsRequest.Builder()
-            builder.addLocationRequest(mLocationRequest!!)
-            val locationSettingsRequest = builder.build()
+         // Create LocationSettingsRequest object using location request
+         val builder = LocationSettingsRequest.Builder()
+         builder.addLocationRequest(mLocationRequest!!)
+         val locationSettingsRequest = builder.build()
 
-            val settingsClient = LocationServices.getSettingsClient(this.activity!!)
-            settingsClient.checkLocationSettings(locationSettingsRequest)
+         val settingsClient = LocationServices.getSettingsClient(this.activity!!)
+         settingsClient.checkLocationSettings(locationSettingsRequest)
 
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
-            // new Google API SDK v11 uses getFusedLocationProviderClient(this)
-            /*if (ActivityCompat.checkSelfPermission(this.activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+          mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
+          // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+          /*if (ActivityCompat.checkSelfPermission(this.activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-                return
-            }*/
-            mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback,
-                    Looper.myLooper())
+              return
+          }*/
+          mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback,
+                                                                Looper.myLooper())
         }
 
         fun stoplocationUpdates() {
@@ -139,11 +139,12 @@ class HomeFragment : Fragment() {
 
                     }
             val alert: AlertDialog = builder.create()
-            alert.show()
+            Toast.makeText(this.activity,  "NO GPS" , Toast.LENGTH_LONG).show()
+            //alert.show()
 
 
         }
-*/
+
 
 
     override fun onCreateView(
@@ -220,20 +221,18 @@ class HomeFragment : Fragment() {
 
         */
 
-        /* ESTO PUEDE FUNCIONAR
+
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
 
         mLocationRequest = LocationRequest()
 
-        //lm = getSystemService<LocationManager?>(this.activity!!, )
-        val locationManager = getSystemService(this.activity!!, LOCATION_SERVICE:LocationManager) as LocationManager?
+        lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
-        //val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!lm!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps()
         }
-        */
+
 
 
         return root
