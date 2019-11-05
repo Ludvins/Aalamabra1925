@@ -46,23 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onAttach(context: Context) {
-            super.onAttach(context)
-            mContext = context
-        }
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            //setContentView(R.layout.activity_sensor);
-
-            // Get sensor manager
-            mContext.getSystemService(Context.SENSOR_SERVICE)
-            // TODO Esta linea es una mierda, no se como arreglarla
-            // mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-            // Get the default sensor of specified type
-            mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        }
-
         override fun onStart() {
             super.onStart()
 
@@ -82,6 +65,11 @@ class MainActivity : AppCompatActivity() {
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return activity?.let {
+                //setContentView(R.layout.activity_sensor);
+                //mSensorManager = (SensorManager) (it.getSystemService(Context.SENSOR_SERVICE))
+                // Get the accelerometer
+                mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
                 // Use the Builder class for convenient dialog construction
                 val builder = AlertDialog.Builder(it)
                 builder.setMessage("Apunta al punto de interés que quieras conocer")
@@ -89,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                         DialogInterface.OnClickListener { _, _->
                             // User cancelled the dialog
                         })
+
                 // Create the AlertDialog object and return it
                 builder.create()
             } ?: throw IllegalStateException("Activity cannot be null")
