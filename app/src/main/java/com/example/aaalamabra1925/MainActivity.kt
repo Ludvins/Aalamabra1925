@@ -1,6 +1,5 @@
 package com.example.aaalamabra1925
 
-import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.navigation.findNavController
@@ -13,10 +12,34 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
+import androidx.fragment.app.DialogFragment
+
+
 
 class MainActivity : AppCompatActivity() {
 
+    class GestureRecognitionDialog: DialogFragment() {
+
+        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+            return activity?.let {
+                // Use the Builder class for convenient dialog construction
+                val builder = AlertDialog.Builder(it)
+                builder.setMessage("Apunta al punto de interés que quieras conocer")
+                    .setNegativeButton("Cancelar",
+                        DialogInterface.OnClickListener { _, _->
+                            // User cancelled the dialog
+                        })
+                // Create the AlertDialog object and return it
+                builder.create()
+            } ?: throw IllegalStateException("Activity cannot be null")
+        }
+    }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var gestureRecognitionDialog: GestureRecognitionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-
-            // TODO Guille
-            //val intent = Intent(this, Camera::class.java)
-            //startActivityForResult(intent, LAUNCH_CAMERA_CODE)
-
+            gestureRecognitionDialog.show(supportFragmentManager, "gestures")
         }
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
