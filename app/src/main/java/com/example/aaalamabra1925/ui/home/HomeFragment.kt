@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
 import android.os.Looper
+import android.os.Message
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
@@ -233,6 +234,17 @@ class HomeFragment : Fragment() {
             buildAlertMessageNoGps()
         }
 
+
+        //ESTO NO FUNCIONA
+        val criteria = Criteria()
+        criteria.accuracy = Criteria.ACCURACY_FINE
+        criteria.isCostAllowed = false
+
+        val providerName = lm!!.getBestProvider(criteria, true)
+        if(providerName != null){
+            Toast.makeText(this.activity,  "NO GPS provider" , Toast.LENGTH_LONG).show()
+        }
+        //ESTO NO FUNCIONA
 
 
         return root
