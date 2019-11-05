@@ -14,14 +14,71 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
+import android.hardware.Sensor
 import androidx.fragment.app.DialogFragment
-
+import android.hardware.SensorManager
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.util.Log
 
 
 class MainActivity : AppCompatActivity() {
 
     class GestureRecognitionDialog: DialogFragment() {
+        private lateinit var mSensorManager: SensorManager
+        private lateinit var mAccelerometer: Sensor
+        private lateinit var mContext : Context
+
+        // Listener for the accelerometer
+        private val mAccelerometerSensorListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                // TODO Tomar las coordenadas de la brujula y el gps (npi de como hacerlo)
+                Log.d("Accelerometer_listener", event.toString())
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+                Log.d("Accelerometer_listener", "$sensor - $accuracy")
+            }
+        }
+
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
+            mContext = context
+        }
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            //setContentView(R.layout.activity_sensor);
+
+            // Get sensor manager
+            mContext.getSystemService(Context.SENSOR_SERVICE)
+            // TODO Esta linea es una mierda, no se como arreglarla
+            // mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            // Get the default sensor of specified type
+            mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        }
+
+        override fun onStart() {
+            super.onStart()
+
+            if (mAccelerometer != null) {
+                mSensorManager.registerListener(mAccelerometerSensorListener, mAccelerometer,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            }
+        }
+
+        override fun onStop() {
+            super.onStop()
+
+            if (mAccelerometer != null) {
+                mSensorManager.unregisterListener(mAccelerometerSensorListener)
+            }
+        }
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return activity?.let {
