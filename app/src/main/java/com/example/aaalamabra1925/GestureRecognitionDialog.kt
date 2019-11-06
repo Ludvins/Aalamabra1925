@@ -11,46 +11,49 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
+import android.R.attr.name
+import android.R.attr.name
+import java.lang.Math.abs
+
 
 class GestureRecognitionDialog: DialogFragment(){
     private lateinit var mSensorManager: SensorManager
     private lateinit var mAccelerometer: Sensor
+    private lateinit var mMagnetometer: Sensor
 
     // Listener for the accelerometer
-    private val mAccelerometerSensorListener = object : SensorEventListener {
+    private val mPositionListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {
-            // TODO Tomar las coordenadas de la brujula y el gps (npi de como hacerlo)
-            Log.d("Accelerometer_listener", event.toString())
+            var mGravity: FloatArray? = null
+            var mGeomagnetic: FloatArray? = null
+
+            if (event.sensor.type == Sensor.TYPE_ACCELEROMETER)
+                mGravity = event.values
+            if (event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD)
+                mGeomagnetic = event.values
+            if (mGravity != null && mGeomagnetic != null) {
+                val R = FloatArray(9)
+                val I = FloatArray(9)
+                val success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)
+                if (success) {
+                    val orientation = FloatArray(3)
+                    // orientation contains: azimut, pitch and roll
+                    SensorManager.getOrientation(R, orientation)
+                }
+            }
         }
 
-        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-            Log.d("Accelerometer_listener", "$sensor - $accuracy")
-        }
-    }
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
-    override fun onStart() {
-        super.onStart()
-
-        if (mAccelerometer != null) {
-            mSensorManager.registerListener(mAccelerometerSensorListener, mAccelerometer,
-                SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        if (mAccelerometer != null) {
-            mSensorManager.unregisterListener(mAccelerometerSensorListener)
-        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             // Get sensor manager
             mSensorManager = it.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            // Get the accelerometer
+            // Get the sensors necessary for position
             mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
@@ -64,4 +67,18 @@ class GestureRecognitionDialog: DialogFragment(){
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
+
+    override fun onStart() {
+        super.onStart()
+        mSensorManager.registerListener(mPositionListener, mAccelerometer,
+            SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager.registerListener(mPositionListener, mMagnetometer,
+            SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mSensorManager.unregisterListener(mPositionListener)
+    }
+
 }
