@@ -16,7 +16,7 @@ import android.view.Menu
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var gestureRecognitionDialog: GestureRecognitionDialog
+    private var gestureRecognitionDialog = GestureRecognitionDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
