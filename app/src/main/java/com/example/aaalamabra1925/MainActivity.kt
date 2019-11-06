@@ -12,77 +12,8 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
-import android.hardware.Sensor
-import androidx.fragment.app.DialogFragment
-import android.hardware.SensorManager
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.util.Log
-
 
 class MainActivity : AppCompatActivity() {
-
-    class GestureRecognitionDialog: DialogFragment() {
-        private lateinit var mSensorManager: SensorManager
-        private lateinit var mAccelerometer: Sensor
-        private lateinit var mContext : Context
-
-        // Listener for the accelerometer
-        private val mAccelerometerSensorListener = object : SensorEventListener {
-            override fun onSensorChanged(event: SensorEvent) {
-                // TODO Tomar las coordenadas de la brujula y el gps (npi de como hacerlo)
-                Log.d("Accelerometer_listener", event.toString())
-            }
-
-            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-                Log.d("Accelerometer_listener", "$sensor - $accuracy")
-            }
-        }
-
-        override fun onStart() {
-            super.onStart()
-
-            if (mAccelerometer != null) {
-                mSensorManager.registerListener(mAccelerometerSensorListener, mAccelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-            }
-        }
-
-        override fun onStop() {
-            super.onStop()
-
-            if (mAccelerometer != null) {
-                mSensorManager.unregisterListener(mAccelerometerSensorListener)
-            }
-        }
-
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            return activity?.let {
-                //setContentView(R.layout.activity_sensor);
-                //mSensorManager = (SensorManager) (it.getSystemService(Context.SENSOR_SERVICE))
-                // Get the accelerometer
-                mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-                // Use the Builder class for convenient dialog construction
-                val builder = AlertDialog.Builder(it)
-                builder.setMessage("Apunta al punto de interés que quieras conocer")
-                    .setNegativeButton("Cancelar",
-                        DialogInterface.OnClickListener { _, _->
-                            // User cancelled the dialog
-                        })
-
-                // Create the AlertDialog object and return it
-                builder.create()
-            } ?: throw IllegalStateException("Activity cannot be null")
-        }
-    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var gestureRecognitionDialog: GestureRecognitionDialog
