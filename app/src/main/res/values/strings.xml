@@ -15,4 +15,8 @@
     <string name="menu_send">Send</string>
     <string name="communicate">Communicate</string>
     <string name="todo">TODO</string>
+    <string name="clear_database">Clear Database (Debug)</string>
+    <string name="fill_database">Fill Database (Debug)</string>
+    <string name="check_database">Check Database (Debug)</string>
+
 </resources>

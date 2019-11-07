@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import androidx.core.content.contentValuesOf
 
 class DbManager(context: Context) {
 
@@ -28,18 +27,14 @@ class DbManager(context: Context) {
     }
 
     fun insert(values: ContentValues): Long {
-
-        val ID = db!!.insert(dbTable, "", values)
-        return ID
+        return db!!.insert(dbTable, "", values)
     }
 
     fun queryAll(): Cursor {
-
         return db!!.rawQuery("select * from $dbTable", null)
     }
 
     fun delete(selection: String, selectionArgs: Array<String>): Int {
-
         return db!!.delete(dbTable, selection, selectionArgs)
     }
 
@@ -52,6 +47,22 @@ class DbManager(context: Context) {
         return db!!.update(dbTable, values, selection, selectionargs)
     }
 
+    fun fillDatabase():Long{
+        val ID = insert(createCV(0, "Test 1", "This is a test", 0))
+        insert(createCV(1, "Test 2", "This is a test", 1))
+
+        return ID
+    }
+
+    private fun createCV(id: Int, title: String, content: String, locationType: Int): ContentValues {
+        val aux = ContentValues()
+        aux.put("Id", id)
+        aux.put("Title", title)
+        aux.put("Content", content)
+        aux.put("LocationType", locationType)
+        return aux
+    }
+
     inner class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
 
         private var context: Context? = context
@@ -59,6 +70,7 @@ class DbManager(context: Context) {
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL(createTableSql)
             Toast.makeText(this.context, " database is created", Toast.LENGTH_LONG).show()
+            fillDatabase()
         }
 
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

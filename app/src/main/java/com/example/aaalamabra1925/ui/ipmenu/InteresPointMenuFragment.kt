@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
@@ -44,6 +45,7 @@ class InteresPointMenuFragment : Fragment() {
 
         list.clear()
         if (cursor.moveToFirst()) {
+            Toast.makeText(this.context, "DataBase isnt empty!", Toast.LENGTH_LONG).show()
 
             do {
                 val locationType = cursor.getInt(cursor.getColumnIndex("LocationType"))

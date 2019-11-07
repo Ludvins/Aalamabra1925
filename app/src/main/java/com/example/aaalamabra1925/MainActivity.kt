@@ -12,6 +12,8 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +31,8 @@ class MainActivity : AppCompatActivity() {
             gestureRecognitionDialog.show(supportFragmentManager, "gestures")
         }
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        val drawerLayout: DrawerLayout = this.findViewById(R.id.drawer_layout)
+        val navView: NavigationView = this.findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
         // Passing each menu ID as a set of Ids because each
@@ -50,6 +52,40 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            R.id.clear_database -> {
+                val dbManager = DbManager(this)
+                dbManager.deleteAll()
+                true
+            }
+            R.id.fill_database -> {
+                val dbManager = DbManager(this)
+
+                if (dbManager.fillDatabase() > 0){
+                    Toast.makeText(this, "DataBase filled!", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    Toast.makeText(this, "DataBase not filled!", Toast.LENGTH_LONG).show()
+                }
+                true
+            }
+            R.id.check_database -> {
+                val dbManager = DbManager(this)
+                val cursor = dbManager.queryAll()
+                if (cursor.moveToFirst()) {
+                    Toast.makeText(this, "DataBase isn't empty!", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(this, "DataBase is empty!", Toast.LENGTH_LONG).show()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
