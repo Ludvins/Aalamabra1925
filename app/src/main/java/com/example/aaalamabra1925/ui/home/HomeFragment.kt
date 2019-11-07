@@ -1,17 +1,22 @@
 package com.example.aaalamabra1925.ui.home
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.PendingIntent.getActivity
 import android.app.Service
 import android.app.Service.*
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.content.pm.PackageManager
 import android.location.*
+import android.location.LocationListener
 import android.os.Bundle
 import android.os.Looper
 import android.os.Message
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,24 +61,57 @@ class HomeFragment : Fragment() {
     lateinit var mLastLocation: Location
     internal lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
-/*
-    class MyPhoneStateListener : PhoneStateListener()
-    {
-        var signal = 0
-        /* Get the Signal strength from the provider, each time there is an update */
-
-        override fun onSignalStrengthsChanged(signalStrength: SignalStrength?) {
-            super.onSignalStrengthsChanged(signalStrength)
-
-            signal = signalStrength!!.gsmSignalStrength
 
 
-            /*Toast.makeText("Go to Firstdroid!!! GSM Cinr = "
-                    + signalStrength!!.getGsmSignalStrength(), Toast.LENGTH_SHORT).show();*/
+
+    abstract class mylocationlistener : LocationListener {
+
+        override fun onLocationChanged(location:Location) {
+            val latitude=location.getLatitude();
+            val longitude=location.getLongitude();
+            val msg="New Latitude: "+latitude + "New Longitude: "+longitude;
+            //Toast.makeText(getBaseContext() ,msg,Toast.LENGTH_LONG).show();
         }
 
     }
-*/
+
+
+    @SuppressLint("MissingPermission")
+    private fun addLocationListener()
+    {
+        lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+
+        val c = Criteria()
+        c.accuracy = Criteria.ACCURACY_FINE;
+
+        val PROVIDER = lm?.getBestProvider(c, true);
+
+        this.mLocationListener = GpsMyLocationProvider(this.context)
+        this.lm!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0.0F, this.mLocationListener);
+        //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0.0F, myLocationListener);
+        Log.d("LOC_SERVICE", "Service RUNNING!");
+    }
+
+    @SuppressLint("MissingPermission", "LongLogTag")
+    fun getLastKnownLocation(): Location? {
+        val providers = lm!!.getProviders(true)
+        var bestLocation: Location? = null
+
+        for (provider in providers) run {
+            val l: Location = lm!!.getLastKnownLocation(provider)
+
+
+            if (bestLocation == null
+                    || l.getAccuracy() < bestLocation!!.accuracy) {
+
+                bestLocation = l
+            }
+        }
+  if (bestLocation == null) {
+    return null
+  }
+  return bestLocation
+}
 
 
 
@@ -208,21 +246,6 @@ class HomeFragment : Fragment() {
             true
         }
 
-
-        /*
-
-        val statelistener = MyPhoneStateListener()
-        val telephonyManager:TelephonyManager = (TelephonyManager)
-        getSystemService(Context.TELEPHONY_SERVICE)
-
-        telephonyManager.listen(phoneListener,PhoneStateListener.LISTEN_CALL_STATE)
-
-        Toast.makeText(this.activity , "Senal GSM Cinr = "
-                + statelistener.signal, Toast.LENGTH_SHORT).show()
-
-        */
-
-
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
 
@@ -234,6 +257,11 @@ class HomeFragment : Fragment() {
             buildAlertMessageNoGps()
         }
 
+        addLocationListener()
+        val location = getLastKnownLocation()
+
+        val senialgps = location!!.accuracy
+        Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
         //ESTO NO FUNCIONA
         val criteria = Criteria()
@@ -249,24 +277,6 @@ class HomeFragment : Fragment() {
 
         return root
     }
-
-
-/*
-    private fun addLocationListener()
-    {
-        lm = getSystemService<LocationManager?>(LOCATION_SERVICE);
-
-        val c = Criteria()
-        c.accuracy = Criteria.ACCURACY_FINE;
-
-        val PROVIDER = lm?.getBestProvider(c, true);
-
-        this.mLocationListener = GpsMyLocationProvider(this.context)
-        this.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0.0F, this.myLocationListener);
-        //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0.0F, myLocationListener);
-        Log.d("LOC_SERVICE", "Service RUNNING!");
-    }
-    */
 
 
 }
