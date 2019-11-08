@@ -258,10 +258,10 @@ class HomeFragment : Fragment() {
         }
 
         addLocationListener()
-        val location = getLastKnownLocation()
+        //val location = getLastKnownLocation()
 
-        val senialgps = location!!.accuracy
-        Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
+        //val senialgps = location!!.accuracy
+        //Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
         //ESTO NO FUNCIONA
         val criteria = Criteria()

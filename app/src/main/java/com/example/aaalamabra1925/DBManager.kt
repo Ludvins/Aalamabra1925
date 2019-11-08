@@ -75,6 +75,7 @@ class DbManager(context: Context) {
 
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
             db!!.execSQL("Drop table IF EXISTS $dbTable")
+            Toast.makeText(this.context, "Dropped table $dbTable", Toast.LENGTH_LONG).show()
         }
     }
 }

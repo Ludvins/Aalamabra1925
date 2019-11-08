@@ -20,13 +20,12 @@ class GestureRecognitionDialog: DialogFragment(){
     private lateinit var mSensorManager: SensorManager
     private lateinit var mAccelerometer: Sensor
     private lateinit var mMagnetometer: Sensor
+    private var mGravity: FloatArray? = null
+    private var mGeomagnetic: FloatArray? = null
 
     // Listener for the accelerometer
     private val mPositionListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {
-            var mGravity: FloatArray? = null
-            var mGeomagnetic: FloatArray? = null
-
             if (event.sensor.type == Sensor.TYPE_ACCELEROMETER)
                 mGravity = event.values
             if (event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD)
@@ -39,8 +38,13 @@ class GestureRecognitionDialog: DialogFragment(){
                     val orientation = FloatArray(3)
                     // orientation contains: azimut, pitch and roll
                     SensorManager.getOrientation(R, orientation)
+                    // Log.d("Gesture_Dialog", "Orientation:" + orientation[0] + ", " +
+                    //    orientation[1] + ", " + orientation[2])
+
+
                 }
             }
+
         }
 
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
