@@ -12,9 +12,7 @@ import android.content.Intent.getIntent
 import android.content.pm.PackageManager
 import android.location.*
 import android.location.LocationListener
-import android.os.Bundle
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,15 +31,18 @@ import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApi
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.LatLng
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import java.util.jar.Manifest
 
 
-class HomeFragment : Fragment() {
+class HomeFragment() : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var mLocationOverlay: MyLocationNewOverlay? = null
@@ -55,137 +56,6 @@ class HomeFragment : Fragment() {
 
 
 
-    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
-    private val INTERVAL: Long = 2000
-    private val FASTEST_INTERVAL: Long = 1000
-    lateinit var mLastLocation: Location
-    internal lateinit var mLocationRequest: LocationRequest
-    private val REQUEST_PERMISSION_LOCATION = 10
-
-
-
-    abstract class mylocationlistener : LocationListener {
-
-        override fun onLocationChanged(location:Location) {
-            val latitude=location.getLatitude();
-            val longitude=location.getLongitude();
-            val msg="New Latitude: "+latitude + "New Longitude: "+longitude;
-            //Toast.makeText(getBaseContext() ,msg,Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-
-    @SuppressLint("MissingPermission")
-    private fun addLocationListener()
-    {
-        lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-
-        val c = Criteria()
-        c.accuracy = Criteria.ACCURACY_FINE;
-
-        val PROVIDER = lm?.getBestProvider(c, true);
-
-        this.mLocationListener = GpsMyLocationProvider(this.context)
-        this.lm!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0.0F, this.mLocationListener);
-        //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0.0F, myLocationListener);
-        Log.d("LOC_SERVICE", "Service RUNNING!");
-    }
-
-    @SuppressLint("MissingPermission", "LongLogTag")
-    fun getLastKnownLocation(): Location? {
-        val providers = lm!!.getProviders(true)
-        var bestLocation: Location? = null
-
-        for (provider in providers) run {
-            val l: Location = lm!!.getLastKnownLocation(provider)
-
-
-            if (bestLocation == null
-                    || l.getAccuracy() < bestLocation!!.accuracy) {
-
-                bestLocation = l
-            }
-        }
-  if (bestLocation == null) {
-    return null
-  }
-  return bestLocation
-}
-
-
-
-    private val mLocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            // do work here
-            locationResult.lastLocation
-            onLocationChanged(locationResult.lastLocation)
-        }
-    }
-
-    fun onLocationChanged(location: Location) {
-        // New location has now been determined
-
-        mLastLocation = location
-        if (mLastLocation != null) {
-            // Update the UI from here
-        }
-    }
-
-
-    fun startLocationUpdates() {
-
-         // Create the location request to start receiving updates
-         val mLocationRequest = LocationRequest()
-         mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-         mLocationRequest!!.interval = INTERVAL
-         mLocationRequest!!.fastestInterval = FASTEST_INTERVAL
-
-         // Create LocationSettingsRequest object using location request
-         val builder = LocationSettingsRequest.Builder()
-         builder.addLocationRequest(mLocationRequest!!)
-         val locationSettingsRequest = builder.build()
-
-         val settingsClient = LocationServices.getSettingsClient(this.activity!!)
-         settingsClient.checkLocationSettings(locationSettingsRequest)
-
-          mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
-          // new Google API SDK v11 uses getFusedLocationProviderClient(this)
-          /*if (ActivityCompat.checkSelfPermission(this.activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-              return
-          }*/
-          mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback,
-                                                                Looper.myLooper())
-        }
-
-        fun stoplocationUpdates() {
-            mFusedLocationProviderClient!!.removeLocationUpdates(mLocationCallback)
-        }
-
-        fun buildAlertMessageNoGps() {
-
-            val builder = AlertDialog.Builder(this.activity!!)
-            builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes") { dialog, id ->
-                        startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                                , 11)
-                    }
-                    .setNegativeButton("No") { dialog, id ->
-                        dialog.cancel()
-
-                    }
-            val alert: AlertDialog = builder.create()
-            Toast.makeText(this.activity,  "NO GPS" , Toast.LENGTH_LONG).show()
-            //alert.show()
-
-
-        }
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -193,7 +63,7 @@ class HomeFragment : Fragment() {
 
     ): View? {
         homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+                ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val mapView = root.findViewById<MapView>(R.id.openmapview)
@@ -201,12 +71,12 @@ class HomeFragment : Fragment() {
         val dm = this.context!!.resources.displayMetrics
 
         mCompassOverlay = CompassOverlay(
-            context, InternalCompassOrientationProvider(context),
-            mapView
+                context, InternalCompassOrientationProvider(context),
+                mapView
         )
         mLocationOverlay = MyLocationNewOverlay(
-            GpsMyLocationProvider(context),
-            mapView
+                GpsMyLocationProvider(context),
+                mapView
         )
 
         val myMapController = mapView.controller
@@ -240,44 +110,54 @@ class HomeFragment : Fragment() {
         //test.icon = R.drawable.current_position_tennis_ball
         test.infoWindow = null
         mapView.overlays.add(test)
-        
+
         test.setOnMarkerClickListener { marker, mapView ->
-            Toast.makeText(this.activity,  "Marker's Listener invoked" , Toast.LENGTH_LONG).show()
+            Toast.makeText(this.activity, "Marker's Listener invoked", Toast.LENGTH_LONG).show()
             true
         }
 
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
 
-        mLocationRequest = LocationRequest()
-
+        /*
         lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
-        if (!lm!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps()
-        }
+        val location = getLocation()
+        val senialgps = location!!.accuracy
+        Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
-        addLocationListener()
-        //val location = getLastKnownLocation()
+        
+            mLocationRequest = LocationRequest()
 
-        //val senialgps = location!!.accuracy
-        //Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
+            lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
-        //ESTO NO FUNCIONA
-        val criteria = Criteria()
-        criteria.accuracy = Criteria.ACCURACY_FINE
-        criteria.isCostAllowed = false
 
-        val providerName = lm!!.getBestProvider(criteria, true)
-        if(providerName != null){
-            Toast.makeText(this.activity,  "NO GPS provider" , Toast.LENGTH_LONG).show()
-        }
-        //ESTO NO FUNCIONA
+            if (!lm!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps()
+            }
 
+            addLocationListener()
+            val location = getLastKnownLocation()
+
+            val senialgps = location!!.accuracy
+            Toast.makeText(this.activity,  senialgps.toString() , Toast.LENGTH_LONG).show()
+
+            //ESTO NO FUNCIONA
+            val criteria = Criteria()
+            criteria.accuracy = Criteria.ACCURACY_FINE
+            criteria.isCostAllowed = false
+
+            val providerName = lm!!.getBestProvider(criteria, true)
+            if(providerName != null){
+                Toast.makeText(this.activity,  "NO GPS provider" , Toast.LENGTH_LONG).show()
+            }
+            //ESTO NO FUNCIONA
+            */
 
         return root
     }
+    }
 
 
-}
+
 
