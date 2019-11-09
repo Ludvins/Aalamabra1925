@@ -18,10 +18,20 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.aaalamabra1925.ui.ipmenu.InteresPointMenuFragment"
+        android:id="@+id/nav_ip"
+        android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
+        android:label="Interest Point"
+        tools:layout="@layout/fragment_interest_point" />
+
+    <fragment
+        android:id="@+id/nav_ipmenu"
+        android:name="com.example.aaalamabra1925.ui.ipmenu.InterestPointMenuFragment"
         android:label="@string/menu_ip"
-        tools:layout="@layout/fragment_ipmenu"/>
+        tools:layout="@layout/fragment_ipmenu">
+        <action
+            android:id="@+id/action_nav_ipmenu_to_nav_ip"
+            app:destination="@+id/nav_ip" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tools"
@@ -30,7 +40,7 @@
         tools:layout="@layout/fragment_tools" />
 
     <fragment
-        android:id="@+id/nav_send"
+        android:id="@+id/nav_insidemap"
         android:name="com.example.aaalamabra1925.ui.inside.InsideFragment"
         android:label="Inside Maps"
         tools:layout="@layout/fragment_inside" />

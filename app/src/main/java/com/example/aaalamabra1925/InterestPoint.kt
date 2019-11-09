@@ -1,5 +1,4 @@
-package com.example.aaalamabra1925.ui.ipmenu
-
+package com.example.aaalamabra1925
 
 data class InterestPoint(
         var id : Int,

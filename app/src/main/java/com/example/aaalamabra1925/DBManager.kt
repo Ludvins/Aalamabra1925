@@ -26,7 +26,7 @@ class DbManager(context: Context) {
         db = dbHelper.writableDatabase
     }
 
-    fun insert(values: ContentValues): Long {
+    private fun insert(values: ContentValues): Long {
         return db!!.insert(dbTable, "", values)
     }
 
@@ -34,7 +34,12 @@ class DbManager(context: Context) {
         return db!!.rawQuery("select * from $dbTable", null)
     }
 
-    fun delete(selection: String, selectionArgs: Array<String>): Int {
+    // Returns a cursor over all elements with the given location type.
+    fun queryByLocationType(type: Int): Cursor {
+        return db!!.rawQuery("select * from $dbTable where $colLocationType = $type", null)
+    }
+
+    private fun delete(selection: String, selectionArgs: Array<String>): Int {
         return db!!.delete(dbTable, selection, selectionArgs)
     }
 
@@ -47,11 +52,19 @@ class DbManager(context: Context) {
         return db!!.update(dbTable, values, selection, selectionargs)
     }
 
-    fun fillDatabase():Long{
-        val ID = insert(createCV(0, "Test 1", "This is a test", 0))
-        insert(createCV(1, "Test 2", "This is a test", 1))
+    fun fillDatabase(): Long{
+        val id = insert(createCV(1, "Outside 1", "o1 content", 0))
+        insert(createCV(2, "Outside 2", "o2 content", 0))
+        insert(createCV(3, "Outside 3", "o3 content", 0))
+        insert(createCV(4, "Outside 4", "o4 content", 0))
+        insert(createCV(5, "Outside 5", "o5 content", 0))
+        insert(createCV(6, "Test 1", "This is a test", 1))
+        insert(createCV(7, "Test 2", "This is a test", 1))
+        insert(createCV(8, "Test 3", "This is a test", 1))
+        insert(createCV(9, "Test 4", "This is a test", 1))
 
-        return ID
+
+        return id
     }
 
     private fun createCV(id: Int, title: String, content: String, locationType: Int): ContentValues {
@@ -70,7 +83,6 @@ class DbManager(context: Context) {
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL(createTableSql)
             Toast.makeText(this.context, " database is created", Toast.LENGTH_LONG).show()
-            fillDatabase()
         }
 
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

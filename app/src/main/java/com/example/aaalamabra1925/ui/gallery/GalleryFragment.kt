@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.aaalamabra1925.R
+import com.example.aaalamabra1925.ui.interest_point.InterestPointViewModel
 
 class GalleryFragment : Fragment() {
 
