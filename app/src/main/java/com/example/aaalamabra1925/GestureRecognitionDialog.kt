@@ -13,15 +13,46 @@ import android.util.Log
 import androidx.fragment.app.DialogFragment
 import android.R.attr.name
 import android.R.attr.name
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import java.lang.Math.abs
+import java.util.jar.Manifest
+import android.R.attr.name
+
+
 
 
 class GestureRecognitionDialog: DialogFragment(){
     private lateinit var mSensorManager: SensorManager
     private lateinit var mAccelerometer: Sensor
     private lateinit var mMagnetometer: Sensor
+    private lateinit var mLocationManager: LocationManager
+    private var latitude : Double? = null
+    private var longitude: Double? = null
+    private var searching : Boolean? = null
     private var mGravity: FloatArray? = null
     private var mGeomagnetic: FloatArray? = null
+
+    private val mLocationListener = object : LocationListener{
+        override fun onLocationChanged(location: Location?) {
+            if (location != null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+
+            Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
+        }
+
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+
+        override fun onProviderEnabled(provider: String) {}
+
+        override fun onProviderDisabled(provider: String) {}
+    }
 
     // Listener for the accelerometer
     private val mPositionListener = object : SensorEventListener {
@@ -36,11 +67,20 @@ class GestureRecognitionDialog: DialogFragment(){
                 val success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)
                 if (success) {
                     val orientation = FloatArray(3)
-                    // orientation contains: azimut, pitch and roll
+                    // orientation contains: azimut(0), pitch(1) and roll(2)
                     SensorManager.getOrientation(R, orientation)
-                    // Log.d("Gesture_Dialog", "Orientation:" + orientation[0] + ", " +
-                    //    orientation[1] + ", " + orientation[2])
 
+                    if (orientation[1] > 0 && searching!!){
+                        searching = false
+                        Toast.makeText(activity, "Buscando punto de interés", Toast.LENGTH_LONG).show()
+
+                        if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                            mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, null)
+                            Toast.makeText(activity, "Buscando punto de interés...", Toast.LENGTH_LONG).show()
+                        }
+
+                    }
 
                 }
             }
@@ -58,6 +98,9 @@ class GestureRecognitionDialog: DialogFragment(){
             // Get the sensors necessary for position
             mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
             mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+
+            // Get location manager
+            mLocationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
@@ -78,6 +121,7 @@ class GestureRecognitionDialog: DialogFragment(){
             SensorManager.SENSOR_DELAY_NORMAL)
         mSensorManager.registerListener(mPositionListener, mMagnetometer,
             SensorManager.SENSOR_DELAY_NORMAL)
+        searching = true
     }
 
     override fun onStop() {

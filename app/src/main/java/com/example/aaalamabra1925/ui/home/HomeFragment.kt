@@ -77,8 +77,7 @@ class HomeFragment : Fragment() {
 
 
     @SuppressLint("MissingPermission")
-    private fun addLocationListener()
-    {
+    private fun addLocationListener() {
         lm = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
         val c = Criteria()
