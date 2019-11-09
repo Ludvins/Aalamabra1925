@@ -39,7 +39,6 @@ class InterestPointMenuFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_ipmenu_to_nav_ip)
             val ip = list[position]
 
-            //fm!!.beginTransaction().add(R.layout.content_main, InterestPointFragment()).commit()
         }
 
         loadQueryAll()
