@@ -129,7 +129,7 @@ class HomeFragment() : Fragment() {
 
         if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mLocationManager!!.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, null)
+            mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
 
 
