@@ -12,6 +12,6 @@ class InterestPointViewModel : ViewModel() {
     private val _content = MutableLiveData<String>().apply {
         value = "This is the Content"
     }
-    val title: LiveData<String> = _title
-    val content: LiveData<String> = _content
+    var title: LiveData<String> = _title
+    var content: LiveData<String> = _content
 }
