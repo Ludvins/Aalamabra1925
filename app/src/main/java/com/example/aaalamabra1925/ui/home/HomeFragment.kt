@@ -1,19 +1,11 @@
 package com.example.aaalamabra1925.ui.home
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.PendingIntent.getActivity
-import android.app.Service
-import android.app.Service.*
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
-import android.content.Intent
-import android.content.Intent.getIntent
 import android.content.pm.PackageManager
 import android.location.*
 import android.location.LocationListener
 import android.os.*
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,22 +20,12 @@ import org.osmdroid.views.overlay.gestures.RotationGestureOverlay
 import org.osmdroid.views.overlay.ScaleBarOverlay
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import org.osmdroid.views.overlay.compass.CompassOverlay
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import com.example.aaalamabra1925.DbManager
-import com.example.aaalamabra1925.InterestPoint
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GooglePlayServicesUtil
-import com.google.android.gms.common.api.GoogleApi
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
 import androidx.core.content.ContextCompat
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
-import java.util.jar.Manifest
-
 
 class HomeFragment() : Fragment() {
 
