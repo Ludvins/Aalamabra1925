@@ -62,6 +62,9 @@ class GestureRecognitionDialog: DialogFragment(){
 
             if (cursor.moveToFirst()) {
                 do {
+                    Log.d("Gesture_Dialog", "ID:" + cursor.getColumnIndex("Id"))
+                    Log.d("Gesture_Dialog", "LAT:" + cursor.getColumnIndex("Latitude"))
+                    Log.d("Gesture_Dialog", "LOG:" + cursor.getColumnIndex("Longitude"))
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
                     val ip_lat = cursor.getFloat(cursor.getColumnIndex("Latitude"))
                     val ip_long = cursor.getFloat(cursor.getColumnIndex("Longitude"))
