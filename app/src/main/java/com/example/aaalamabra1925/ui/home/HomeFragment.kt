@@ -24,13 +24,8 @@ import android.widget.Toast
 import com.example.aaalamabra1925.DbManager
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.aaalamabra1925.MainActivity
 import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
-import com.example.aaalamabra1925.ui.inside.InsideFragment
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
