@@ -155,7 +155,6 @@ class HomeFragment() : Fragment() {
             mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
 
-
         return root
         }
     }
