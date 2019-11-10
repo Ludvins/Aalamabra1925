@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import java.util.jar.Manifest
 import android.R.attr.name
+import android.os.Looper
 import androidx.core.graphics.rotationMatrix
 import java.lang.Math.*
 
@@ -44,8 +45,20 @@ class GestureRecognitionDialog: DialogFragment(){
                 longitude = location.getLongitude();
             }
 
+            Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
+
             val dbManager = DbManager(context!!)
             val cursor = dbManager.queryByLocationType(0)
+
+            val v = floatArrayOf(0F ,1F)
+
+            // Get the direction of the line
+            var rotation_m = rotationMatrix(azimuth!!, 0F,0F)
+            rotation_m.mapVectors(v)
+
+            // Get the normal of the line
+            rotation_m = rotationMatrix(3.141592F/2, 0F, 0F)
+            rotation_m.mapVectors(v)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -53,16 +66,11 @@ class GestureRecognitionDialog: DialogFragment(){
                     val ip_lat = cursor.getFloat(cursor.getColumnIndex("Latitude"))
                     val ip_long = cursor.getFloat(cursor.getColumnIndex("Longitude"))
 
-                    val v = floatArrayOf(0 as Float,1 as Float)
-                    var rotation_m = rotationMatrix(azimuth!!, 0 as Float,0 as Float)
-                    rotation_m.mapVectors(v)
-                    rotation_m = rotationMatrix((PI/2) as Float, 0 as Float, 0 as Float)
-                    rotation_m.mapVectors(v)
+                    // Dist to the line
+
 
                 } while (cursor.moveToNext())
             }
-
-            Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -95,7 +103,7 @@ class GestureRecognitionDialog: DialogFragment(){
 
                         if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-                            mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, null)
+                            mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, Looper.getMainLooper())
                             Toast.makeText(activity, "Buscando punto de interés...", Toast.LENGTH_LONG).show()
                         }
 
