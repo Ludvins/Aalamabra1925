@@ -23,6 +23,14 @@ import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.Toast
 import com.example.aaalamabra1925.DbManager
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.aaalamabra1925.MainActivity
+import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
+import com.example.aaalamabra1925.ui.inside.InsideFragment
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
@@ -37,20 +45,21 @@ class HomeFragment() : Fragment() {
     private var mLocationManager: LocationManager? = null
     private var interestPointsId = mutableListOf<Int>()
 
-
+    private var change = true
 
     private val mLocationListener = object : LocationListener{
-        private val forceNetwork = false
-
         override fun onLocationChanged(location: Location?) {
+            Log.d("Home fragment", "Change" + change.toString())
             if (location != null){
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
                 Log.d("Home fragment", "Location:" + senialgps.toString())
 
-            }else{
-                Toast.makeText(context, "NO HAY LOCALIZACION", Toast.LENGTH_LONG).show()
-                Log.d("Home fragment", "Location: no hay")
+                if(senialgps >= 22.00F && change){
+                    change = false
+                    val bundle = bundleOf("id" to 1)
+                    findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
+                }
             }
         }
 
@@ -137,6 +146,8 @@ class HomeFragment() : Fragment() {
 
         super.onCreate(savedInstanceState)
 
+        change = true
+
         mLocationManager = context!!.getSystemService(LOCATION_SERVICE) as LocationManager?
 
         if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -145,9 +156,8 @@ class HomeFragment() : Fragment() {
         }
 
 
-
         return root
-    }
+        }
     }
 
 

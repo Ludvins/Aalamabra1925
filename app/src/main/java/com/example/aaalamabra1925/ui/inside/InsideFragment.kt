@@ -41,6 +41,8 @@ class InsideFragment : Fragment() {
 
         root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
 
+        val id = arguments!!.get("id")
+
 
         val button = root.findViewById<FloatingActionButton>(ip1)
         button.setOnClickListener(View.OnClickListener {
