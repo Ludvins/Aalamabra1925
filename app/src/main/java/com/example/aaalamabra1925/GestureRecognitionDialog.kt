@@ -19,11 +19,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import java.lang.Math.abs
 import java.util.jar.Manifest
 import android.R.attr.name
-
-
+import androidx.core.graphics.rotationMatrix
+import java.lang.Math.*
 
 
 class GestureRecognitionDialog: DialogFragment(){
@@ -31,6 +30,7 @@ class GestureRecognitionDialog: DialogFragment(){
     private lateinit var mAccelerometer: Sensor
     private lateinit var mMagnetometer: Sensor
     private lateinit var mLocationManager: LocationManager
+    private var azimuth: Float? = null
     private var latitude : Double? = null
     private var longitude: Double? = null
     private var searching : Boolean? = null
@@ -42,6 +42,24 @@ class GestureRecognitionDialog: DialogFragment(){
             if (location != null){
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
+            }
+
+            val dbManager = DbManager(context!!)
+            val cursor = dbManager.queryByLocationType(0)
+
+            if (cursor.moveToFirst()) {
+                do {
+                    val id = cursor.getInt(cursor.getColumnIndex("Id"))
+                    val ip_lat = cursor.getFloat(cursor.getColumnIndex("Latitude"))
+                    val ip_long = cursor.getFloat(cursor.getColumnIndex("Longitude"))
+
+                    val v = floatArrayOf(0 as Float,1 as Float)
+                    var rotation_m = rotationMatrix(azimuth!!, 0 as Float,0 as Float)
+                    rotation_m.mapVectors(v)
+                    rotation_m = rotationMatrix((PI/2) as Float, 0 as Float, 0 as Float)
+                    rotation_m.mapVectors(v)
+
+                } while (cursor.moveToNext())
             }
 
             Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
@@ -72,6 +90,7 @@ class GestureRecognitionDialog: DialogFragment(){
 
                     if (orientation[1] > 0 && searching!!){
                         searching = false
+                        azimuth = orientation[0]
                         Toast.makeText(activity, "Buscando punto de interés", Toast.LENGTH_LONG).show()
 
                         if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
