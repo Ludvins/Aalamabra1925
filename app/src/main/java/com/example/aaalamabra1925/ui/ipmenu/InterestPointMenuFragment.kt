@@ -1,20 +1,20 @@
 package com.example.aaalamabra1925.ui.ipmenu
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.InterestPoint
 import com.example.aaalamabra1925.R
-import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
+import com.example.aaalamabra1925.ui.interest_point.InterestPointViewModel
 
 
 class InterestPointMenuFragment : Fragment() {
@@ -36,8 +36,10 @@ class InterestPointMenuFragment : Fragment() {
         mainList.adapter = listAdapter
 
         mainList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            findNavController().navigate(R.id.action_nav_ipmenu_to_nav_ip)
-            val ip = list[position]
+            //val action = findNavController().graph.getAction(R.id.action_nav_ipmenu_to_nav_ip)
+            val bundle = bundleOf("id" to list[position].id)
+            findNavController().navigate(R.id.action_nav_ipmenu_to_nav_ip, bundle)
+            //val ip = list[position]
 
         }
 

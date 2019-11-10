@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
 
 class InterestPointFragment : Fragment() {
@@ -23,17 +24,17 @@ class InterestPointFragment : Fragment() {
             ViewModelProviders.of(this).get(InterestPointViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_interest_point, container, false)
-
         val titleView: TextView = root.findViewById(R.id.title)
         val contentView: TextView = root.findViewById(R.id.content)
 
-        interestPointViewModel.title.observe(this, Observer {
-            titleView.text = it
-        })
+        val id = arguments!!.get("id")
+        val dbManager = DbManager(context!!)
+        val cursor = dbManager.queryById(id as Int)
 
-        interestPointViewModel.content.observe(this, Observer {
-            contentView.text = it
-        })
+        if (cursor.moveToFirst()) {
+                titleView.text = cursor.getString(cursor.getColumnIndex("Title"))
+                contentView.text = cursor.getString(cursor.getColumnIndex("Content"))
+        }
 
         return root
     }

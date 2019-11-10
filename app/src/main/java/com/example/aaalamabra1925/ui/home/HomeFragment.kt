@@ -31,6 +31,8 @@ import org.osmdroid.views.overlay.compass.CompassOverlay
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.aaalamabra1925.DbManager
+import com.example.aaalamabra1925.InterestPoint
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApi
@@ -53,6 +55,7 @@ class HomeFragment() : Fragment() {
     private var btFollowMe: ImageButton? = null
     private var lm: LocationManager? = null
     private lateinit var mLocationListener: GpsMyLocationProvider
+    private var interestPointsId = mutableListOf<Int>()
 
 
 
@@ -101,6 +104,18 @@ class HomeFragment() : Fragment() {
         mLocationOverlay!!.enableFollowLocation()
         mLocationOverlay!!.isOptionsMenuEnabled = true
         mCompassOverlay!!.enableCompass()
+
+
+        val dbManager = DbManager(context!!)
+
+        val cursor = dbManager.queryByLocationType(0)
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex("Id"))
+                interestPointsId.add(id)
+            } while (cursor.moveToNext())
+        }
+
 
         val test = Marker(mapView)
         test.position = GeoPoint(37.197152, -3.624137)

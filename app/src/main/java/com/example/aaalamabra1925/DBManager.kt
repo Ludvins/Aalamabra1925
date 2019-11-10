@@ -24,8 +24,8 @@ class DbManager(context: Context) {
                     "$colTitle TEXT, " +
                     "$colContent TEXT, " +
                     "$colLocationType INTEGER, " +
-                    "$colLat INTEGER, " +
-                    "$colLong INTEGER);"
+                    "$colLat REAL, " +
+                    "$colLong REAL);"
     private var db: SQLiteDatabase? = null
 
     init {
@@ -35,6 +35,10 @@ class DbManager(context: Context) {
 
     private fun insert(values: ContentValues): Long {
         return db!!.insert(dbTable, "", values)
+    }
+
+    fun queryById(id: Int): Cursor {
+        return db!!.rawQuery("select * from $dbTable where $colId = $id", null)
     }
 
     fun queryAll(): Cursor {
@@ -60,20 +64,20 @@ class DbManager(context: Context) {
     }
 
     fun fillDatabase(): Long{
-        val id = insert(createCV(1, "Outside 1", "o1 content", 0, 0 ,0))
-        insert(createCV(2, "Outside 2", "o2 content", 0,0, 0))
-        insert(createCV(3, "Outside 3", "o3 content", 0, 0, 0))
-        insert(createCV(4, "Outside 4", "o4 content", 0, 0, 0))
-        insert(createCV(5, "Outside 5", "o5 content", 0, 0, 0))
-        insert(createCV(6, "Test 1", "This is a test", 1, 0, 0))
-        insert(createCV(7, "Test 2", "This is a test", 1,0,0))
-        insert(createCV(8, "Test 3", "This is a test", 1,0 ,0))
-        insert(createCV(9, "Test 4", "This is a test", 1,0 ,0))
+        val id = insert(createCV(1, "Outside 1", "o1 content", 0, 37.197152, -3.624137))
+        insert(createCV(2, "Outside 2", "o2 content", 0,37.29715, -3.624137))
+        insert(createCV(3, "Outside 3", "o3 content", 0, 37.157152, -3.624137))
+        insert(createCV(4, "Outside 4", "o4 content", 0, 37.317152, -3.624137))
+        insert(createCV(5, "Outside 5", "o5 content", 0, 37.127152, -3.624137))
+        insert(createCV(6, "Test 1", "This is a test", 1, 0.0, 0.0))
+        insert(createCV(7, "Test 2", "This is a test", 1,0.0,0.0))
+        insert(createCV(8, "Test 3", "This is a test", 1,0.0 ,0.0))
+        insert(createCV(9, "Test 4", "This is a test", 1,0.0 ,0.0))
         
         return id
     }
 
-    private fun createCV(id: Int, title: String, content: String, locationType: Int, latitude: Int, longitude:Int): ContentValues {
+    private fun createCV(id: Int, title: String, content: String, locationType: Int, latitude: Double, longitude: Double): ContentValues {
         val aux = ContentValues()
         aux.put("Id", id)
         aux.put("Title", title)

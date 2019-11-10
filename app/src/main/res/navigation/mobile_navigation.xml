@@ -21,7 +21,12 @@
         android:id="@+id/nav_ip"
         android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
         android:label="Interest Point"
-        tools:layout="@layout/fragment_interest_point" />
+        tools:layout="@layout/fragment_interest_point" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_ipmenu"
@@ -30,7 +35,8 @@
         tools:layout="@layout/fragment_ipmenu">
         <action
             android:id="@+id/action_nav_ipmenu_to_nav_ip"
-            app:destination="@+id/nav_ip" />
+            app:destination="@+id/nav_ip">
+        </action>
     </fragment>
 
     <fragment
