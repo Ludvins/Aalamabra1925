@@ -39,9 +39,18 @@ class InsideFragment : Fragment() {
         })*/
         super.onCreate(savedInstanceState)
 
-        root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
-
         val id = arguments!!.get("id")
+
+        if(id == 1){
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
+
+        }else{
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
+
+        }
+
+
+
 
 
         val button = root.findViewById<FloatingActionButton>(ip1)
