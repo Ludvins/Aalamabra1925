@@ -11,19 +11,14 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
-import android.R.attr.name
-import android.R.attr.name
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import java.util.jar.Manifest
-import android.R.attr.name
 import android.os.Looper
 import androidx.core.graphics.rotationMatrix
-import java.lang.Math.*
 
 
 class GestureRecognitionDialog: DialogFragment(){
@@ -50,28 +45,32 @@ class GestureRecognitionDialog: DialogFragment(){
             val dbManager = DbManager(context!!)
             val cursor = dbManager.queryByLocationType(0)
 
-            val v = floatArrayOf(0F ,1F)
+            val n = floatArrayOf(0F, 1F)
 
             // Get the direction of the line
             var rotation_m = rotationMatrix(azimuth!!, 0F,0F)
-            rotation_m.mapVectors(v)
+            rotation_m.mapVectors(n)
 
             // Get the normal of the line
             rotation_m = rotationMatrix(3.141592F/2, 0F, 0F)
-            rotation_m.mapVectors(v)
+            rotation_m.mapVectors(n)
 
+            var lowest_dist = Float.MAX_VALUE
+            var nearest_ip : Int? = null
             if (cursor.moveToFirst()) {
                 do {
-                    Log.d("Gesture_Dialog", "ID:" + cursor.getColumnIndex("Id"))
-                    Log.d("Gesture_Dialog", "LAT:" + cursor.getColumnIndex("Latitude"))
-                    Log.d("Gesture_Dialog", "LOG:" + cursor.getColumnIndex("Longitude"))
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
                     val ip_lat = cursor.getFloat(cursor.getColumnIndex("Latitude"))
                     val ip_long = cursor.getFloat(cursor.getColumnIndex("Longitude"))
 
                     // Dist to the line
+                    val diff = floatArrayOf(longitude!!.toFloat() - ip_long, latitude!!.toFloat() - ip_lat)
+                    val square_dist = (diff[0]*n[0] + diff[1]*n[1]) * (diff[0]*n[0] + diff[1]*n[1])
 
-
+                    if (lowest_dist > square_dist){
+                        nearest_ip = id
+                        lowest_dist = square_dist
+                    }
                 } while (cursor.moveToNext())
             }
         }
