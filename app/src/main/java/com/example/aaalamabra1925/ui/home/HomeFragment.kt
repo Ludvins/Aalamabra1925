@@ -39,32 +39,22 @@ class HomeFragment() : Fragment() {
     private var mRotationGestureOverlay: RotationGestureOverlay? = null
     private var mLocationManager: LocationManager? = null
     private var interestPointsId = mutableListOf<Int>()
-    private var latitude : Double? = null
-    private var longitude: Double? = null
 
     private var change = true
-    private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
-    private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change" + change.toString())
             if (location != null){
                 val senialgps = location.accuracy
-                if(senialgps != null){
-                    Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
-                    Log.d("Home fragment", "Location:" + senialgps.toString())
+                Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
+                Log.d("Home fragment", "Location:" + senialgps.toString())
 
-
-                    if(senialgps >= 22.00F && change){
-                        change = false
-                        val id = nearDoor(location)
-                        val bundle = bundleOf("id" to 1)
-                        findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
-                    }
+                if(senialgps >= 22.00F && change){
+                    change = false
+                    val bundle = bundleOf("id" to 1)
+                    findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
                 }
-
-
             }
         }
 
@@ -73,11 +63,6 @@ class HomeFragment() : Fragment() {
         override fun onProviderEnabled(provider: String) {}
 
         override fun onProviderDisabled(provider: String) {}
-
-        fun nearDoor(location: Location?): Int {
-
-            return 1
-        }
 
 
     }
@@ -164,15 +149,6 @@ class HomeFragment() : Fragment() {
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
-
-        val test2 = Marker(mapView)
-        test2.position = GeoPoint(37.19701, -3.6245)
-        test2.textLabelFontSize = 40
-        //test.setTextIcon("Etiqueta de prueba")
-        test2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
-        //test.icon = R.drawable.current_position_tennis_ball
-        test2.infoWindow = null
-        mapView.overlays.add(test2)
 
         return root
         }

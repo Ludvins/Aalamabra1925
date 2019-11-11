@@ -64,11 +64,11 @@ class DbManager(context: Context) {
     }
 
     fun fillDatabase(): Long{
-        val id = insert(createCV(1, "Outside 1", "o1 content", 0, 37.197152, -3.624137))
-        insert(createCV(2, "Outside 2", "o2 content", 0,37.29715, -3.624137))
-        insert(createCV(3, "Outside 3", "o3 content", 0, 37.157152, -3.624137))
-        insert(createCV(4, "Outside 4", "o4 content", 0, 37.317152, -3.624137))
-        insert(createCV(5, "Outside 5", "o5 content", 0, 37.127152, -3.624137))
+        val id = insert(createCV(1, "Outside 1", "o1 content", 0, 37.19729, -3.623131))
+        insert(createCV(2, "Outside 2", "o2 content", 0,37.19731, -3.624033))
+        insert(createCV(3, "Outside 3", "o3 content", 0, 37.19747, -3.624435))
+        insert(createCV(4, "Outside 4", "o4 content", 0, 37.19755, -3.624337))
+        insert(createCV(5, "Outside 5", "o5 content", 0, 37.19762, -3.624240))
         insert(createCV(6, "Test 1", "This is a test", 1, 0.0, 0.0))
         insert(createCV(7, "Test 2", "This is a test", 1,0.0,0.0))
         insert(createCV(8, "Test 3", "This is a test", 1,0.0 ,0.0))
