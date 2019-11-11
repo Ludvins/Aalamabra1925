@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_insidemap"
             app:destination="@id/nav_insidemap" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_ip"
+            app:destination="@id/nav_ip" />
     </fragment>
 
     <fragment
