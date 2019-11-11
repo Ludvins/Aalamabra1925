@@ -30,6 +30,8 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 
+
+
 class HomeFragment() : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
@@ -39,6 +41,9 @@ class HomeFragment() : Fragment() {
     private var mRotationGestureOverlay: RotationGestureOverlay? = null
     private var mLocationManager: LocationManager? = null
     private var interestPointsId = mutableListOf<Int>()
+
+    private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
+    private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
 
     private var change = true
 
