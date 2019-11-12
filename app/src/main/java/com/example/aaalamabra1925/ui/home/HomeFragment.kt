@@ -76,12 +76,12 @@ class HomeFragment() : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
-            var dis1 = kotlin.math.sqrt((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
-            var dis2 = kotlin.math.sqrt((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
+            var dis1 = (location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2)
+            var dis2 = (location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2)
             val distanciaCaf = minOf(dis1, dis2)
 
-            dis1 = kotlin.math.sqrt((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
-            dis2 = kotlin.math.sqrt((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
+            dis1 = (location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2)
+            dis2 = (location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2)
             val distanciaAul = minOf(dis1, dis2)
 
             if(distanciaAul < distanciaCaf){
