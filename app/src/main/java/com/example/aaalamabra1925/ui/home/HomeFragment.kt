@@ -30,6 +30,7 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import java.lang.Math.sqrt
+import kotlin.math.min
 import kotlin.math.pow
 
 
@@ -54,7 +55,7 @@ class HomeFragment() : Fragment() {
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change" + change.toString())
-            if (location != null){
+            if (location != null && change){
                 // TODO esto peta de vez en cuandoo
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
@@ -76,13 +77,17 @@ class HomeFragment() : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
-            var dis1 = (location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2)
-            var dis2 = (location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2)
-            val distanciaCaf = minOf(dis1, dis2)
+            var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
+            var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
+            val distanciaCaf = min(dis1, dis2)
+            Log.d("Home fragment", "Distancia Caf" + distanciaCaf.toString())
 
-            dis1 = (location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2)
-            dis2 = (location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2)
-            val distanciaAul = minOf(dis1, dis2)
+
+            dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
+            dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
+            val distanciaAul = min(dis1, dis2)
+            Log.d("Home fragment", "Distancia Aul" + distanciaAul.toString())
+
 
             if(distanciaAul < distanciaCaf){
                 return 1
