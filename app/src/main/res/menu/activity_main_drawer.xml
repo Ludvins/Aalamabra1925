@@ -9,21 +9,13 @@
             android:icon="@drawable/ic_menu_mylocation"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
             android:id="@+id/nav_ipmenu"
             android:icon="@drawable/ic_menu_ipmenu"
             android:title="@string/menu_ip" />
         <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
-        <item
-            android:id="@+id/nav_insidemap"
+            android:id="@+id/nav_inner_maps_list"
             android:icon="@drawable/ic_menu_inside"
-            android:title="Inside maps" />
+            android:title="@string/inside_maps" />
     </group>
 
 </menu>

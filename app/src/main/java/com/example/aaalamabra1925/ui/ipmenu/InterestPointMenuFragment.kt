@@ -8,13 +8,10 @@ import android.widget.AdapterView
 import android.widget.ListView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.InterestPoint
 import com.example.aaalamabra1925.R
-import com.example.aaalamabra1925.ui.interest_point.InterestPointViewModel
 
 
 class InterestPointMenuFragment : Fragment() {

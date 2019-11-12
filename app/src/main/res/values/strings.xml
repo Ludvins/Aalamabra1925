@@ -20,5 +20,6 @@
     <string name="check_database">Check Database (Debug)</string>
     <string name="Content">Content</string>
     <string name="Title">Title</string>
+    <string name="inside_maps">Inside maps</string>
 
 </resources>

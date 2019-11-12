@@ -19,12 +19,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.aaalamabra1925.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
         android:id="@+id/nav_ip"
         android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
         android:label="Interest Point"
@@ -47,10 +41,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.aaalamabra1925.ui.tools.ToolsFragment"
+        android:id="@+id/nav_inner_maps_list"
+        android:name="com.example.aaalamabra1925.ui.inside.InnerMapListFragment"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_inner_map_list" >
+        <action
+            android:id="@+id/action_nav_inner_maps_list_to_nav_insidemap"
+            app:destination="@id/nav_insidemap" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_insidemap"
@@ -61,5 +59,8 @@
             android:name="id"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_insidemap_to_nav_ip"
+            app:destination="@id/nav_ip" />
     </fragment>
 </navigation>

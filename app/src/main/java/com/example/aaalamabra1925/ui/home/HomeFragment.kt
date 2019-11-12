@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.aaalamabra1925.R
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
@@ -29,14 +28,12 @@ import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
-import java.lang.Math.sqrt
 import kotlin.math.min
 import kotlin.math.pow
 
 
 class HomeFragment() : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
     private var mLocationOverlay: MyLocationNewOverlay? = null
     private var mCompassOverlay: CompassOverlay? = null
     private var mScaleBarOverlay: ScaleBarOverlay? = null
@@ -105,9 +102,6 @@ class HomeFragment() : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
-
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         mapView = root.findViewById(R.id.openmapview)
         Configuration.getInstance().userAgentValue = context!!.packageName
