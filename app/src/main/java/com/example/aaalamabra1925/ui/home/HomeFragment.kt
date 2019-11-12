@@ -41,7 +41,7 @@ class HomeFragment() : Fragment() {
     private var mScaleBarOverlay: ScaleBarOverlay? = null
     private var mRotationGestureOverlay: RotationGestureOverlay? = null
     private var mLocationManager: LocationManager? = null
-    private var interestPointsId = mutableListOf<Int>()
+    private lateinit var mapView: MapView
 
     private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
     private val PUERTA_CAFETERIA_2 = GeoPoint(37.197152, -3.6247)
@@ -104,7 +104,7 @@ class HomeFragment() : Fragment() {
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val mapView = root.findViewById<MapView>(R.id.openmapview)
+        mapView = root.findViewById(R.id.openmapview)
         Configuration.getInstance().userAgentValue = context!!.packageName
         val dm = this.context!!.resources.displayMetrics
 
@@ -146,8 +146,11 @@ class HomeFragment() : Fragment() {
         val cursor = dbManager.queryByLocationType(0)
         if (cursor.moveToFirst()) {
             do {
-                val id = cursor.getInt(cursor.getColumnIndex("Id"))
-                interestPointsId.add(id)
+                addMarker(
+                    cursor.getDouble(cursor.getColumnIndex("Latitude")),
+                    cursor.getDouble(cursor.getColumnIndex("Longitude")),
+                    cursor.getInt(cursor.getColumnIndex("Id"))
+                )
             } while (cursor.moveToNext())
         }
 
@@ -188,6 +191,22 @@ class HomeFragment() : Fragment() {
 
         return root
         }
+    private fun addMarker(lat: Double, long: Double, id: Int){
+        val test = Marker(mapView)
+        test.position = GeoPoint(lat, long)
+        test.textLabelFontSize = 40
+        //test.setTextIcon(id.toString())
+        test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+        //test.icon = resources.getDrawable(R.drawable.ic_menu_compass)
+        test.infoWindow = null
+        mapView.overlays.add(test)
+
+        test.setOnMarkerClickListener { _, _ ->
+            val bundle = bundleOf("id" to id)
+            findNavController().navigate(R.id.action_nav_home_to_nav_ip, bundle)
+            true
+        }
+    }
     }
 
 
