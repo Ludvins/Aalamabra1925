@@ -51,6 +51,7 @@ class HomeFragment() : Fragment() {
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change" + change.toString())
             if (location != null){
+                // TODO esto peta de vez en cuandoo
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
                 Log.d("Home fragment", "Location:" + senialgps.toString())
@@ -139,7 +140,7 @@ class HomeFragment() : Fragment() {
         test.infoWindow = null
         mapView.overlays.add(test)
 
-        test.setOnMarkerClickListener { marker, mapView ->
+        test.setOnMarkerClickListener { _, _ ->
             Toast.makeText(this.activity, "Marker's Listener invoked", Toast.LENGTH_LONG).show()
             true
         }
