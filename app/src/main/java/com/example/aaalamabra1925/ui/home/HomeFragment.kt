@@ -29,7 +29,8 @@ import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
-
+import java.lang.Math.sqrt
+import kotlin.math.pow
 
 
 class HomeFragment() : Fragment() {
@@ -43,7 +44,10 @@ class HomeFragment() : Fragment() {
     private var interestPointsId = mutableListOf<Int>()
 
     private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
+    private val PUERTA_CAFETERIA_2 = GeoPoint(37.197152, -3.6247)
+
     private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
+    private val PUERTA_AULARIO_2 = GeoPoint(37.1973, -3.6247)
 
     private var change = true
 
@@ -58,7 +62,8 @@ class HomeFragment() : Fragment() {
 
                 if(senialgps >= 22.00F && change){
                     change = false
-                    val bundle = bundleOf("id" to 1)
+                    val id = nearDoor(location)
+                    val bundle = bundleOf("id" to id)
                     findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
                 }
             }
@@ -69,6 +74,22 @@ class HomeFragment() : Fragment() {
         override fun onProviderEnabled(provider: String) {}
 
         override fun onProviderDisabled(provider: String) {}
+
+        fun nearDoor(location: Location) : Int{
+            var dis1 = kotlin.math.sqrt((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
+            var dis2 = kotlin.math.sqrt((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
+            val distanciaCaf = minOf(dis1, dis2)
+
+            dis1 = kotlin.math.sqrt((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
+            dis2 = kotlin.math.sqrt((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
+            val distanciaAul = minOf(dis1, dis2)
+
+            if(distanciaAul < distanciaCaf){
+                return 1
+            }else{
+                return 2
+            }
+        }
 
 
     }
@@ -155,6 +176,15 @@ class HomeFragment() : Fragment() {
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
+
+        val test2 = Marker(mapView)
+        test2.position = GeoPoint(37.1973, -3.6247)
+        test2.textLabelFontSize = 40
+        //test.setTextIcon("Etiqueta de prueba")
+        test2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+        //test.icon = R.drawable.current_position_tennis_ball
+        test2.infoWindow = null
+        mapView.overlays.add(test2)
 
         return root
         }
