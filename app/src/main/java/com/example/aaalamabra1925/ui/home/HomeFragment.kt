@@ -154,21 +154,6 @@ class HomeFragment() : Fragment() {
             } while (cursor.moveToNext())
         }
 
-
-        val test = Marker(mapView)
-        test.position = GeoPoint(37.197152, -3.624137)
-        test.textLabelFontSize = 40
-        //test.setTextIcon("Etiqueta de prueba")
-        test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
-        //test.icon = R.drawable.current_position_tennis_ball
-        test.infoWindow = null
-        mapView.overlays.add(test)
-
-        test.setOnMarkerClickListener { _, _ ->
-            Toast.makeText(this.activity, "Marker's Listener invoked", Toast.LENGTH_LONG).show()
-            true
-        }
-
         super.onCreate(savedInstanceState)
 
         change = true
@@ -179,15 +164,6 @@ class HomeFragment() : Fragment() {
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
-
-        val test2 = Marker(mapView)
-        test2.position = GeoPoint(37.1973, -3.6247)
-        test2.textLabelFontSize = 40
-        //test.setTextIcon("Etiqueta de prueba")
-        test2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
-        //test.icon = R.drawable.current_position_tennis_ball
-        test2.infoWindow = null
-        mapView.overlays.add(test2)
 
         return root
         }
@@ -207,7 +183,7 @@ class HomeFragment() : Fragment() {
             true
         }
     }
-    }
+}
 
 
 
