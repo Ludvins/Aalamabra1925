@@ -25,5 +25,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game">Game</string>
+    <string name="game_explanation">You will be shown different questions about the Alhambra.\n
+        Move your phone back and forth to answer "yes" nad from side to side to answer "no".\n
+        You have only 5 seconds to answer so be fast!!\n\n
+
+        Good luck and have fun!!
+    </string>
 
 </resources>
