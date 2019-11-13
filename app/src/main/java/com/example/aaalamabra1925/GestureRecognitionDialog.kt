@@ -19,6 +19,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import android.os.Looper
 import androidx.core.graphics.rotationMatrix
+import androidx.core.os.bundleOf
+import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
 
 
 class GestureRecognitionDialog: DialogFragment(){
@@ -72,6 +74,18 @@ class GestureRecognitionDialog: DialogFragment(){
                         lowest_dist = square_dist
                     }
                 } while (cursor.moveToNext())
+
+                // Declare interest point
+                val args = bundleOf("id" to id)
+                val interestPoint = InterestPointFragment()
+                interestPoint.arguments = args
+
+                // Get fragment manager
+                val fm= fragmentManager
+                fm!!.beginTransaction()
+                    .show(interestPoint)
+                    .commit()
+
             }
         }
 
