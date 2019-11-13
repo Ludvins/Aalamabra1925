@@ -30,13 +30,16 @@ class GameFragment : Fragment() {
         override fun onSensorChanged(event: SensorEvent?){
             val mAcceleration = event!!.values
 
-            Log.d("Game_frag", "Acceleration: " + mAcceleration[0] + ", " + mAcceleration[1] + ", " + mAcceleration[2])
+            // DEBUG OPTION
+            gameStarted = true
             // TODO Probar los valores límite y ajustarlos
             if (gameStarted){
-                if (abs(mAcceleration[2]) > 1F){
+                if (abs(mAcceleration[2]) > 2F){
+                    Log.d("Game_frag", "Yes gesture!")
                     yesGestureActivated = true
                 }
-                else if (abs(mAcceleration[0]) > 1F){
+                else if (abs(mAcceleration[0]) > 2F){
+                    Log.d("Game_frag", "No gesture!")
                     noGestureActivated = true
                 }
             }
