@@ -1,6 +1,11 @@
 package com.example.aaalamabra1925.ui.game
 
 import android.app.AlertDialog
+import android.content.Context.SENSOR_SERVICE
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +16,34 @@ import com.example.aaalamabra1925.R
 
 
 class GameFragment : Fragment() {
+
+    private lateinit var mSensorManager: SensorManager
+    private lateinit var mAccelerometer: Sensor
+    private var yesGestureActivated = false
+    private var noGestureActivated = false
+
+    private val mAccelerometerListener = object : SensorEventListener {
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+        override fun onSensorChanged(sensor : SensorEvent?){}
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        mSensorManager = activity!!.getSystemService(SENSOR_SERVICE) as SensorManager
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mSensorManager.registerListener(mAccelerometerListener, mAccelerometer,
+            SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mSensorManager.unregisterListener(mAccelerometerListener)
+    }
 
     private var questions = listOf(
         Pair("This one is True", true),

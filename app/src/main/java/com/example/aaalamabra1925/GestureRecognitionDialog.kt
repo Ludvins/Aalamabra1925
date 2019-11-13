@@ -77,8 +77,10 @@ class GestureRecognitionDialog: DialogFragment(){
 
                     val isBehind = (dotprod(v, diff) <= 0F)
 
-                    Log.d("Gesture_Dialog", "ID:" + id)
-                    Log.d("Gesture_Dialog", "Lat, long, squaredist: $ip_lat, $ip_long, $square_dist")
+                    Log.d("Gesture_Dialog", "ID: $id")
+                    Log.d("Gesture_Dialog", "Lat, long, squaredist, lowest: $ip_lat, $ip_long, $square_dist, $lowest_dist")
+                    Log.d("Gesture_Dialog", "Is behind?: $isBehind")
+
 
                     if (lowest_dist > square_dist && !isBehind){
                         nearest_ip = id
@@ -98,7 +100,6 @@ class GestureRecognitionDialog: DialogFragment(){
                     .commit()
 
             }
-            Log.d("Gesture_Dialog", "Nearest int point:" + nearest_ip)
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
