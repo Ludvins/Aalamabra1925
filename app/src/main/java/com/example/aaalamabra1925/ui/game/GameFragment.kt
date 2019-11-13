@@ -7,12 +7,14 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.aaalamabra1925.R
+import java.lang.Math.abs
 
 
 class GameFragment : Fragment() {
@@ -21,17 +23,31 @@ class GameFragment : Fragment() {
     private lateinit var mAccelerometer: Sensor
     private var yesGestureActivated = false
     private var noGestureActivated = false
+    private var gameStarted = false
 
     private val mAccelerometerListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
-        override fun onSensorChanged(sensor : SensorEvent?){}
+        override fun onSensorChanged(event: SensorEvent?){
+            val mAcceleration = event!!.values
+
+            Log.d("Game_frag", "Acceleration: " + mAcceleration[0] + ", " + mAcceleration[1] + ", " + mAcceleration[2])
+            // TODO Probar los valores límite y ajustarlos
+            if (gameStarted){
+                if (abs(mAcceleration[2]) > 1F){
+                    yesGestureActivated = true
+                }
+                else if (abs(mAcceleration[0]) > 1F){
+                    noGestureActivated = true
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mSensorManager = activity!!.getSystemService(SENSOR_SERVICE) as SensorManager
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
     }
 
     override fun onStart() {
