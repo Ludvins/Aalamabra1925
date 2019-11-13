@@ -21,6 +21,7 @@ import android.os.Looper
 import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
 import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
+import kotlin.math.pow
 
 
 class GestureRecognitionDialog: DialogFragment(){
@@ -47,18 +48,23 @@ class GestureRecognitionDialog: DialogFragment(){
             val dbManager = DbManager(context!!)
             val cursor = dbManager.queryByLocationType(0)
 
-            val n = floatArrayOf(0F, 1F)
+            val v = floatArrayOf(0F, 1F)
 
             // Get the direction of the line
             var rotation_m = rotationMatrix(azimuth!!, 0F,0F)
-            rotation_m.mapVectors(n)
+            rotation_m.mapVectors(v)
 
+            val n = v.copyOf()
             // Get the normal of the line
             rotation_m = rotationMatrix(3.141592F/2, 0F, 0F)
             rotation_m.mapVectors(n)
 
             var lowest_dist = Float.MAX_VALUE
             var nearest_ip : Int? = null
+
+            // Implements dot product
+            val dotprod: (FloatArray, FloatArray) -> Float = {x, y -> x[0]*y[0] + x[1]*y[1]}
+
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
@@ -66,13 +72,15 @@ class GestureRecognitionDialog: DialogFragment(){
                     val ip_long = cursor.getFloat(cursor.getColumnIndex("Longitude"))
 
                     // Dist to the line
-                    val diff = floatArrayOf(longitude!!.toFloat() - ip_long, latitude!!.toFloat() - ip_lat)
-                    val square_dist = (diff[0]*n[0] + diff[1]*n[1]) * (diff[0]*n[0] + diff[1]*n[1])
+                    val diff = floatArrayOf(ip_long - longitude!!.toFloat(), ip_lat - latitude!!.toFloat())
+                    val square_dist = dotprod(diff, n).pow(2)
+
+                    val isBehind = (dotprod(v, diff) <= 0F)
 
                     Log.d("Gesture_Dialog", "ID:" + id)
                     Log.d("Gesture_Dialog", "Lat, long, squaredist: $ip_lat, $ip_long, $square_dist")
 
-                    if (lowest_dist > square_dist){
+                    if (lowest_dist > square_dist && !isBehind){
                         nearest_ip = id
                         lowest_dist = square_dist
                     }
