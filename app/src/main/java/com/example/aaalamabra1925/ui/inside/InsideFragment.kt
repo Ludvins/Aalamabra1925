@@ -14,11 +14,13 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
+
+
 
 
 class InsideFragment : Fragment() {
-    private lateinit var layout : ConstraintLayout
+    private lateinit var layout : RelativeLayout
 
     private fun dpToPx(context: Context, dp: Int): Int {
         // Reference http://stackoverflow.com/questions/8309354/formula-px-to-dp-dp-to-px-android
@@ -26,22 +28,28 @@ class InsideFragment : Fragment() {
         return (dp * scale + 0.5f).toInt()
     }
 
-    private fun addFloatingButton(root: View, id : Int ){
-        // Doesnt work
-        val layoutParams = LinearLayout.LayoutParams(
+    private fun addFloatingButton(root: View, id : Int, long:Int, lat:Int){
+
+        val fab = FloatingActionButton(context!!)
+
+        val rel = RelativeLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.setMargins(200, 32, 32, 32)
+        rel.setMargins(0, 0, long, lat)
+        rel.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+        rel.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+        fab.layoutParams = rel
+        fab.setImageResource(android.R.drawable.ic_dialog_email)
+        fab.size = FloatingActionButton.SIZE_NORMAL
 
-        val fab = FloatingActionButton(context!!)
-        fab.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+
         fab.setOnClickListener {
             val bundle = bundleOf("id" to id)
             findNavController().navigate(R.id.action_nav_insidemap_to_nav_ip, bundle)
         }
 
-        val linearLayout = root.findViewById<ConstraintLayout>(R.id.layout)
+        val linearLayout = root.findViewById<RelativeLayout>(R.id.layout)
         linearLayout?.addView(fab)
     }
 
@@ -51,24 +59,24 @@ class InsideFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_inside, container, false)
-        layout = root.findViewById(R.id.layout) as ConstraintLayout
+        layout = root.findViewById(R.id.layout) as RelativeLayout
         super.onCreate(savedInstanceState)
 
-        val id = arguments!!.get("id")
+        val mid = arguments!!.get("id")
         val dbManager = DbManager(context!!)
 
         //test fab
-        addFloatingButton(root ,0)
+        //addFloatingButton(root ,0)
 
         // Looks for IP with locationtype id+1
-        val cursor = dbManager.queryByLocationType(id as Int + 1)
+        val cursor = dbManager.queryByLocationType(mid as Int + 1)
         if (cursor.moveToFirst()){
             do{
-                val lat = cursor.getDouble(cursor.getColumnIndex("latitude"))
-                val long = cursor.getDouble(cursor.getColumnIndex("longitude"))
+                val lat = cursor.getDouble(cursor.getColumnIndex("Latitude"))
+                val long = cursor.getDouble(cursor.getColumnIndex("Longitude"))
                 val id = cursor.getInt(cursor.getColumnIndex("Id"))
                 // Use them someway
-                addFloatingButton(root ,id)
+                addFloatingButton(root ,id, lat.toInt(), long.toInt())
 
             }while(cursor.moveToNext())
         }
