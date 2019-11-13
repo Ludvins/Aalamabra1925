@@ -66,6 +66,7 @@ class HomeFragment() : Fragment() {
                     change = false
                     val id = nearDoor(location)
                     val bundle = bundleOf("id" to id)
+                    // TODO A mi ahora me peta esto
                     findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
                 }
             }
