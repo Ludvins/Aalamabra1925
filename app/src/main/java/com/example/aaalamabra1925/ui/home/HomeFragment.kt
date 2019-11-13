@@ -51,12 +51,12 @@ class HomeFragment() : Fragment() {
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
-            Log.d("Home fragment", "Change" + change.toString())
+            Log.d("Home fragment", "Change $change")
             if (location != null && change){
                 // TODO esto peta de vez en cuandoo
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
-                Log.d("Home fragment", "Location:" + senialgps.toString())
+                Log.d("Home fragment", "Location: $senialgps")
 
                 if(senialgps >= 22.00F && change){
                     change = false
@@ -77,7 +77,7 @@ class HomeFragment() : Fragment() {
             var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
             var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
             val distanciaCaf = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Caf" + distanciaCaf.toString())
+            Log.d("Home fragment", "Distancia Caf $distanciaCaf")
 
 
             dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))

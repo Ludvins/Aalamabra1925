@@ -10,7 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.DbManager
-import com.example.aaalamabra1925.InterestPoint
+import com.example.aaalamabra1925.ui.interest_point.InterestPoint
 import com.example.aaalamabra1925.R
 
 
@@ -61,7 +61,13 @@ class InterestPointMenuFragment : Fragment() {
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
                     val title = cursor.getString(cursor.getColumnIndex("Title"))
                     val content = cursor.getString(cursor.getColumnIndex("Content"))
-                    list.add(InterestPoint(id, title, content))
+                    list.add(
+                        InterestPoint(
+                            id,
+                            title,
+                            content
+                        )
+                    )
             } while (cursor.moveToNext())
         }
     }

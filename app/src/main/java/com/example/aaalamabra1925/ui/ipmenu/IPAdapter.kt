@@ -1,12 +1,13 @@
 package com.example.aaalamabra1925.ui.ipmenu
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.aaalamabra1925.InterestPoint
+import com.example.aaalamabra1925.ui.interest_point.InterestPoint
 import com.example.aaalamabra1925.R
 
 
@@ -26,6 +27,7 @@ class IPAdapter(context: Context, private val dataSource: MutableList<InterestPo
         return position.toLong()
     }
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val rowView = this.inflater.inflate(R.layout.ip_list_item, parent, false)

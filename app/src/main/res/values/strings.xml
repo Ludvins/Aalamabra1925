@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Aaalamabra1925</string>
+    <string name="app_name">Alamabra1925</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Aaalamabra1925</string>
-    <string name="nav_header_subtitle">NPI</string>
+    <string name="nav_header_title">Alamabra1925</string>
+    <string name="nav_header_subtitle">Nuevos paradigmas de interacción</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
