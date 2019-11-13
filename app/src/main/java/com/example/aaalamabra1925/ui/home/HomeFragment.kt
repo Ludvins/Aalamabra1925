@@ -24,7 +24,9 @@ import com.example.aaalamabra1925.DbManager
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.example.aaalamabra1925.GestureRecognitionDialog
 import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
@@ -48,6 +50,8 @@ class HomeFragment() : Fragment() {
     private val PUERTA_AULARIO_2 = GeoPoint(37.1973, -3.6247)
 
     private var change = true
+
+    private var gestureRecognitionDialog = GestureRecognitionDialog()
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
@@ -103,6 +107,13 @@ class HomeFragment() : Fragment() {
 
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+
+        // Button
+        val fab: FloatingActionButton = root.findViewById(R.id.floatingActionButton)
+        fab.setOnClickListener { view ->
+            gestureRecognitionDialog.show(activity!!.supportFragmentManager, "gestures")
+        }
+
         mapView = root.findViewById(R.id.openmapview)
         Configuration.getInstance().userAgentValue = context!!.packageName
         val dm = this.context!!.resources.displayMetrics
