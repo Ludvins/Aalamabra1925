@@ -30,14 +30,21 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_ipmenu"
-        android:name="com.example.aaalamabra1925.ui.ipmenu.InterestPointMenuFragment"
+    android:id="@+id/nav_ipmenu"
+    android:name="com.example.aaalamabra1925.ui.ipmenu.InterestPointMenuFragment"
+    android:label="@string/menu_ip"
+    tools:layout="@layout/fragment_ipmenu">
+    <action
+        android:id="@+id/action_nav_ipmenu_to_nav_ip"
+        app:destination="@+id/nav_ip">
+    </action>
+</fragment>
+
+    <fragment
+        android:id="@+id/nav_game"
+        android:name="com.example.aaalamabra1925.ui.game.GameFragment"
         android:label="@string/menu_ip"
-        tools:layout="@layout/fragment_ipmenu">
-        <action
-            android:id="@+id/action_nav_ipmenu_to_nav_ip"
-            app:destination="@+id/nav_ip">
-        </action>
+        tools:layout="@layout/fragment_game">
     </fragment>
 
     <fragment

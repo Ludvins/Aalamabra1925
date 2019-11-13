@@ -22,4 +22,8 @@
     <string name="Title">Title</string>
     <string name="inside_maps">Inside maps</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="game">Game</string>
+
 </resources>

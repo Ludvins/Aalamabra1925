@@ -69,6 +69,9 @@ class GestureRecognitionDialog: DialogFragment(){
                     val diff = floatArrayOf(longitude!!.toFloat() - ip_long, latitude!!.toFloat() - ip_lat)
                     val square_dist = (diff[0]*n[0] + diff[1]*n[1]) * (diff[0]*n[0] + diff[1]*n[1])
 
+                    Log.d("Gesture_Dialog", "ID:" + id)
+                    Log.d("Gesture_Dialog", "Lat, long, squaredist: $ip_lat, $ip_long, $square_dist")
+
                     if (lowest_dist > square_dist){
                         nearest_ip = id
                         lowest_dist = square_dist
@@ -87,6 +90,7 @@ class GestureRecognitionDialog: DialogFragment(){
                     .commit()
 
             }
+            Log.d("Gesture_Dialog", "Nearest int point:" + nearest_ip)
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
