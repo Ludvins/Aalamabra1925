@@ -69,10 +69,10 @@ class DbManager(context: Context) {
         insert(createCV(3, "Outside 3", "o3 content", 0, 37.19747, -3.624435))
         insert(createCV(4, "Outside 4", "o4 content", 0, 37.19755, -3.624337))
         insert(createCV(5, "Outside 5", "o5 content", 0, 37.19762, -3.624240))
-        insert(createCV(6, "Test 1", "This is a test", 1, 0.0, 0.0))
-        insert(createCV(7, "Test 2", "This is a test", 1,0.0,0.0))
-        insert(createCV(8, "Test 3", "This is a test", 2,0.0 ,0.0))
-        insert(createCV(9, "Test 4", "This is a test", 2,0.0 ,0.0))
+        insert(createCV(6, "Test 1", "This is a test", 1, 100.0, 100.0))
+        insert(createCV(7, "Test 2", "This is a test", 1,800.0,800.0))
+        insert(createCV(8, "Test 3", "This is a test", 2,100.0 ,100.0))
+        insert(createCV(9, "Test 4", "This is a test", 2,800.0 ,800.0))
         
         return id
     }

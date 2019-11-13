@@ -18,18 +18,12 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var gestureRecognitionDialog = GestureRecognitionDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            gestureRecognitionDialog.show(supportFragmentManager, "gestures")
-        }
 
         val drawerLayout: DrawerLayout = this.findViewById(R.id.drawer_layout)
         val navView: NavigationView = this.findViewById(R.id.nav_view)

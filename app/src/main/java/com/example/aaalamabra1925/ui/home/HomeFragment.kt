@@ -109,7 +109,7 @@ class HomeFragment() : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         // Button
-        val fab: FloatingActionButton = root.findViewById(R.id.floatingActionButton)
+        val fab: FloatingActionButton = root.findViewById(R.id.detection)
         fab.setOnClickListener { view ->
             gestureRecognitionDialog.show(activity!!.supportFragmentManager, "gestures")
         }

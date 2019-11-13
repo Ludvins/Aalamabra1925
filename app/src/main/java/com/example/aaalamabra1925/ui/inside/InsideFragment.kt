@@ -9,7 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.content.ContextCompat
 import com.example.aaalamabra1925.R.*
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.DbManager
@@ -36,13 +36,11 @@ class InsideFragment : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        rel.setMargins(0, 0, long, lat)
-        rel.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-        rel.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+        rel.setMargins(long, lat, long, lat)
+
         fab.layoutParams = rel
         fab.setImageResource(android.R.drawable.ic_dialog_email)
         fab.size = FloatingActionButton.SIZE_NORMAL
-
 
         fab.setOnClickListener {
             val bundle = bundleOf("id" to id)
@@ -65,9 +63,6 @@ class InsideFragment : Fragment() {
         val mid = arguments!!.get("id")
         val dbManager = DbManager(context!!)
 
-        //test fab
-        //addFloatingButton(root ,0)
-
         // Looks for IP with locationtype id+1
         val cursor = dbManager.queryByLocationType(mid as Int + 1)
         if (cursor.moveToFirst()){
@@ -75,7 +70,7 @@ class InsideFragment : Fragment() {
                 val lat = cursor.getDouble(cursor.getColumnIndex("Latitude"))
                 val long = cursor.getDouble(cursor.getColumnIndex("Longitude"))
                 val id = cursor.getInt(cursor.getColumnIndex("Id"))
-                // Use them someway
+
                 addFloatingButton(root ,id, lat.toInt(), long.toInt())
 
             }while(cursor.moveToNext())

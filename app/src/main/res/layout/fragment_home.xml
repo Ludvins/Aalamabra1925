@@ -9,10 +9,10 @@
         android:id="@+id/openmapview"
         tilesource="Mapnik"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></org.osmdroid.views.MapView>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/detection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,7 +20,8 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_search_category_default" />
+        app:srcCompat="@android:drawable/ic_search_category_default"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
