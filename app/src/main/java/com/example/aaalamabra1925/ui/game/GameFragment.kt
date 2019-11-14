@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.example.aaalamabra1925.R
-import kotlinx.android.synthetic.main.dialog_game_explanation.*
 
 class GameFragment : Fragment() {
 
@@ -24,7 +23,6 @@ class GameFragment : Fragment() {
     private var points = 0
     private var currentQuestion = 0
     private lateinit var textView: TextView
-    private var unmannaged_gesture = false
 
     private val mAccelerometerListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -96,7 +94,6 @@ class GameFragment : Fragment() {
         }
         else {
             textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
-            // TODO Dont listen to gestures again!
         }
 
         view!!.invalidate()

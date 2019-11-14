@@ -14,12 +14,12 @@
             android:title="@string/menu_ip" />
         <item
             android:id="@+id/nav_inner_maps_list"
-            android:icon="@drawable/ic_menu_inside"
+            android:icon="@android:drawable/ic_dialog_map"
             android:title="@string/inside_maps" />
 
         <item
             android:id="@+id/nav_game"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@android:drawable/ic_menu_help"
             android:title="@string/game" />
     </group>
 
