@@ -21,6 +21,7 @@ import android.os.Looper
 import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
 import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
+import kotlin.math.PI
 import kotlin.math.pow
 
 
@@ -32,7 +33,6 @@ class GestureRecognitionDialog: DialogFragment(){
     private var azimuth: Float? = null
     private var latitude : Double? = null
     private var longitude: Double? = null
-    private var searching : Boolean? = null
     private var mGravity: FloatArray? = null
     private var mGeomagnetic: FloatArray? = null
 
@@ -51,7 +51,8 @@ class GestureRecognitionDialog: DialogFragment(){
 
             val v = floatArrayOf(0F, 1F)
 
-            // TODO Change azimuth to degrees
+            // Change azimuth to degrees
+            val radiansToDegrees = 180.0/PI
             // Get the direction of the line
             var rotation_m = rotationMatrix(azimuth!!, 0F,0F)
             rotation_m.mapVectors(v)
@@ -133,8 +134,8 @@ class GestureRecognitionDialog: DialogFragment(){
                     // orientation contains: azimut(0), pitch(1) and roll(2)
                     SensorManager.getOrientation(R, orientation)
 
-                    if (orientation[1] > 0 && searching!!){
-                        searching = false
+                    if (orientation[1] > 0){
+                        mSensorManager.unregisterListener(this)
                         azimuth = orientation[0]
                         Toast.makeText(activity, "Buscando punto de interés", Toast.LENGTH_LONG).show()
 
@@ -185,7 +186,6 @@ class GestureRecognitionDialog: DialogFragment(){
             SensorManager.SENSOR_DELAY_NORMAL)
         mSensorManager.registerListener(mPositionListener, mMagnetometer,
             SensorManager.SENSOR_DELAY_NORMAL)
-        searching = true
     }
 
     override fun onStop() {
