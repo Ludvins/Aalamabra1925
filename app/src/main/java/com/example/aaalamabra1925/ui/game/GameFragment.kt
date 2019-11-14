@@ -23,18 +23,22 @@ class GameFragment : Fragment() {
     private var points = 0
     private var currentQuestion = 0
     private lateinit var textView: TextView
+    private var unmannaged_gesture = false
 
     private val mAccelerometerListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         override fun onSensorChanged(event: SensorEvent?){
             val mAcceleration = event!!.values
-            if (kotlin.math.abs(mAcceleration[2]) > 2F){
-                Log.d("Game_frag", "Yes gesture!")
-                manageAnswer(questions[currentQuestion].second, true)
-            }
-            else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
-                Log.d("Game_frag", "No gesture!")
-                manageAnswer(questions[currentQuestion].second, false)
+            if (!unmannaged_gesture){
+                unmannaged_gesture = true
+                if (kotlin.math.abs(mAcceleration[2]) > 2F){
+                    Log.d("Game_frag", "Yes gesture!")
+                    manageAnswer(questions[currentQuestion].second, true)
+                }
+                else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
+                    Log.d("Game_frag", "No gesture!")
+                    manageAnswer(questions[currentQuestion].second, false)
+                }
             }
         }
     }
@@ -87,6 +91,8 @@ class GameFragment : Fragment() {
             currentQuestion++
             textView.text = questions[currentQuestion].first
             view!!.invalidate()
+            Thread.sleep(1000)
+            unmannaged_gesture = false
         }
 
     }
