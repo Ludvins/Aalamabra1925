@@ -1,6 +1,10 @@
 package com.example.aaalamabra1925
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +18,9 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +28,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check permissions
+        var permissionsList = arrayListOf<String>()
+        // Check write permission
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        // Location permission
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(android.Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+
+        // Ask for needed permissions
+        val permisionsArray = arrayOfNulls<String>(permissionsList.size)
+        permissionsList.toArray(permisionsArray)
+        if (permissionsList.size > 0){
+            ActivityCompat.requestPermissions(this,
+                permisionsArray, 0)
+        }
+
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)

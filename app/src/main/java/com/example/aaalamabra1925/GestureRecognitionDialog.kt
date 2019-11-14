@@ -53,12 +53,14 @@ class GestureRecognitionDialog: DialogFragment(){
 
             // Change azimuth to degrees
             val radiansToDegrees = 180.0/PI
+            val degree_azimuth = azimuth!! * radiansToDegrees.toFloat()
+
             // Get the direction of the line
-            var rotation_m = rotationMatrix(azimuth!!, 0F,0F)
+            var rotation_m = rotationMatrix(degree_azimuth, 0F,0F)
             rotation_m.mapVectors(v)
 
-            val n = v.copyOf()
             // Get the normal of the line
+            val n = v.copyOf()
             rotation_m = rotationMatrix(90F, 0F, 0F)
             rotation_m.mapVectors(n)
 
@@ -67,11 +69,11 @@ class GestureRecognitionDialog: DialogFragment(){
 
             // Implements dot product
             val dotprod: (FloatArray, FloatArray) -> Float = {x, y -> x[0]*y[0] + x[1]*y[1]}
-            val v0= v[0]
-            val v1 = v[1]
-            val n0 = n[0]
-            val n1 = n[1]
-            Log.d("Gesture_Dialog","v, n: ($v0, $v1) // ($n0, $n1)")
+            // val v0= v[0]
+            // val v1 = v[1]
+            // val n0 = n[0]
+            // val n1 = n[1]
+            // Log.d("Gesture_Dialog","v, n: ($v0, $v1) // ($n0, $n1)")
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
