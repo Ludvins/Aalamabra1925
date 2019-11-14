@@ -27,8 +27,7 @@ class InnerMapListFragment : Fragment() {
         listView.adapter = adapter
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            //val action = findNavController().graph.getAction(R.id.action_nav_ipmenu_to_nav_ip)
-            val bundle = bundleOf("id" to position)
+            val bundle = bundleOf("id" to position+1)
             findNavController().navigate(R.id.action_nav_inner_maps_list_to_nav_insidemap, bundle)
         }
         return root

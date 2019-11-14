@@ -63,8 +63,7 @@ class InsideFragment : Fragment() {
         val mid = arguments!!.get("id")
         val dbManager = DbManager(context!!)
 
-        // Looks for IP with locationtype id+1
-        val cursor = dbManager.queryByLocationType(mid as Int + 1)
+        val cursor = dbManager.queryByLocationType(mid as Int)
         if (cursor.moveToFirst()){
             do{
                 val lat = cursor.getDouble(cursor.getColumnIndex("Latitude"))
