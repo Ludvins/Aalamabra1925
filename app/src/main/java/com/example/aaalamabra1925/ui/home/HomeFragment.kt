@@ -34,7 +34,7 @@ import kotlin.math.min
 import kotlin.math.pow
 
 
-class HomeFragment() : Fragment() {
+class HomeFragment : Fragment() {
 
     private var mLocationOverlay: MyLocationNewOverlay? = null
     private var mCompassOverlay: CompassOverlay? = null
@@ -66,7 +66,6 @@ class HomeFragment() : Fragment() {
                     change = false
                     val id = nearDoor(location)
                     val bundle = bundleOf("id" to id)
-                    // TODO A mi ahora me peta esto
                     findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
                 }
             }
@@ -88,7 +87,7 @@ class HomeFragment() : Fragment() {
             dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
             dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
             val distanciaAul = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Aul" + distanciaAul.toString())
+            Log.d("Home fragment", "Distancia Aul $distanciaAul")
 
 
             if(distanciaAul < distanciaCaf){
