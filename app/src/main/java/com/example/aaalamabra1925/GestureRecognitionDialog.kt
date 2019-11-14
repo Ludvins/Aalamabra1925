@@ -43,6 +43,7 @@ class GestureRecognitionDialog: DialogFragment(){
                 longitude = location.getLongitude();
             }
 
+            Toast.makeText(activity, "Localizado", Toast.LENGTH_LONG).show()
             Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
 
             val dbManager = DbManager(context!!)
@@ -87,6 +88,8 @@ class GestureRecognitionDialog: DialogFragment(){
                         lowest_dist = square_dist
                     }
                 } while (cursor.moveToNext())
+
+                Toast.makeText(activity, "Punto de interés al que apuntas: $nearest_ip", Toast.LENGTH_LONG).show()
 
                 // Declare interest point
                 val args = bundleOf("id" to id)
