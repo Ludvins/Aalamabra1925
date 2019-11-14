@@ -10,7 +10,12 @@ import android.widget.TextView
 import com.example.aaalamabra1925.ui.interest_point.InterestPoint
 import com.example.aaalamabra1925.R
 
+/*
+Custom adapter class made to handle InterestPoints listView. Only the title is shown so an ArrayAdapter could have been used.
+Anyway, this gives more freedom to the implementation.
 
+The implementation of this Adapter is the common one. The only method with some interest is 'getView' where the interest point title is set in the view.
+ */
 class IPAdapter(context: Context, private val dataSource: MutableList<InterestPoint>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

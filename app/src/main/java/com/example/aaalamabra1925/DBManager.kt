@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
+/*
+This class uses SQLite API to connect with a database where all the interest points are stored.
+ */
 class DbManager(context: Context) {
 
     private val dbName = "Aaalamabra1925"
@@ -33,36 +36,39 @@ class DbManager(context: Context) {
         db = dbHelper.writableDatabase
     }
 
+    // Inserts a given Interest Point from a 'ContentValues' object
     private fun insert(values: ContentValues): Long {
         return db!!.insert(dbTable, "", values)
     }
-
+    // Returns an iterable cursor over the interest point with the given id.
     fun queryById(id: Int): Cursor {
         return db!!.rawQuery("select * from $dbTable where $colId = $id", null)
     }
-
+    // Returns an iterable cursor over all interest points.
     fun queryAll(): Cursor {
         return db!!.rawQuery("select * from $dbTable", null)
     }
-
-    // Returns a cursor over all elements with the given location type.
+    // Returns an iterable cursor over all elements with the given location type.
     fun queryByLocationType(type: Int): Cursor {
         return db!!.rawQuery("select * from $dbTable where $colLocationType = $type", null)
     }
 
+    // Deletes entries in the database. Unused in this project.
     private fun delete(selection: String, selectionArgs: Array<String>): Int {
         return db!!.delete(dbTable, selection, selectionArgs)
     }
 
+    // Clears the database. Used for debugging.
     fun deleteAll(): Int {
         return db!!.delete(dbTable, null, null)
     }
 
+    // Updates values in the database. Unused in this project.
     fun update(values: ContentValues, selection: String, selectionargs: Array<String>): Int {
-
         return db!!.update(dbTable, values, selection, selectionargs)
     }
 
+    // Fills the database with the given interest points
     fun fillDatabase(): Long{
         val id = insert(createCV(1, "Outside 1", "o1 content", 0, 37.19729, -3.623131))
         insert(createCV(2, "Outside 2", "o2 content", 0,37.19731, -3.624033))
@@ -80,6 +86,7 @@ class DbManager(context: Context) {
         return id
     }
 
+    // Creates a contentValues with the given data from an interest points.
     private fun createCV(id: Int, title: String, content: String, locationType: Int, latitude: Double, longitude: Double): ContentValues {
         val aux = ContentValues()
         aux.put("Id", id)
@@ -91,6 +98,7 @@ class DbManager(context: Context) {
         return aux
     }
 
+    // Database helper class used to handle database creation and updates.
     inner class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
 
         private var context: Context? = context

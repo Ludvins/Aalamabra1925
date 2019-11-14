@@ -16,9 +16,6 @@ import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
 import android.widget.RelativeLayout
 
-
-
-
 class InsideFragment : Fragment() {
     private lateinit var layout : RelativeLayout
 

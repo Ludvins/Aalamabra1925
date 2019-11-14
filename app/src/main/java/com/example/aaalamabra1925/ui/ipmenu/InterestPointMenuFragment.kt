@@ -13,10 +13,18 @@ import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.ui.interest_point.InterestPoint
 import com.example.aaalamabra1925.R
 
+/*
+This fragments corresponds to a list of Interest Points.
+It is included in the navigation bar.
+Uses a specific BaseAdapter to handle the list view 'IPAdapter'.
 
+Each interest point is clickable and links with the corresponding view with its information.
+ */
 class InterestPointMenuFragment : Fragment() {
 
+    // List of interest points.
     private val list = mutableListOf<InterestPoint>()
+    // Adapter
     private var listAdapter : IPAdapter? = null
 
     override fun onCreateView(
@@ -27,30 +35,35 @@ class InterestPointMenuFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_ipmenu, container, false)
 
+        // ListView
         val mainList = root.findViewById<ListView>(R.id.list_view)
+        // Set the custom adapter to the listView
         listAdapter = IPAdapter(this.context!!, list)
-
         mainList.adapter = listAdapter
 
+        // Set the listener for each element in the listView
         mainList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            //val action = findNavController().graph.getAction(R.id.action_nav_ipmenu_to_nav_ip)
+            // Create a bundle with "id". The InterestPoint fragment will handle it and show the corresponding information from de database.
             val bundle = bundleOf("id" to list[position].id)
+            // Uses navController action to navigate between fragments.
             findNavController().navigate(R.id.action_nav_ipmenu_to_nav_ip, bundle)
-            //val ip = list[position]
-
         }
 
+        // Fills listView.
         loadQueryAll()
         return root
     }
 
+    // listView must be filled on resume.
     override fun onResume() {
         super.onResume()
         loadQueryAll()
     }
 
+    /*
+    This function creates a cursor over all interest points in the database and inserts them in the mutable list.
+     */
     private fun loadQueryAll() {
-        // Fills notesList with database.
 
         val dbManager = DbManager(this.context!!)
         val cursor = dbManager.queryAll()

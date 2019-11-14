@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
             dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
             val distanciaAul = min(dis1, dis2)
             Log.d("Home fragment", "Distancia Aul $distanciaAul")
-            
+
             return if (distanciaAul < distanciaCaf) 1 else 2
         }
 
@@ -171,7 +171,8 @@ class HomeFragment : Fragment() {
         }
 
         return root
-        }
+    }
+
     private fun addMarker(lat: Double, long: Double, id: Int){
         val test = Marker(mapView)
         test.position = GeoPoint(lat, long)
