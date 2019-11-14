@@ -13,35 +13,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.aaalamabra1925.R
-import java.lang.Math.abs
-
 
 class GameFragment : Fragment() {
 
     private lateinit var mSensorManager: SensorManager
     private lateinit var mAccelerometer: Sensor
-    private var yesGestureActivated = false
-    private var noGestureActivated = false
-    private var gameStarted = false
+    private var points = 0
+    private var currentQuestion = 0
+    private lateinit var textView: TextView
 
     private val mAccelerometerListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         override fun onSensorChanged(event: SensorEvent?){
             val mAcceleration = event!!.values
-
-            // DEBUG OPTION
-            gameStarted = true
-            // TODO Probar los valores límite y ajustarlos
-            if (gameStarted){
-                if (abs(mAcceleration[2]) > 2F){
-                    Log.d("Game_frag", "Yes gesture!")
-                    yesGestureActivated = true
-                }
-                else if (abs(mAcceleration[0]) > 2F){
-                    Log.d("Game_frag", "No gesture!")
-                    noGestureActivated = true
-                }
+            if (kotlin.math.abs(mAcceleration[2]) > 2F){
+                Log.d("Game_frag", "Yes gesture!")
+                manageAnswer(questions[currentQuestion].second, true)
+            }
+            else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
+                Log.d("Game_frag", "No gesture!")
+                manageAnswer(questions[currentQuestion].second, false)
             }
         }
     }
@@ -68,9 +61,7 @@ class GameFragment : Fragment() {
         Pair("This one is True", true),
         Pair("This one is false", false),
         Pair("This one is also True", true)
-
-
-    )
+    ).shuffled()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,17 +69,26 @@ class GameFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_game, container, false)
         quickNoteDialog()
-        val remainingQuestions = questions.shuffled()
+        textView = root.findViewById(R.id.question_view)
+        textView.text = questions.first().first
+        return root
+    }
 
-        val qView = root.findViewById<TextView>(R.id.question_view)
-
-        remainingQuestions.forEach {
-            qView.text = it.first
+    private fun manageAnswer(a:Boolean, b:Boolean){
+        if (a==b){
+            Toast.makeText(context!!, "Correct!!", Toast.LENGTH_LONG).show()
+            points++
+        }
+        else{
+            Toast.makeText(context!!, "Wrong!!", Toast.LENGTH_LONG).show()
         }
 
+        if (currentQuestion < questions.size-1) {
+            currentQuestion++
+            textView.text = questions[currentQuestion].first
+            view!!.invalidate()
+        }
 
-
-        return root
     }
 
 
@@ -96,8 +96,7 @@ class GameFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(context)
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
         dialogBuilder.setView(dialogView)
-
-        dialogBuilder.setTitle("New Task")
+        dialogBuilder.setTitle("Game instructions")
         dialogBuilder.setPositiveButton("Okay") { _, _ ->
             //pass
         }
