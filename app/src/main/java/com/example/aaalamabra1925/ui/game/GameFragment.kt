@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.example.aaalamabra1925.R
+import kotlinx.android.synthetic.main.dialog_game_explanation.*
 
 class GameFragment : Fragment() {
 
@@ -72,7 +73,7 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_game, container, false)
-        quickNoteDialog()
+        explainDialog()
         textView = root.findViewById(R.id.question_view)
         textView.text = questions.first().first
         return root
@@ -94,11 +95,15 @@ class GameFragment : Fragment() {
             Thread.sleep(1000)
             unmannaged_gesture = false
         }
+        else {
+            textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
+            // TODO Dont listen to gestures again!
+        }
 
     }
 
 
-    private fun quickNoteDialog() {
+    private fun explainDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
         dialogBuilder.setView(dialogView)
@@ -109,4 +114,5 @@ class GameFragment : Fragment() {
         val b = dialogBuilder.create()
         b.show()
     }
+
 }
