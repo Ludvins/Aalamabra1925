@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/nav_game"
         android:name="com.example.aaalamabra1925.ui.game.GameFragment"
-        android:label="@string/menu_ip"
+        android:label="@string/game"
         tools:layout="@layout/fragment_game">
     </fragment>
 

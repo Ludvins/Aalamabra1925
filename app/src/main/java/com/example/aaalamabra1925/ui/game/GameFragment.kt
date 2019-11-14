@@ -30,16 +30,15 @@ class GameFragment : Fragment() {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         override fun onSensorChanged(event: SensorEvent?){
             val mAcceleration = event!!.values
-            if (!unmannaged_gesture){
-                unmannaged_gesture = true
-                if (kotlin.math.abs(mAcceleration[2]) > 2F){
-                    Log.d("Game_frag", "Yes gesture!")
-                    manageAnswer(questions[currentQuestion].second, true)
-                }
-                else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
-                    Log.d("Game_frag", "No gesture!")
-                    manageAnswer(questions[currentQuestion].second, false)
-                }
+            if (kotlin.math.abs(mAcceleration[2]) > 2F){
+                Log.d("Game_frag", "Yes gesture!")
+                mSensorManager.unregisterListener(this)
+                manageAnswer(questions[currentQuestion].second, true)
+            }
+            else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
+                Log.d("Game_frag", "No gesture!")
+                mSensorManager.unregisterListener(this)
+                manageAnswer(questions[currentQuestion].second, false)
             }
         }
     }
@@ -91,15 +90,16 @@ class GameFragment : Fragment() {
         if (currentQuestion < questions.size-1) {
             currentQuestion++
             textView.text = questions[currentQuestion].first
-            view!!.invalidate()
             Thread.sleep(1000)
-            unmannaged_gesture = false
+            mSensorManager.registerListener(mAccelerometerListener, mAccelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL)
         }
         else {
             textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
             // TODO Dont listen to gestures again!
         }
 
+        view!!.invalidate()
     }
 
 
