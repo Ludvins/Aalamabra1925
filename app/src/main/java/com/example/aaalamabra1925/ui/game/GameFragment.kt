@@ -16,23 +16,40 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.aaalamabra1925.R
 
+/*
+This fragment handles the game section.
+It consists of a view with several questions that the user must answer using a gesture.
+All the gesture caption will be handle in this fragment so it is fully independent from the rest.
+ */
+
 class GameFragment : Fragment() {
 
+    // Sensors points and questions initialization.
     private lateinit var mSensorManager: SensorManager
     private lateinit var mAccelerometer: Sensor
     private var points = 0
     private var currentQuestion = 0
     private lateinit var textView: TextView
 
+    // Sets the accelerometer listener.
     private val mAccelerometerListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+        /*
+        This method is called whenever the sensor changes and the listener is registered.
+         */
         override fun onSensorChanged(event: SensorEvent?){
+            // Get acceleration value.
             val mAcceleration = event!!.values
+
+            // If a considerable acceleration is detected back and forth, a "yes" answer is considered.
             if (kotlin.math.abs(mAcceleration[2]) > 2F){
                 Log.d("Game_frag", "Yes gesture!")
+                // Unregisted the listener so no more gestures are captured until the next question is shown.
                 mSensorManager.unregisterListener(this)
+                // Manages the answer.
                 manageAnswer(questions[currentQuestion].second, true)
             }
+            // Does the same with an acceleration from side to side.
             else if (kotlin.math.abs(mAcceleration[0]) > 2F) {
                 Log.d("Game_frag", "No gesture!")
                 mSensorManager.unregisterListener(this)
@@ -44,21 +61,25 @@ class GameFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize sensors.
         mSensorManager = activity!!.getSystemService(SENSOR_SERVICE) as SensorManager
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
     }
 
     override fun onStart() {
         super.onStart()
+        // Register listener on start.
         mSensorManager.registerListener(mAccelerometerListener, mAccelerometer,
             SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     override fun onStop() {
         super.onStop()
+        // Unregister listener on stop.
         mSensorManager.unregisterListener(mAccelerometerListener)
     }
 
+    // Initialize questions and shuffle them.
     private var questions = listOf(
         Pair("This one is True", true),
         Pair("This one is false", false),
@@ -76,8 +97,17 @@ class GameFragment : Fragment() {
         return root
     }
 
+    /*
+     This function manages the answer given by the gesture listeners.
+     Shows a Toast telling whether the answer was right or wrong.
+     Changes the question.
+     Adds a 1 second sleep so no gestures are recognized while reading the question.
+
+     If no more questions are available, total score is shown.
+     */
+
     private fun manageAnswer(a:Boolean, b:Boolean){
-        if (a==b){
+        if (a == b){
             Toast.makeText(context!!, "Correct!!", Toast.LENGTH_LONG).show()
             points++
         }
@@ -100,6 +130,7 @@ class GameFragment : Fragment() {
     }
 
 
+    // Inflates a dialog where the game instructions are shown.
     private fun explainDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
