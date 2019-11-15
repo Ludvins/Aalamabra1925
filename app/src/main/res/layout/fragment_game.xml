@@ -14,4 +14,11 @@
         android:text="@string/game_explanation"
         android:textSize="18sp" />
 
+    <ProgressBar
+        android:id="@+id/timer_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:progress="25"/>
 </FrameLayout>

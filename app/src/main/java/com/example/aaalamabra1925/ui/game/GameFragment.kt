@@ -8,11 +8,13 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.example.aaalamabra1925.R
@@ -29,7 +31,31 @@ class GameFragment : Fragment() {
     private lateinit var mAccelerometer: Sensor
     private var points = 0
     private var currentQuestion = 0
+
     private lateinit var textView: TextView
+    private lateinit var progressBar : ProgressBar
+
+    // Seconds user has for answering all the questions
+    private val countDownMillis = 30000
+    // Manages time user has for answering questions
+    private val mCountDownTimer = object : CountDownTimer(countDownMillis.toLong(), 200){
+        // Every 200 millis updates progress bar
+        override fun onTick(millisUntilFinished: Long) {
+            val progress = (countDownMillis - millisUntilFinished.toInt())/countDownMillis * 100
+            progressBar.progress = progress
+        }
+
+        /*
+        When count down finishes, stops listener and display the number of correctly answered
+        questions
+        */
+        override fun onFinish() {
+            progressBar.progress = 100
+            mSensorManager.unregisterListener(mAccelerometerListener)
+            textView.text = "Congratulations, you answered $points questions correctly!"
+            view!!.invalidate()
+        }
+    }
 
     // Sets the accelerometer listener.
     private val mAccelerometerListener = object : SensorEventListener {
@@ -93,6 +119,8 @@ class GameFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_game, container, false)
         explainDialog()
         textView = root.findViewById(R.id.question_view)
+        progressBar = root.findViewById(R.id.timer_bar)
+
         textView.text = questions.first().first
         return root
     }
@@ -137,8 +165,8 @@ class GameFragment : Fragment() {
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
         dialogBuilder.setView(dialogView)
         dialogBuilder.setTitle("Game instructions")
-        dialogBuilder.setPositiveButton("Okay") { _, _ ->
-            //pass
+        dialogBuilder.setNegativeButton("Okay") { _, _ ->
+            mCountDownTimer.start()
         }
         val b = dialogBuilder.create()
         b.show()
