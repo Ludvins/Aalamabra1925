@@ -1,6 +1,9 @@
 ---
 title: Memoria descriptiva 
-author: Luis Antonio Ortega Andrés, Guillermo Galindo Ortuño y Johanna Capote Robayna
+author: 
+- Luis Antonio Ortega Andrés
+- Guillermo Galindo Ortuño 
+- Johanna Capote Robayna
 date: today
 ---
 
