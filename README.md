@@ -7,6 +7,8 @@ author:
 date: today
 ---
 
+# Memoria descriptiva
+
 El objetivo de las prácticas es realizar un software capaz de complementar una visita a la Alhambra de Granada haciendo uso de paradigmas de interacción no convencionales, para ello se desarrollará una aplicación para teléfonos móviles.
 
 La principal característica de la aplicación es proveer al usuario de un mapa donde su localización se encuentra reflejada en tiempo real. 
