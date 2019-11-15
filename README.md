@@ -1,8 +1,13 @@
 ---
 title: Memoria descriptiva 
-author: Luis Antonio Ortega Andrés, Guillermo Galindo Ortuño y Johanna Capote Robayna
+author: 
+- Luis Antonio Ortega Andrés
+- Guillermo Galindo Ortuño 
+- Johanna Capote Robayna
 date: today
 ---
+
+# Memoria descriptiva
 
 El objetivo de las prácticas es realizar un software capaz de complementar una visita a la Alhambra de Granada haciendo uso de paradigmas de interacción no convencionales, para ello se desarrollará una aplicación para teléfonos móviles.
 
