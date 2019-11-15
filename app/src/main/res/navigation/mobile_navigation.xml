@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/nav_inner_maps_list"
         android:name="com.example.aaalamabra1925.ui.inside.InnerMapListFragment"
-        android:label="@string/menu_tools"
+        android:label="Mapas interiores"
         tools:layout="@layout/fragment_inner_map_list" >
         <action
             android:id="@+id/action_nav_inner_maps_list_to_nav_inner_map"
@@ -60,7 +60,7 @@
     <fragment
         android:id="@+id/nav_inner_map"
         android:name="com.example.aaalamabra1925.ui.inside.InnerMapFragment"
-        android:label="Inside Maps"
+        android:label="Mapa interior"
         tools:layout="@layout/fragment_inside" >
         <argument
             android:name="id"

@@ -107,9 +107,13 @@ class GameFragment : Fragment() {
 
     // Initialize questions and shuffle them.
     private var questions = listOf(
-        Pair("This one is True", true),
-        Pair("This one is false", false),
-        Pair("This one is also True", true)
+        Pair("¿Es cierto que el significado de Alhambra en castellano es \"roja\"?", true),
+        Pair("¿Es cierto que la Alhambra es un reloj solar?", true),
+        Pair("¿Es cierto que el patio de los Leones fue construido en el siglo XV?", false),
+        Pair("¿Es cierto que la Alhambra es el monumento más visitado de España?", false),
+        Pair("¿Es cierto que hubo una carta de amor escondida durante 92 años en sus muros?", true),
+        Pair("¿Es cierto que Isabel la Católica estuvo enterrada en la Alhambra?", true),
+        Pair("¿Es cierto que la Alhambra empezó a construirse en el siglo XI?", false)
     ).shuffled()
 
     override fun onCreateView(
