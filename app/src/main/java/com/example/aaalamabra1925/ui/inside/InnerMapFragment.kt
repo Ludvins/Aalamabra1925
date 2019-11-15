@@ -73,7 +73,7 @@ class InnerMapFragment : Fragment() {
         }
 
 
-        if(id == 1){
+        if(mid == 1){
             root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, drawable.mapapb))
         }else{
             root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, drawable.mapacafeteria))

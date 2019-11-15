@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_ipmenu,
+                R.id.nav_ip_menu,
                 R.id.nav_inner_maps_list
             ), drawerLayout
         )
