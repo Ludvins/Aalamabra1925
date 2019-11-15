@@ -41,8 +41,8 @@ class GameFragment : Fragment() {
     private val mCountDownTimer = object : CountDownTimer(countDownMillis.toLong(), 200){
         // Every 200 millis updates progress bar
         override fun onTick(millisUntilFinished: Long) {
-            val progress = (countDownMillis - millisUntilFinished.toInt())/countDownMillis * 100
-            progressBar.progress = progress
+            val progress = (countDownMillis - millisUntilFinished.toInt()).toFloat()/countDownMillis * 100
+            progressBar.progress = progress.toInt()
         }
 
         /*
@@ -152,6 +152,7 @@ class GameFragment : Fragment() {
         }
         else {
             textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
+            mCountDownTimer.cancel()
         }
 
         view!!.invalidate()

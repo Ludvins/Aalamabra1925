@@ -1,11 +1,7 @@
 package com.example.aaalamabra1925
 
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -20,7 +16,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Check permissions
-        var permissionsList = arrayListOf<String>()
+        val permissionsList = arrayListOf<String>()
         // Check write permission
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -43,11 +38,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Ask for needed permissions
-        val permisionsArray = arrayOfNulls<String>(permissionsList.size)
-        permissionsList.toArray(permisionsArray)
+        val permissionsArray = arrayOfNulls<String>(permissionsList.size)
+        permissionsList.toArray(permissionsArray)
         if (permissionsList.size > 0){
             ActivityCompat.requestPermissions(this,
-                permisionsArray, 0)
+                permissionsArray, 0)
         }
 
 

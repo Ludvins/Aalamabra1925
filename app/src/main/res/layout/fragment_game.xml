@@ -20,5 +20,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:progress="25"/>
+        android:progress="0"/>
 </FrameLayout>

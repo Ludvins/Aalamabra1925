@@ -21,7 +21,7 @@
     <string name="Title">Title</string>
     <string name="inside_maps">Inside maps</string>
     <string name="game">Game</string>
-    <string name="game_explanation">You will be shown different questions about the Alhambra.\nMove your phone back and forth to answer "yes" nad from side to side to answer "no".\nYou have only 5 seconds to answer so be fast!!\n\nGood luck and have fun!!
+    <string name="game_explanation">You will be shown different questions about the Alhambra.\nMove your phone back and forth to answer "yes" nad from side to side to answer "no".\nYou have 30 seconds to answer as many questions as you can, so be fast!!\n\nGood luck and have fun!!
     </string>
 
 </resources>
