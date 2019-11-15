@@ -187,6 +187,14 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_home_to_nav_ip, bundle)
             true
         }
+
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        // Unregister listener on stop.
+        mLocationManager!!.removeUpdates(mLocationListener)
     }
 }
 
