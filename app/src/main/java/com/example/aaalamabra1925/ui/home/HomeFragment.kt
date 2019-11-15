@@ -25,7 +25,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.GestureRecognitionDialog
-import com.example.aaalamabra1925.R.id.action_nav_home_to_nav_insidemap
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
                     change = false
                     val id = nearDoor(location)
                     val bundle = bundleOf("id" to id)
-                    findNavController().navigate(action_nav_home_to_nav_insidemap, bundle)
+                    findNavController().navigate(R.id.action_nav_home_to_nav_inner_map, bundle)
                 }
             }
         }
