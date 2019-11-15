@@ -11,31 +11,31 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_insidemap"
-            app:destination="@id/nav_insidemap" />
+            android:id="@+id/action_nav_home_to_nav_inner_map"
+            app:destination="@id/nav_inner_map" />
         <action
             android:id="@+id/action_nav_home_to_nav_ip"
             app:destination="@id/nav_ip" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_ip"
-        android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
-        android:label="Interest Point"
-        tools:layout="@layout/fragment_interest_point" >
-        <argument
-            android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
+    android:id="@+id/nav_ip"
+    android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
+    android:label="Interest Point"
+    tools:layout="@layout/fragment_interest_point" >
+    <argument
+        android:name="id"
+        app:argType="integer"
+        android:defaultValue="0" />
+</fragment>
 
     <fragment
-    android:id="@+id/nav_ipmenu"
-    android:name="com.example.aaalamabra1925.ui.ipmenu.InterestPointMenuFragment"
+    android:id="@+id/nav_ip_menu"
+    android:name="com.example.aaalamabra1925.ui.ip_menu.InterestPointMenuFragment"
     android:label="@string/menu_ip"
-    tools:layout="@layout/fragment_ipmenu">
+    tools:layout="@layout/fragment_ip_menu">
     <action
-        android:id="@+id/action_nav_ipmenu_to_nav_ip"
+        android:id="@+id/action_nav_ip_menu_to_nav_ip"
         app:destination="@+id/nav_ip">
     </action>
 </fragment>
@@ -53,13 +53,13 @@
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_inner_map_list" >
         <action
-            android:id="@+id/action_nav_inner_maps_list_to_nav_insidemap"
-            app:destination="@id/nav_insidemap" />
+            android:id="@+id/action_nav_inner_maps_list_to_nav_inner_map"
+            app:destination="@id/nav_inner_map" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_insidemap"
-        android:name="com.example.aaalamabra1925.ui.inside.InsideFragment"
+        android:id="@+id/nav_inner_map"
+        android:name="com.example.aaalamabra1925.ui.inside.InnerMapFragment"
         android:label="Inside Maps"
         tools:layout="@layout/fragment_inside" >
         <argument
@@ -67,7 +67,7 @@
             app:argType="integer"
             android:defaultValue="-1" />
         <action
-            android:id="@+id/action_nav_insidemap_to_nav_ip"
+            android:id="@+id/action_nav_inner_map_to_nav_ip"
             app:destination="@id/nav_ip" />
     </fragment>
 </navigation>

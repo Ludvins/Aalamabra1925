@@ -1,5 +1,6 @@
 package com.example.aaalamabra1925.ui.game
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context.SENSOR_SERVICE
 import android.hardware.Sensor
@@ -21,7 +22,6 @@ This fragment handles the game section.
 It consists of a view with several questions that the user must answer using a gesture.
 All the gesture caption will be handle in this fragment so it is fully independent from the rest.
  */
-
 class GameFragment : Fragment() {
 
     // Sensors points and questions initialization.
@@ -44,7 +44,7 @@ class GameFragment : Fragment() {
             // If a considerable acceleration is detected back and forth, a "yes" answer is considered.
             if (kotlin.math.abs(mAcceleration[2]) > 2F){
                 Log.d("Game_frag", "Yes gesture!")
-                // Unregisted the listener so no more gestures are captured until the next question is shown.
+                // Unregister the listener so no more gestures are captured until the next question is shown.
                 mSensorManager.unregisterListener(this)
                 // Manages the answer.
                 manageAnswer(questions[currentQuestion].second, true)
@@ -106,6 +106,7 @@ class GameFragment : Fragment() {
      If no more questions are available, total score is shown.
      */
 
+    @SuppressLint("SetTextI18n")
     private fun manageAnswer(a:Boolean, b:Boolean){
         if (a == b){
             Toast.makeText(context!!, "Correct!!", Toast.LENGTH_LONG).show()

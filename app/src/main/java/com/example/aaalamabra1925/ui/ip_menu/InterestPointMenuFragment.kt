@@ -1,4 +1,4 @@
-package com.example.aaalamabra1925.ui.ipmenu
+package com.example.aaalamabra1925.ui.ip_menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,7 +33,7 @@ class InterestPointMenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_ipmenu, container, false)
+        val root = inflater.inflate(R.layout.fragment_ip_menu, container, false)
 
         // ListView
         val mainList = root.findViewById<ListView>(R.id.list_view)
@@ -46,7 +46,7 @@ class InterestPointMenuFragment : Fragment() {
             // Create a bundle with "id". The InterestPoint fragment will handle it and show the corresponding information from de database.
             val bundle = bundleOf("id" to list[position].id)
             // Uses navController action to navigate between fragments.
-            findNavController().navigate(R.id.action_nav_ipmenu_to_nav_ip, bundle)
+            findNavController().navigate(R.id.action_nav_ip_menu_to_nav_ip, bundle)
         }
 
         // Fills listView.

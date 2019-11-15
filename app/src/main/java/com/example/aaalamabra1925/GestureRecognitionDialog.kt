@@ -172,10 +172,10 @@ class GestureRecognitionDialog: DialogFragment(){
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Apunta al punto de interés que quieras conocer")
-                .setNegativeButton("Cancelar",
-                    DialogInterface.OnClickListener { _, _->
-                        // User cancelled the dialog
-                    })
+                .setNegativeButton("Cancelar"
+                ) { _, _->
+                    // User cancelled the dialog
+                }
 
             // Create the AlertDialog object and return it
             builder.create()

@@ -16,7 +16,7 @@ import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
 import android.widget.RelativeLayout
 
-class InsideFragment : Fragment() {
+class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
 
     private fun dpToPx(context: Context, dp: Int): Int {
@@ -41,7 +41,7 @@ class InsideFragment : Fragment() {
 
         fab.setOnClickListener {
             val bundle = bundleOf("id" to id)
-            findNavController().navigate(R.id.action_nav_insidemap_to_nav_ip, bundle)
+            findNavController().navigate(R.id.action_nav_inner_map_to_nav_ip, bundle)
         }
 
         val linearLayout = root.findViewById<RelativeLayout>(R.id.layout)

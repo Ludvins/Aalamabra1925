@@ -1,4 +1,4 @@
-package com.example.aaalamabra1925.ui.ipmenu
+package com.example.aaalamabra1925.ui.ip_menu
 
 import android.annotation.SuppressLint
 import android.content.Context
