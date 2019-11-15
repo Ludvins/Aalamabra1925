@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change $change")
             if (location != null && change){
-                // TODO esto peta de vez en cuandoo
+                // TODO  This doesn't work sometimes
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
                 Log.d("Home fragment", "Location: $senialgps")
@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
 
         // Button
         val fab: FloatingActionButton = root.findViewById(R.id.detection)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             gestureRecognitionDialog.show(activity!!.supportFragmentManager, "gestures")
         }
 
