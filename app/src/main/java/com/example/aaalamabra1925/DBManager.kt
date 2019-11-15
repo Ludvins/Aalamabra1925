@@ -12,8 +12,8 @@ This class uses SQLite API to connect with a database where all the interest poi
  */
 class DbManager(context: Context) {
 
-    private val dbName = "Aaalamabra1925"
-    private val dbTable = "InteresPoint"
+    private val dbName = "Alamabra1925"
+    private val dbTable = "InterestPoint"
     private val colId = "Id"
     private val colTitle = "Title"
     private val colContent = "Content"
