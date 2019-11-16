@@ -42,7 +42,7 @@ class InnerMapFragment : Fragment() {
         fab.layoutParams = rel
         fab.setImageResource(drawable.ic_dialog_info)
         fab.size = FloatingActionButton.SIZE_NORMAL
-        fab.setBackgroundColor(Color.parseColor("00000000"))
+        fab.setBackgroundColor(Color.parseColor("#000000"))
         fab.elevation = 0f
 
         fab.setOnClickListener {
