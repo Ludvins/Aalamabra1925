@@ -1,5 +1,6 @@
 package com.example.aaalamabra1925
 
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Force orientation.
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Check permissions
         val permissionsList = arrayListOf<String>()

@@ -20,6 +20,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 
 
+@Suppress("DEPRECATION")
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
     private val MODOALHAMBRA = true
@@ -38,12 +39,13 @@ class InnerMapFragment : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        rel.setMargins(long, lat, long, lat)
+        rel.setMargins(lat, long, 0, 0)
 
         fab.layoutParams = rel
         fab.setImageResource(drawable.ic_dialog_info)
-        fab.size = FloatingActionButton.SIZE_NORMAL
-        fab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.transparent))
+        fab.size = FloatingActionButton.SIZE_MINI
+        fab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+        //fab.foregroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
         fab.elevation = 0f
         fab.compatElevation = 0f
 
@@ -75,23 +77,21 @@ class InnerMapFragment : Fragment() {
                 val long = cursor.getDouble(cursor.getColumnIndex("Longitude"))
                 val id = cursor.getInt(cursor.getColumnIndex("Id"))
 
-                addFloatingButton(root ,id, lat.toInt(), long.toInt())
+                addFloatingButton(root ,id, long.toInt(), lat.toInt())
 
             }while(cursor.moveToNext())
         }
 
         if(MODOALHAMBRA){
-            if(mid == 1){
+            if(mid == 1)
                 root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.puertadelajusticia))
-            }else{
+            else
                 root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.palaciocv))
-            }
         }else{
-            if(mid == 1){
+            if(mid == 1)
                 root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
-            }else{
+            else
                 root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
-            }
         }
 
 

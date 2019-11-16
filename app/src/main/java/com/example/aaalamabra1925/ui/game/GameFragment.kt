@@ -49,6 +49,7 @@ class GameFragment : Fragment() {
         When count down finishes, stops listener and display the number of correctly answered
         questions
         */
+        @SuppressLint("SetTextI18n")
         override fun onFinish() {
             progressBar.progress = 100
             mSensorManager.unregisterListener(mAccelerometerListener)
@@ -169,7 +170,7 @@ class GameFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(context)
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
         dialogBuilder.setView(dialogView)
-        dialogBuilder.setTitle("Game instructions")
+        dialogBuilder.setTitle("Instrucciones de juego")
         dialogBuilder.setNegativeButton("Okay") { _, _ ->
             mCountDownTimer.start()
         }
