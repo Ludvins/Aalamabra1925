@@ -52,7 +52,7 @@ class GameFragment : Fragment() {
         override fun onFinish() {
             progressBar.progress = 100
             mSensorManager.unregisterListener(mAccelerometerListener)
-            textView.text = "Congratulations, you answered $points questions correctly!"
+            textView.text = "Enhorabuena, has respondido correctamente $points de ${questions.size}!"
             view!!.invalidate()
         }
     }
@@ -141,11 +141,11 @@ class GameFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun manageAnswer(a:Boolean, b:Boolean){
         if (a == b){
-            Toast.makeText(context!!, "Correct!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Correcto!!", Toast.LENGTH_LONG).show()
             points++
         }
         else{
-            Toast.makeText(context!!, "Wrong!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Mal!!", Toast.LENGTH_LONG).show()
         }
 
         if (currentQuestion < questions.size-1) {
@@ -156,7 +156,7 @@ class GameFragment : Fragment() {
                 SensorManager.SENSOR_DELAY_NORMAL)
         }
         else {
-            textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
+            textView.text = "Enhorabuena, has respondido correctamente $points de ${questions.size}!"
             mCountDownTimer.cancel()
         }
 

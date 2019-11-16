@@ -198,7 +198,7 @@ class HomeFragment : Fragment() {
         test.textLabelFontSize = 40
         //test.setTextIcon(id.toString())
         test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
-        //test.icon = resources.getDrawable(R.drawable.ic_menu_compass)
+        //test.icon = resources.getDrawable(R.drawable.ic_dialog_info)
         test.infoWindow = null
         mapView.overlays.add(test)
 

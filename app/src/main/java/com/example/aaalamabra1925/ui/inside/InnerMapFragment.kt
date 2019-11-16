@@ -14,6 +14,7 @@ import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
 import android.widget.RelativeLayout
 import android.R.drawable
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -42,8 +43,9 @@ class InnerMapFragment : Fragment() {
         fab.layoutParams = rel
         fab.setImageResource(drawable.ic_dialog_info)
         fab.size = FloatingActionButton.SIZE_NORMAL
-        fab.setBackgroundColor(Color.parseColor("00000000"))
+        fab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.transparent))
         fab.elevation = 0f
+        fab.compatElevation = 0f
 
         fab.setOnClickListener {
             val bundle = bundleOf("id" to id)
