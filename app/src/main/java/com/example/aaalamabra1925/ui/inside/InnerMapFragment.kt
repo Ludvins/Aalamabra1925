@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.content.ContextCompat
-import com.example.aaalamabra1925.R.*
 import android.content.Context
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.DbManager
 import com.example.aaalamabra1925.R
 import android.widget.RelativeLayout
+import android.R.drawable
+import android.graphics.Color
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
@@ -36,8 +39,10 @@ class InnerMapFragment : Fragment() {
         rel.setMargins(long, lat, long, lat)
 
         fab.layoutParams = rel
-        fab.setImageResource(android.R.drawable.ic_dialog_email)
+        fab.setImageResource(drawable.ic_dialog_info)
         fab.size = FloatingActionButton.SIZE_NORMAL
+        fab.setBackgroundColor(Color.parseColor("00000000"))
+        fab.elevation = 0f
 
         fab.setOnClickListener {
             val bundle = bundleOf("id" to id)
@@ -74,9 +79,9 @@ class InnerMapFragment : Fragment() {
 
 
         if(mid == 1){
-            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, drawable.mapapb))
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
         }else{
-            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, drawable.mapacafeteria))
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
         }
 
         /*val button = root.findViewById<FloatingActionButton>

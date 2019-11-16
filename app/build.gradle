@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.example.aaalamabra1925"
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
