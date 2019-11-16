@@ -30,11 +30,13 @@ class MainActivity : AppCompatActivity() {
 
         // Check permissions
         val permissionsList = arrayListOf<String>()
+
         // Check write permission
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
             permissionsList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
+
         // Location permission
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
@@ -45,10 +47,8 @@ class MainActivity : AppCompatActivity() {
         val permissionsArray = arrayOfNulls<String>(permissionsList.size)
         permissionsList.toArray(permissionsArray)
         if (permissionsList.size > 0){
-            ActivityCompat.requestPermissions(this,
-                permissionsArray, 0)
+            ActivityCompat.requestPermissions(this, permissionsArray, 0)
         }
-
 
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -81,11 +81,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
+
+            // Debugging menu to clear the database.
             R.id.clear_database -> {
                 val dbManager = DbManager(this)
                 dbManager.deleteAll()
                 true
             }
+
+            // Debugging option to fill the database
             R.id.fill_database -> {
                 val dbManager = DbManager(this)
 
@@ -97,6 +101,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+
+            // Debugging option to check if the database is empty or not.
             R.id.check_database -> {
                 val dbManager = DbManager(this)
                 val cursor = dbManager.queryAll()

@@ -138,7 +138,6 @@ class GameFragment : Fragment() {
 
      If no more questions are available, total score is shown.
      */
-
     @SuppressLint("SetTextI18n")
     private fun manageAnswer(a:Boolean, b:Boolean){
         if (a == b){
@@ -163,7 +162,6 @@ class GameFragment : Fragment() {
 
         view!!.invalidate()
     }
-
 
     // Inflates a dialog where the game instructions are shown.
     private fun explainDialog() {

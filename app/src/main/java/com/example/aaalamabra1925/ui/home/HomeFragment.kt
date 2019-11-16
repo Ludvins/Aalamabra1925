@@ -81,9 +81,7 @@ class HomeFragment : Fragment() {
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
         override fun onProviderEnabled(provider: String) {}
-
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{

@@ -3,7 +3,6 @@ package com.example.aaalamabra1925
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -21,10 +20,8 @@ import android.os.Looper
 import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
 import kotlin.math.PI
 import kotlin.math.pow
-
 
 class GestureRecognitionDialog: DialogFragment(){
     private lateinit var mSensorManager: SensorManager
@@ -41,8 +38,8 @@ class GestureRecognitionDialog: DialogFragment(){
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
             if (location != null){
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+                latitude = location.latitude
+                longitude = location.longitude
             }
 
             Toast.makeText(activity, "Localizado", Toast.LENGTH_LONG).show()
@@ -99,11 +96,8 @@ class GestureRecognitionDialog: DialogFragment(){
                 findNavController().navigate(R.id.action_nav_home_to_nav_ip, args)
             }
         }
-
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
         override fun onProviderEnabled(provider: String) {}
-
         override fun onProviderDisabled(provider: String) {}
     }
 
@@ -141,9 +135,7 @@ class GestureRecognitionDialog: DialogFragment(){
             }
 
         }
-
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
-
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
