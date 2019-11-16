@@ -21,7 +21,7 @@ class InnerMapListFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_inner_map_list, container, false)
-        val list = listOf("Cafeteria", "El otro")
+        val list = listOf("Puerta de la Justicia", "Palacio de Carlos V")
         val listView = root.findViewById<ListView>(R.id.list_view)
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, list)
         listView.adapter = adapter

@@ -42,11 +42,18 @@ class HomeFragment : Fragment() {
     private var mLocationManager: LocationManager? = null
     private lateinit var mapView: MapView
 
+    private val MODO_ALHAMBRA = true
+
     private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
     private val PUERTA_CAFETERIA_2 = GeoPoint(37.197152, -3.6247)
 
     private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
     private val PUERTA_AULARIO_2 = GeoPoint(37.1973, -3.6247)
+
+    private val PUERTA_JUSTICIA_1 = GeoPoint(37.176094, -3.590247)
+    private val PUERTA_JUSTICIA_2 = GeoPoint(37.176187, -3.590358)
+
+    private val PUERTA_CARLOS_V = GeoPoint(37.176856, -3.590191)
 
     private var change = true
 
@@ -77,18 +84,31 @@ class HomeFragment : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
-            var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
-            var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
-            val distanciaCaf = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Caf $distanciaCaf")
+            if(MODO_ALHAMBRA){
+                val dis1 = ((location.longitude - PUERTA_JUSTICIA_1.longitude).pow(2) + (location.altitude - PUERTA_JUSTICIA_1.altitude).pow(2))
+                val dis2 = ((location.longitude - PUERTA_JUSTICIA_2.longitude).pow(2) + (location.altitude - PUERTA_JUSTICIA_2.altitude).pow(2))
+                val distanciaJusticia = min(dis1, dis2)
 
 
-            dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
-            dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
-            val distanciaAul = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Aul $distanciaAul")
+                val distanciaCarlosV = ((location.longitude - PUERTA_CARLOS_V.longitude).pow(2) + (location.altitude - PUERTA_CARLOS_V.altitude).pow(2))
 
-            return if (distanciaAul < distanciaCaf) 1 else 2
+                return if (distanciaJusticia < distanciaCarlosV) 1 else 2
+
+            }else{
+
+                var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
+                var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
+                val distanciaCaf = min(dis1, dis2)
+                Log.d("Home fragment", "Distancia Caf $distanciaCaf")
+
+
+                dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
+                dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
+                val distanciaAul = min(dis1, dis2)
+                Log.d("Home fragment", "Distancia Aul $distanciaAul")
+
+                return if (distanciaAul < distanciaCaf) 1 else 2
+            }
         }
 
 

@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi
 
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
+    private val MODOALHAMBRA = true
 
     private fun dpToPx(context: Context, dp: Int): Int {
         // Reference http://stackoverflow.com/questions/8309354/formula-px-to-dp-dp-to-px-android
@@ -77,12 +78,21 @@ class InnerMapFragment : Fragment() {
             }while(cursor.moveToNext())
         }
 
-
-        if(mid == 1){
-            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
+        if(MODOALHAMBRA){
+            if(mid == 1){
+                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.puertadelajusticia))
+            }else{
+                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.palaciocv))
+            }
         }else{
-            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
+            if(mid == 1){
+                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
+            }else{
+                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
+            }
         }
+
+
 
         /*val button = root.findViewById<FloatingActionButton>
         val params = button.layoutParams as MarginLayoutParams
