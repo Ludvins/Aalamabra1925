@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import android.os.Looper
 import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.aaalamabra1925.ui.interest_point.InterestPointFragment
 import kotlin.math.PI
 import kotlin.math.pow
@@ -35,6 +36,7 @@ class GestureRecognitionDialog: DialogFragment(){
     private var longitude: Double? = null
     private var mGravity: FloatArray? = null
     private var mGeomagnetic: FloatArray? = null
+    private var me = this
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
@@ -69,11 +71,6 @@ class GestureRecognitionDialog: DialogFragment(){
 
             // Implements dot product
             val dotprod: (FloatArray, FloatArray) -> Float = {x, y -> x[0]*y[0] + x[1]*y[1]}
-            // val v0= v[0]
-            // val v1 = v[1]
-            // val n0 = n[0]
-            // val n1 = n[1]
-            // Log.d("Gesture_Dialog","v, n: ($v0, $v1) // ($n0, $n1)")
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getInt(cursor.getColumnIndex("Id"))
@@ -98,18 +95,8 @@ class GestureRecognitionDialog: DialogFragment(){
                 } while (cursor.moveToNext())
 
                 Toast.makeText(activity, "Punto de interés al que apuntas: $nearest_ip", Toast.LENGTH_LONG).show()
-
-                // Declare interest point
                 val args = bundleOf("id" to id)
-                val interestPoint = InterestPointFragment()
-                interestPoint.arguments = args
-
-                // Get fragment manager
-                val fm= fragmentManager
-                fm!!.beginTransaction()
-                    .show(interestPoint)
-                    .commit()
-
+                findNavController().navigate(R.id.action_nav_home_to_nav_ip, args)
             }
         }
 
@@ -143,6 +130,7 @@ class GestureRecognitionDialog: DialogFragment(){
 
                         if (ContextCompat.checkSelfPermission(activity as Context, android.Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
+                            me.dismiss()
                             mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, Looper.getMainLooper())
                             Toast.makeText(activity, "Buscando punto de interés...", Toast.LENGTH_LONG).show()
                         }

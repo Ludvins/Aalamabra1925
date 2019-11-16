@@ -5,23 +5,15 @@
     <string name="nav_header_title">Alamabra1925</string>
     <string name="nav_header_subtitle">Nuevos paradigmas de interacción</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="menu_home">Map</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_ip">Interest Point Menu</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="communicate">Communicate</string>
-    <string name="todo">TODO</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="menu_home">Mapa</string>
+    <string name="menu_ip">Puntos de interés</string>
     <string name="clear_database">Clear Database (Debug)</string>
     <string name="fill_database">Fill Database (Debug)</string>
     <string name="check_database">Check Database (Debug)</string>
-    <string name="Content">Content</string>
-    <string name="Title">Title</string>
-    <string name="inside_maps">Inside maps</string>
-    <string name="game">Game</string>
-    <string name="game_explanation">You will be shown different questions about the Alhambra.\nMove your phone back and forth to answer "yes" nad from side to side to answer "no".\nYou have 30 seconds to answer as many questions as you can, so be fast!!\n\nGood luck and have fun!!
-    </string>
-
+    <string name="Content">Contenido</string>
+    <string name="Title">Título</string>
+    <string name="inside_maps">Mapas interiores</string>
+    <string name="game">Juego</string>
+    <string name="game_explanation">Se te mostrarán diferentes preguntas sobre la Alhambra.\nMueve tu dispositivo hacia delante y hacia atras para responder afirmativamente o de lado a lado para responder negativamente.\nTienes 30 segundos para responder tantas preguntas como puedas, asique se rápido!!\n\nBuena suerte y diviertete!!</string>
 </resources>

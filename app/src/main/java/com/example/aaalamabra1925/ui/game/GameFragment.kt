@@ -49,10 +49,11 @@ class GameFragment : Fragment() {
         When count down finishes, stops listener and display the number of correctly answered
         questions
         */
+        @SuppressLint("SetTextI18n")
         override fun onFinish() {
             progressBar.progress = 100
             mSensorManager.unregisterListener(mAccelerometerListener)
-            textView.text = "Congratulations, you answered $points questions correctly!"
+            textView.text = "Enhorabuena, has respondido correctamente $points de ${questions.size}!"
             view!!.invalidate()
         }
     }
@@ -107,9 +108,13 @@ class GameFragment : Fragment() {
 
     // Initialize questions and shuffle them.
     private var questions = listOf(
-        Pair("This one is True", true),
-        Pair("This one is false", false),
-        Pair("This one is also True", true)
+        Pair("¿Es cierto que el significado de Alhambra en castellano es \"roja\"?", true),
+        Pair("¿Es cierto que la Alhambra es un reloj solar?", true),
+        Pair("¿Es cierto que el patio de los Leones fue construido en el siglo XV?", false),
+        Pair("¿Es cierto que la Alhambra es el monumento más visitado de España?", false),
+        Pair("¿Es cierto que hubo una carta de amor escondida durante 92 años en sus muros?", true),
+        Pair("¿Es cierto que Isabel la Católica estuvo enterrada en la Alhambra?", true),
+        Pair("¿Es cierto que la Alhambra empezó a construirse en el siglo XI?", false)
     ).shuffled()
 
     override fun onCreateView(
@@ -137,11 +142,11 @@ class GameFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun manageAnswer(a:Boolean, b:Boolean){
         if (a == b){
-            Toast.makeText(context!!, "Correct!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Correcto!!", Toast.LENGTH_LONG).show()
             points++
         }
         else{
-            Toast.makeText(context!!, "Wrong!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Mal!!", Toast.LENGTH_LONG).show()
         }
 
         if (currentQuestion < questions.size-1) {
@@ -152,7 +157,7 @@ class GameFragment : Fragment() {
                 SensorManager.SENSOR_DELAY_NORMAL)
         }
         else {
-            textView.text = "Congratulations, you answered $points out of ${questions.size} correctly!"
+            textView.text = "Enhorabuena, has respondido correctamente $points de ${questions.size}!"
             mCountDownTimer.cancel()
         }
 
@@ -165,7 +170,7 @@ class GameFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(context)
         val dialogView = View.inflate(context, R.layout.dialog_game_explanation, null)
         dialogBuilder.setView(dialogView)
-        dialogBuilder.setTitle("Game instructions")
+        dialogBuilder.setTitle("Instrucciones de juego")
         dialogBuilder.setNegativeButton("Okay") { _, _ ->
             mCountDownTimer.start()
         }

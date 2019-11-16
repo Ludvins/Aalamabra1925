@@ -42,11 +42,19 @@ class HomeFragment : Fragment() {
     private var mLocationManager: LocationManager? = null
     private lateinit var mapView: MapView
 
+    private val MODO_ALHAMBRA = true
+
     private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
     private val PUERTA_CAFETERIA_2 = GeoPoint(37.197152, -3.6247)
 
     private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
     private val PUERTA_AULARIO_2 = GeoPoint(37.1973, -3.6247)
+
+    private val PUERTA_JUSTICIA_IZQ = GeoPoint(37.176061, -3.590453)
+    private val PUERTA_JUSTICIA_DCH = GeoPoint(37.176215, -3.590194)
+
+    private val PUERTA_CARLOS_V_DCH = GeoPoint(37.177066, -3.589408)
+    private val PUERTA_CARLOS_V_IZQ = GeoPoint(37.176434, -3.590323)
 
     private var change = true
 
@@ -56,16 +64,18 @@ class HomeFragment : Fragment() {
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change $change")
             if (location != null && change){
-                // TODO  This doesn't work sometimes
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
                 Log.d("Home fragment", "Location: $senialgps")
 
                 if(senialgps >= 22.00F && change){
-                    change = false
                     val id = nearDoor(location)
-                    val bundle = bundleOf("id" to id)
-                    findNavController().navigate(R.id.action_nav_home_to_nav_inner_map, bundle)
+                    if(id != 0){
+                        change = false
+                        val bundle = bundleOf("id" to id)
+                        findNavController().navigate(R.id.action_nav_home_to_nav_inner_map, bundle)
+                    }
+
                 }
             }
         }
@@ -77,18 +87,32 @@ class HomeFragment : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
-            var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
-            var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
-            val distanciaCaf = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Caf $distanciaCaf")
+            if(MODO_ALHAMBRA){
+
+                var dentro = 0
+                if(PUERTA_JUSTICIA_IZQ.latitude < location.latitude && location.latitude < PUERTA_JUSTICIA_DCH.latitude
+                        && PUERTA_JUSTICIA_DCH.longitude < location.longitude && location.longitude < PUERTA_JUSTICIA_IZQ.longitude)
+                    dentro = 1
+
+                if(PUERTA_CARLOS_V_IZQ.latitude < location.latitude && location.latitude < PUERTA_CARLOS_V_DCH.latitude
+                        && PUERTA_CARLOS_V_DCH.longitude < location.longitude && location.longitude < PUERTA_CARLOS_V_IZQ.longitude)
+                    dentro = 2
+
+                return dentro
+
+            }else{
+
+                var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
+                var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
+                val distanciaCaf = min(dis1, dis2)
 
 
-            dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
-            dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
-            val distanciaAul = min(dis1, dis2)
-            Log.d("Home fragment", "Distancia Aul $distanciaAul")
+                dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
+                dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
+                val distanciaAul = min(dis1, dis2)
 
-            return if (distanciaAul < distanciaCaf) 1 else 2
+                return if (distanciaAul < distanciaCaf) 1 else 2
+            }
         }
 
 
@@ -178,7 +202,7 @@ class HomeFragment : Fragment() {
         test.textLabelFontSize = 40
         //test.setTextIcon(id.toString())
         test.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
-        //test.icon = resources.getDrawable(R.drawable.ic_menu_compass)
+        //test.icon = resources.getDrawable(R.drawable.ic_dialog_info)
         test.infoWindow = null
         mapView.overlays.add(test)
 
