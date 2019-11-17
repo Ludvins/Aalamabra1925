@@ -12,7 +12,7 @@ El objetivo de la práctica es realizar un software capaz de complementar una vi
 La principal característica de la aplicación es proveer al usuario de un mapa donde su localización se encuentra reflejada en tiempo real. 
 En el mapa quedan reflejadas aquellos puntos de interés de una visita a la Alhambra. Con ello buscamos que el usuario no se pierda ningún monumento importante de la Alhambra.
 
-![alt text](mapa.jpg)
+![alt text][20%](mapa.jpg)
 
 El usuario puede obtener información acerca de un punto de interes de distintas formas:
 
