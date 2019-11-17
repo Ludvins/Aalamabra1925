@@ -42,6 +42,23 @@ HomeFragment
 InnerMapFragment
 ----------------
 
+En este fragmento se implementan los mapas internos junto con sus puntos de interés. 
+A este podemos llegar desde `HomeFragment` o `InnerMapListFragment`, en ambos casos será necesario añadir un identificador `id` al `bundle` de la navegación, este simbolizará cual de los mapas interiores queremos cargar.
+
+Para esto utilizamos
+```
+val mid = arguments!!.get("id")
+```
+
+También lo utilizaremos para saber cual de los conjuntos de puntos de interes debemos cargar en la vista del mapa.
+
+Para añadir estos puntos utilizamos la función `addFloatingButton`, que nos permitirá utilizar los valores presentes en la base de datos para colocarlo correctamente en la vista. Para ello seguiremos los siguientes pasos:
++ Crear un `floatingActionButton`.
++ Crear un `relativeLayout` sobre el que añadir los márgenes.
++ Establecer el layout al botón.
++ Añadir ciertas características del boton, como el icono, el tamaño y los colores.
++ Establecer el `Listener` de pulsación para lanzar la vista del punto de interés correspondiente.
+
 InnerMapListFragment
 --------------------
 
