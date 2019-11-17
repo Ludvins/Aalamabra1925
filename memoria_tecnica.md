@@ -39,6 +39,14 @@ Fragmentos
 HomeFragment
 ------------
 
+Este es el fragmento principal de la aplicación, en ella se implementa el mapa de la aplicación y todas las interacciones con él. En primer lugar se declara un mapa utilizando la librería `osmdroid` donde situamos al usuario.
+
+A continuación añadimos los `markers` de los distintos puntos de interés importados de la base de datos, solo mostramos aquellos con `tipo = 0` ya que en la base de datos se guardan puntos de interes externos (con `tipo = 0`) y puntos de interés internos (con `tipo > 0`).
+
+Para añadirlos se utiliza la funcion `addMarker`, a la que se le pasa la **longitud** y **latitud** del punto y su identificador de la base de datos. En la función se crea un punto en el mapa y se le añade un ClickListener, el cual cambia de vista al pulsarse mostrando la información del punto de interés.
+
+Por otro lado se añade también un locationListener, que se actualiza cada segundo o cuando el usuario se ha desplazado un metro. Cuando el listener detecta que la posición cambia llama a la función *onLocationChanged*, dentro de esta se comprueba si la señal de GPS es mayor que un cierto UMBRAL lo que se indica pérdida de señal GPS. En este caso se puede considerar que el usuario está entrando a un monumento, por lo que se verifica si se encuentra dentro de los edificios de mapa interior. Para realizar esta comprobación se ha implementado la funcion *nearDoor*, la cual recibe una localización y en base a dos puntos del mapa elegidos estratégicamente, uno en la esquina inferior izquierda y otro en la esquina superior derecha del edificio, se comprueba si la localización actual del usuario se encuentra entre el cuadrado formado por esas dos esquinas y se devuelve el identificador del edificio dentro del cual se encuentra. Cuando esto ocurre se desactiva el locationlistener y cambia de vista al fragmento inner_map con el id del mapa interior que se mostrará.
+
 InnerMapFragment
 ----------------
 
@@ -61,6 +69,11 @@ Para añadir estos puntos utilizamos la función `addFloatingButton`, que nos pe
 
 InnerMapListFragment
 --------------------
+
+En este fragmento alojaremos una lista de `String`, donde cada uno de ellos simboliza un mapa interior de la Alhambra. Para ello utilizamos una `listView` y un `ArrayAdapter`.
+
+En cada uno de los elementos de la lista, sobrecargamos la pulsación para que añada al `bundle` el identificador correspondiente.
+
 
 InterestPointFragment
 ---------------------
@@ -111,9 +124,6 @@ loadQueryAll()
 
 GameFragment
 ------------
-
-En este fragmento el usuario se enfrenta a una serie de preguntas que
-tendrá que responder lo más rápido posible.
 
 Otras clases
 ============
