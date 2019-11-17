@@ -55,7 +55,7 @@ class GestureRecognitionDialog: DialogFragment(){
             val degree_azimuth = azimuth!! * radiansToDegrees.toFloat()
 
             // Get the direction of the line
-            var rotation_m = rotationMatrix(degree_azimuth, 0F,0F)
+            var rotation_m = rotationMatrix(-degree_azimuth, 0F,0F)
             rotation_m.mapVectors(v)
 
             // Get the normal of the line
@@ -78,7 +78,7 @@ class GestureRecognitionDialog: DialogFragment(){
                     val diff = floatArrayOf(ip_long - longitude!!.toFloat(), ip_lat - latitude!!.toFloat())
                     val square_dist = dotprod(diff, n).pow(2)
 
-                    val isBehind = (dotprod(v, diff) >= 0F)
+                    val isBehind = (dotprod(v, diff) <= 0F)
                     if (isBehind) {
                         Log.d("Gesture Dialog", "$id")
                     }
