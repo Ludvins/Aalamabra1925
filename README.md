@@ -12,7 +12,7 @@ El objetivo de la práctica es realizar un software capaz de complementar una vi
 La principal característica de la aplicación es proveer al usuario de un mapa donde su localización se encuentra reflejada en tiempo real. 
 En el mapa quedan reflejadas aquellos puntos de interés de una visita a la Alhambra. Con ello buscamos que el usuario no se pierda ningún monumento importante de la Alhambra.
 
-![alt text | 20%](mapa.jpg)
+![alt text |200x100 20%](mapa.jpg)
 
 El usuario puede obtener información acerca de un punto de interes de distintas formas:
 
@@ -28,7 +28,7 @@ La aplicación detectará el descenso de señal GPS y cargará un mapa interior 
 
 ![alt text](mapainterno.jpg) ![alt text](puntointerno.jpg)
 
-La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deberán responderse en un corto periodo de tiempo (30 segundos). Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
+La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deberán responderse en un corto periodo de tiempo (30 segundos) representada con una barra de color amarillo que va aumentando segun van pasando los segundos. Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
 - En caso de querer responder afirmativamente a la pregunta, se deberá mover el dispositivo hacia adelante y hacia atrás, con un movimiento de 90 grados.
 - En caso de querer responder negativamente, se utilizará un movimiento de lado a lado, con un moviemiento de 90 grados.
 
