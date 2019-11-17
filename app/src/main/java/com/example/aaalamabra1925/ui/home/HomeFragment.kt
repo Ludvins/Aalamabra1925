@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     private var mLocationManager: LocationManager? = null
     private lateinit var mapView: MapView
 
-    private val MODO_ALHAMBRA = false
+    private val UMBRAL : Float = 12.0F
 
     private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197225, -3.624302)
     private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
-                if(senialgps >= 12.00F){
+                if(senialgps >= UMBRAL){
                     val id = nearDoor(location)
                     Log.d("Home Fragment", "Id = $id" )
                     Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
