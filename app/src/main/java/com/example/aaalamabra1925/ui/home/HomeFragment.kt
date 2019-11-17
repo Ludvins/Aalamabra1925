@@ -81,35 +81,28 @@ class HomeFragment : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
-            Log.d("Home F>ragment", "location: ${location.toString()}")
+            var dentro = 0
 
-            if(MODO_ALHAMBRA){
+            if(PUERTA_JUSTICIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_JUSTICIA_DCH.latitude
+                && PUERTA_JUSTICIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_JUSTICIA_DCH.longitude)
+                dentro = 1
 
-                var dentro = 0
-                if(PUERTA_JUSTICIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_JUSTICIA_DCH.latitude
-                        && PUERTA_JUSTICIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_JUSTICIA_DCH.longitude)
-                    dentro = 1
-
-                if(PUERTA_CARLOS_V_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CARLOS_V_DCH.latitude
-                        && PUERTA_CARLOS_V_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CARLOS_V_DCH.longitude)
-                    dentro = 2
-
-                return dentro
-
-            } else{
-
-                var dentro = 0
-                if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
-                        && PUERTA_AULARIO_IZQ.longitude < location.longitude && location.longitude < PUERTA_AULARIO_DCH.longitude)
-                    dentro = 2
-
-                if(PUERTA_CAFETERIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CAFETERIA_DCH.latitude
-                        && PUERTA_CAFETERIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_DCH.longitude)
-                    dentro = 1
+            if(PUERTA_CARLOS_V_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CARLOS_V_DCH.latitude
+                && PUERTA_CARLOS_V_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CARLOS_V_DCH.longitude)
+                dentro = 2
 
 
-                return dentro
-            }
+            if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
+                && PUERTA_AULARIO_IZQ.longitude < location.longitude && location.longitude < PUERTA_AULARIO_DCH.longitude)
+                dentro = 2
+
+            if(PUERTA_CAFETERIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CAFETERIA_DCH.latitude
+                && PUERTA_CAFETERIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_DCH.longitude)
+                dentro = 1
+
+
+            return dentro
+
         }
 
     }
