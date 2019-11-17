@@ -15,8 +15,6 @@ import android.widget.RelativeLayout
 import android.R.drawable
 import android.content.res.ColorStateList
 
-
-
 @Suppress("DEPRECATION")
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout

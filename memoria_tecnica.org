@@ -1,6 +1,3 @@
-
-
-
 * Estructura del proyecto
 
 La aplicación =Alamabra1925= está implementada como un proyecto =Android= en ~Kotlin~.
@@ -25,7 +22,40 @@ HomeFragment --> InnerMapFragment : low_gps_accuracy
 HomeFragment --> InterestPointFragment : gesture
 InterestPointMenuFragment --> InterestPointFragment : click
 InnerMapFragment --> InterestPointFragment : click
-GameFragment
+#+END_UML
+
+Simbolizaremos con flechas continuas la cantidad de veces que una clase contiene a la otra. Debido a la estructura con fragmentos del proyecto esto solo ocurre con la clase =InterestPointMenuFragment=. Por esto, hemos decidido simbolizar en el diagrama las comuninaciones entre las clases. Para ello usaremos lineas discontinuas.
+
+#+BEGIN_UML
+class MainActivity
+class GestureRecognitionDialog
+class DBManager
+class GameFragment
+class HomeFragment
+class InnerMapFragment
+class InnerMapListFragment
+class InterestPoint
+class InterestPointFragment
+class InterestPointMenuFragment
+class IPAdapter
+
+MainActivity ..> HomeFragment
+MainActivity ..> GameFragment
+MainActivity ..> InnerMapListFragment
+MainActivity ..> InterestPointMenuFragment
+
+HomeFragment ..> InterestPointFragment
+HomeFragment ..> InnerMapFragment
+
+InterestPointFragment ..> DBManager
+InnerMapFragment ..> DBManager
+InnerMapFragment ..> InterestPointFragment
+
+InnerMapListFragment ..> InnerMapFragment
+
+InterestPointMenuFragment ..> DBManager
+InterestPointMenuFragment --> "1" IPAdapter
+InterestPointMenuFragment --> "0..*" InterestPoint
 #+END_UML
 
 
