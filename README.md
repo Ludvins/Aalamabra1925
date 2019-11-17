@@ -10,7 +10,7 @@ date: today
 El objetivo de la práctica es realizar un software capaz de complementar una visita a la Alhambra de Granada haciendo uso de paradigmas de interacción no convencionales, para ello se desarrollará una aplicación para teléfonos móviles.
 
 La principal característica de la aplicación es proveer al usuario de un mapa donde su localización se encuentra reflejada en tiempo real. 
-En el mapa quedan reflejadas aquellos puntos de interés de una visita a la Alhambra. Con ello buscamos que el usuario no se pierda ningún monumento importante de la Alhambra. 
+En el mapa quedan reflejadas aquellos puntos de interés de una visita a la Alhambra. Con ello buscamos que el usuario no se pierda ningún monumento importante de la Alhambra.
 
 El usuario puede obtener información acerca de un punto de interes de distintas formas:
 
@@ -21,7 +21,7 @@ El usuario puede obtener información acerca de un punto de interes de distintas
 El usuario no tendrá que preocuparse por la señal GPS recibida por la aplicación cuando se adentre en un lugar cubierto.
 La aplicación detectará el descenso de señal GPS y cargará un mapa interior del lugar donde, aunque el usuario no pueda saber su localización exacta, también aparecerán distintos puntos de interés, situados dentro de los monumentos de la Alhambra.
 
-La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deverán responderse en un corto periodo de tiempo (30 segundos). Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
+La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deberán responderse en un corto periodo de tiempo (30 segundos). Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
 - En caso de querer responder afirmativamente a la pregunta, se deberá mover el dispositivo hacia adelante y hacia atrás, con un movimiento de 90 grados.
 - En caso de querer responder negativamente, se utilizará un movimiento de lado a lado, con un moviemiento de 90 grados.
 
