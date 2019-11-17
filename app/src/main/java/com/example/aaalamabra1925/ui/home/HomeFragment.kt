@@ -53,8 +53,6 @@ class HomeFragment : Fragment() {
     private val PUERTA_CARLOS_V_DCH = GeoPoint(37.177066, -3.589408)
     private val PUERTA_CARLOS_V_IZQ = GeoPoint(37.176434, -3.590323)
 
-    private val PUERTA_LUIS_DCH = GeoPoint(37.185981, -3.610531)
-    private val PUERTA_LUIS_IZQ = GeoPoint(37.185617, -3.611027)
 
     private var gestureRecognitionDialog = GestureRecognitionDialog()
 
@@ -89,11 +87,11 @@ class HomeFragment : Fragment() {
 
                 var dentro = 0
                 if(PUERTA_JUSTICIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_JUSTICIA_DCH.latitude
-                        && PUERTA_JUSTICIA_DCH.longitude <= location.longitude && location.longitude <= PUERTA_JUSTICIA_IZQ.longitude)
+                        && PUERTA_JUSTICIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_JUSTICIA_DCH.longitude)
                     dentro = 1
 
                 if(PUERTA_CARLOS_V_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CARLOS_V_DCH.latitude
-                        && PUERTA_CARLOS_V_DCH.longitude <= location.longitude && location.longitude <= PUERTA_CARLOS_V_IZQ.longitude)
+                        && PUERTA_CARLOS_V_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CARLOS_V_DCH.longitude)
                     dentro = 2
 
                 return dentro
@@ -103,11 +101,11 @@ class HomeFragment : Fragment() {
                 var dentro = 0
                 if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
                         && PUERTA_AULARIO_IZQ.longitude < location.longitude && location.longitude < PUERTA_AULARIO_DCH.longitude)
-                    dentro = 1
+                    dentro = 2
 
                 if(PUERTA_CAFETERIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CAFETERIA_DCH.latitude
                         && PUERTA_CAFETERIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_DCH.longitude)
-                    dentro = 2
+                    dentro = 1
 
 
                 return dentro
