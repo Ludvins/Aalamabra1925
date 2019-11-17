@@ -1,3 +1,11 @@
+---
+title: Memoria técnica
+author:
+- Luis Antonio Ortega Andrés
+- Guillermo Galindo Ortuño
+- Johanna Capote Robayna
+---
+
 Estructura del proyecto
 =======================
 
