@@ -39,7 +39,12 @@ Fragmentos
 HomeFragment
 ------------
 
-Este es el fragmento principal de la aplicación, en ella se implementa el mapa de la aplicación y todas las interacciones con él. En primer lugar se declara un mapa utilizando la librería `osmdroid` donde situamos al usuario.
+Este es el fragmento principal de la aplicación, en ella se implementa el mapa de la aplicación y todas las interacciones con él. En primer lugar se declara un mapa utilizando la librería `osmdroid` donde situamos al usuario. Podriamos haber optado por utilizar la API de GoogleMaps, sin embargo, vimos mas conveniente utilizar la alternativa *open source*.
+Para hacerlo seguimos los siguientes pasos dentro de la función `onCreateView`:
++ Tomamos la vista de "openstreetmap".
++ Añadimos el compas al mapa. Para ello utilizamos `CompassOverlay`.
++ Añadimos la localización actual del usuario con `MyLocationNewOverlay`.
++ Toammos el controlador del mapa y ajustamos ciertos parámetros como, el zoom inicial, la longitud de la barra de escala y el seguimiento.
 
 A continuación añadimos los `markers` de los distintos puntos de interés importados de la base de datos, solo mostramos aquellos con `tipo = 0` ya que en la base de datos se guardan puntos de interes externos (con `tipo = 0`) y puntos de interés internos (con `tipo > 0`).
 
@@ -58,7 +63,7 @@ Cuando esto ocurre se desactiva el `locationlistener` y cambia de vista al fragm
 InnerMapFragment
 ----------------
 
-En este fragmento se implementan los mapas internos junto con sus puntos de interés. 
+En este fragmento se implementan los mapas internos junto con sus puntos de interés.
 A este podemos llegar desde `HomeFragment` o `InnerMapListFragment`, en ambos casos será necesario añadir un identificador `id` al `bundle` de la navegación, este simbolizará cual de los mapas interiores queremos cargar.
 
 Para esto utilizamos
@@ -81,7 +86,6 @@ InnerMapListFragment
 En este fragmento alojaremos una lista de `String`, donde cada uno de ellos simboliza un mapa interior de la Alhambra. Para ello utilizamos una `listView` y un `ArrayAdapter`.
 
 En cada uno de los elementos de la lista, sobrecargamos la pulsación para que añada al `bundle` el identificador correspondiente.
-
 
 InterestPointFragment
 ---------------------
@@ -114,9 +118,11 @@ val mainList = root.findViewById<ListView>(R.id.list_view)
 listAdapter = IPAdapter(this.context!!, list)
 mainList.adapter = listAdapter
 
-mainList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-    val bundle = bundleOf("id" to list[position].id)
-    findNavController().navigate(R.id.action_nav_ip_menu_to_nav_ip, bundle)
+mainList.onItemClickListener = 
+    AdapterView.OnItemClickListener { _, _, position, _ ->
+        val bundle = bundleOf("id" to list[position].id)
+        findNavController().navigate
+            (R.id.action_nav_ip_menu_to_nav_ip, bundle)
 }
 
 loadQueryAll()
@@ -133,8 +139,18 @@ loadQueryAll()
 GameFragment
 ------------
 
-Otras clases
-============
+Este fragmente implementa el juego de preguntas sobre la Alhambra.
+
+En primer lugar, al crear la vista del fragmento, se abre un diáologo definido en la función *explainDialog*, que muestra las intrucciones del juego. Al cerrar dicho diálogo, activamos la cuenta atrás , comenzamos a recibir datos del acelerómetro, y en el *listener* `mAccelerometerListener` comenzamos a esperar por uno de los dos gestos.
+
+La cuenta atrás la gestiona `mCountDownTimer`. Este objeto tiene dos funciones, `onTick` que actualiza la barra de progreso cada 200ms, y `onFinish` que deshabilita el sensor para no recibir más respuestas, y muestra un mensaje informando de que el tiempo se ha acabado y los resultados.
+
+Los dos gestos son mover el teléfono hacia adelante y atrás, y hacia los lados para el sí y el no respectivamente. Para reconocer estos gestos, comprobamos que el valor absoluto de la aceleración sea mayor a una determinada constante, respecto al eje Z para el si, y respecto al X para el no. Una vez reconocido alguno de los dos gestos, deja de escuchar para no mandar más de una respuesta involuntariamente, y se llama a la función `manageAnswer` con la respuesta correcta y la respuesta del usuario.
+
+En primer lugar, la función `manageAnswer` comprueba si la respuesta es correcta o incorrecta comparando los dos booleanos que recibe, y muestra un mensaje acorde para informar al usuario. Tras esto, si todavía quedan preguntas, actualiza la pregunta actual, refresca la vista, y espera medio segundo. A continuación, vuelve a activar el `listener` para recibir la siguiente respuesta. En caso de no quedar preguntas disponibles, muestra el resultado final, y para la cuenta atrás.
+
+Otras clase
+===========
 
 InterestPoint
 -------------
