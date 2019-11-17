@@ -21,6 +21,7 @@ HomeFragment ..> InnerMapFragment
 HomeFragment ..> GestureRecognitionDialog
 
 InterestPointFragment ..> DBManager
+InterestPointFragment ..> HomeFragment
 InnerMapFragment ..> DBManager
 InnerMapFragment ..> InterestPointFragment
 

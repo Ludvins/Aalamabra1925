@@ -4,4 +4,5 @@
 (HomeFragment) --> (InterestPointFragment) : gesture or click
 (InterestPointMenuFragment) --> (InterestPointFragment) : click
 (InnerMapFragment) --> (InterestPointFragment) : click
+(InterestPointFragment) --> (HomeFragment) : gesture
 @enduml
