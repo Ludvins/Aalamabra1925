@@ -118,9 +118,11 @@ val mainList = root.findViewById<ListView>(R.id.list_view)
 listAdapter = IPAdapter(this.context!!, list)
 mainList.adapter = listAdapter
 
-mainList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-    val bundle = bundleOf("id" to list[position].id)
-    findNavController().navigate(R.id.action_nav_ip_menu_to_nav_ip, bundle)
+mainList.onItemClickListener = 
+    AdapterView.OnItemClickListener { _, _, position, _ ->
+        val bundle = bundleOf("id" to list[position].id)
+        findNavController().navigate
+            (R.id.action_nav_ip_menu_to_nav_ip, bundle)
 }
 
 loadQueryAll()
