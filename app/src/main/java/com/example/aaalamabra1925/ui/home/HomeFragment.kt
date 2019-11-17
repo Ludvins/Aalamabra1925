@@ -44,11 +44,11 @@ class HomeFragment : Fragment() {
 
     private val MODO_ALHAMBRA = true
 
-    private val PUERTA_CAFETERIA_1 = GeoPoint(37.19701, -3.6243)
-    private val PUERTA_CAFETERIA_2 = GeoPoint(37.197152, -3.6247)
+    private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197225, -3.624302)
+    private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
 
-    private val PUERTA_AULARIO_1 = GeoPoint(37.19725, -3.624225)
-    private val PUERTA_AULARIO_2 = GeoPoint(37.1973, -3.6247)
+    private val PUERTA_AULARIO_DCH = GeoPoint(37.197418, -3.623827)
+    private val PUERTA_AULARIO_IZQ = GeoPoint(37.197260, -3.624796)
 
     private val PUERTA_JUSTICIA_IZQ = GeoPoint(37.176061, -3.590453)
     private val PUERTA_JUSTICIA_DCH = GeoPoint(37.176215, -3.590194)
@@ -56,18 +56,20 @@ class HomeFragment : Fragment() {
     private val PUERTA_CARLOS_V_DCH = GeoPoint(37.177066, -3.589408)
     private val PUERTA_CARLOS_V_IZQ = GeoPoint(37.176434, -3.590323)
 
+    private val PUERTA_LUIS_DCH = GeoPoint(37.185859, -3.610619)
+    private val PUERTA_LUIS_IZQ = GeoPoint(37.185617, -3.611027)
+
     private var gestureRecognitionDialog = GestureRecognitionDialog()
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
-            Log.d("Home fragment", "Change $change")
             if (location != null){
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
-                Log.d("Home fragment", "Location: $senialgps")
 
-                if(senialgps >= 22.00F){
+                if(senialgps >= 15.00F){
                     val id = nearDoor(location)
+                    Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
                     if(id != 0){
                         mLocationManager!!.removeUpdates(this)
                         val bundle = bundleOf("id" to id)
@@ -86,18 +88,18 @@ class HomeFragment : Fragment() {
             if(MODO_ALHAMBRA){
 
                 var dentro = 0
-                if(PUERTA_JUSTICIA_IZQ.latitude < location.latitude && location.latitude < PUERTA_JUSTICIA_DCH.latitude
-                        && PUERTA_JUSTICIA_DCH.longitude < location.longitude && location.longitude < PUERTA_JUSTICIA_IZQ.longitude)
+                if(PUERTA_JUSTICIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_JUSTICIA_DCH.latitude
+                        && PUERTA_JUSTICIA_DCH.longitude <= location.longitude && location.longitude <= PUERTA_JUSTICIA_IZQ.longitude)
                     dentro = 1
 
-                if(PUERTA_CARLOS_V_IZQ.latitude < location.latitude && location.latitude < PUERTA_CARLOS_V_DCH.latitude
-                        && PUERTA_CARLOS_V_DCH.longitude < location.longitude && location.longitude < PUERTA_CARLOS_V_IZQ.longitude)
+                if(PUERTA_CARLOS_V_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CARLOS_V_DCH.latitude
+                        && PUERTA_CARLOS_V_DCH.longitude <= location.longitude && location.longitude <= PUERTA_CARLOS_V_IZQ.longitude)
                     dentro = 2
 
                 return dentro
 
             }else{
-
+                /*
                 var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
                 var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
                 val distanciaCaf = min(dis1, dis2)
@@ -108,6 +110,22 @@ class HomeFragment : Fragment() {
                 val distanciaAul = min(dis1, dis2)
 
                 return if (distanciaAul < distanciaCaf) 1 else 2
+
+                 */
+                var dentro = 0
+                if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
+                        && PUERTA_AULARIO_DCH.longitude < location.longitude && location.longitude < PUERTA_AULARIO_IZQ.longitude)
+                    dentro = 1
+
+                if(PUERTA_CAFETERIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CAFETERIA_DCH.latitude
+                        && PUERTA_CAFETERIA_DCH.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_IZQ.longitude)
+                    dentro = 2
+
+                if(PUERTA_LUIS_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_LUIS_DCH.latitude
+                        && PUERTA_LUIS_DCH.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_IZQ.longitude)
+                    dentro = 2
+
+                return dentro
             }
         }
 
