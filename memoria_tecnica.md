@@ -92,7 +92,7 @@ permita conocer de qué fragmento se debe mostrar la información.
 Con esto utilizamos la base de datos para rellenar los `textView`
 apropiados.
 
-En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volver atrás. Para hacer esto, seguimos los siguientes pasos.
+En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volver al mapa. Para hacer esto, seguimos los siguientes pasos.
 
 + Declaramos el objeto *listener*.
 ```
@@ -122,7 +122,9 @@ En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volve
                 (ini0 < fin0  && ini1 > fin1  && ini2 < fin2)
                 )
                 {
-                    activity?.onBackPressed()
+                    findNavController().navigate
+                    (R.id.action_nav_ip_to_nav_home, null)
+
                 }
             }
 ```

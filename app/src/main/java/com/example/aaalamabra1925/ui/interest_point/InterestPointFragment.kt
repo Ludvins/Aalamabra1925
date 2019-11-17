@@ -17,6 +17,8 @@ import com.example.aaalamabra1925.DbManager
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.example.aaalamabra1925.R
 
 
 /*
@@ -53,7 +55,7 @@ class InterestPointFragment : Fragment() {
                     (y0_ini > y0_fin  && y1_ini < y1_fin  && y2_ini < y2_fin) ||
                     (y0_ini < y0_fin  && y1_ini > y1_fin  && y2_ini < y2_fin)
                         ) {
-                    activity?.onBackPressed()
+                    findNavController().navigate(R.id.action_nav_ip_to_nav_home, null)
                 }
             }
             // Register position while the fingers are moving
