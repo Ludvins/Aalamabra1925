@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     private var mLocationManager: LocationManager? = null
     private lateinit var mapView: MapView
 
-    private val MODO_ALHAMBRA = true
+    private val MODO_ALHAMBRA = false
 
     private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197225, -3.624302)
     private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
     private val PUERTA_CARLOS_V_DCH = GeoPoint(37.177066, -3.589408)
     private val PUERTA_CARLOS_V_IZQ = GeoPoint(37.176434, -3.590323)
 
-    private val PUERTA_LUIS_DCH = GeoPoint(37.185859, -3.610619)
+    private val PUERTA_LUIS_DCH = GeoPoint(37.185981, -3.610531)
     private val PUERTA_LUIS_IZQ = GeoPoint(37.185617, -3.611027)
 
     private var gestureRecognitionDialog = GestureRecognitionDialog()
@@ -64,8 +64,9 @@ class HomeFragment : Fragment() {
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
-                if(senialgps >= 15.00F){
+                if(senialgps >= 8.00F){
                     val id = nearDoor(location)
+                    Log.d("Home Fragment", "Id = $id" )
                     Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
                     if(id != 0){
                         mLocationManager!!.removeUpdates(this)
@@ -82,6 +83,8 @@ class HomeFragment : Fragment() {
         override fun onProviderDisabled(provider: String) {}
 
         fun nearDoor(location: Location) : Int{
+            Log.d("Home F>ragment", "location: ${location.toString()}")
+
             if(MODO_ALHAMBRA){
 
                 var dentro = 0
@@ -108,6 +111,7 @@ class HomeFragment : Fragment() {
                 return if (distanciaAul < distanciaCaf) 1 else 2
 
                  */
+                Log.d("Home F>ragment", "location: ${location.toString()}")
                 var dentro = 0
                 if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
                         && PUERTA_AULARIO_DCH.longitude < location.longitude && location.longitude < PUERTA_AULARIO_IZQ.longitude)
