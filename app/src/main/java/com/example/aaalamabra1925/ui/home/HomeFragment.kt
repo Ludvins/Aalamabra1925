@@ -56,22 +56,20 @@ class HomeFragment : Fragment() {
     private val PUERTA_CARLOS_V_DCH = GeoPoint(37.177066, -3.589408)
     private val PUERTA_CARLOS_V_IZQ = GeoPoint(37.176434, -3.590323)
 
-    private var change = true
-
     private var gestureRecognitionDialog = GestureRecognitionDialog()
 
     private val mLocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
             Log.d("Home fragment", "Change $change")
-            if (location != null && change){
+            if (location != null){
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
                 Log.d("Home fragment", "Location: $senialgps")
 
-                if(senialgps >= 22.00F && change){
+                if(senialgps >= 22.00F){
                     val id = nearDoor(location)
                     if(id != 0){
-                        change = false
+                        mLocationManager!!.removeUpdates(this)
                         val bundle = bundleOf("id" to id)
                         findNavController().navigate(R.id.action_nav_home_to_nav_inner_map, bundle)
                     }
@@ -181,8 +179,6 @@ class HomeFragment : Fragment() {
         }
 
         super.onCreate(savedInstanceState)
-
-        change = true
 
         mLocationManager = context!!.getSystemService(LOCATION_SERVICE) as LocationManager?
 
