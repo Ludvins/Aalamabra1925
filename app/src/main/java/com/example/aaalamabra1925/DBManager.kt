@@ -22,8 +22,6 @@ class DbManager(context: Context) {
     private val colLong = "Longitude"
     private val dbVersion = 1
 
-    private val MODOALHAMBRA = false
-
     private val createTableSql =
             "CREATE TABLE IF NOT EXISTS $dbTable ($colId INTEGER PRIMARY KEY, " +
                     "$colTitle TEXT, " +
@@ -71,7 +69,6 @@ class DbManager(context: Context) {
     }
 
     // Fills the database with the given interest points
-
     fun fillDatabase(): Long{
             val id = insert(createCV(1, "Alcazaba", "La Alcazaba de la Alhambra que junto a las Torres Bermejas, es la parte más antigua del recinto monumental, fue dedicada a la vigilancia y control de la ciudad, data del siglo IX. Del mismo modo, el rey estableció en esta parte la residencia habitual de su ejército de élite.\n" + "\n" + "No sólo servía para la defensa contra los enemigos sino también contra sublevaciones internas. Esta gran muralla defensiva permitía que, incluso con la caída de la ciudad protegida, la ciudadela resistiera durante un largo periodo.\n\n Dentro de este recinto podemos encontrar las torres de la Quebrada, la del Homenaje y la famosa torre de la Vela.",
                     0, 37.176970, -3.592357))
