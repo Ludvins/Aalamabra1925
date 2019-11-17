@@ -92,6 +92,49 @@ permita conocer de qué fragmento se debe mostrar la información.
 Con esto utilizamos la base de datos para rellenar los `textView`
 apropiados.
 
+En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volver atrás. Para hacer esto, seguimos los siguientes pasos.
+
++ Declaramos el objeto *listener*.
+```
+    private val mOnTouchListener = object : View.OnTouchListener {}
+```
++ Sobrecargamos el método `onTouch` con el siguiente código con tres eventos.
+    + Cuando detectamos 3 dedos, tomamos sus alturas iniciales.
+```    
+        val action = event!!.actionMasked
+        if (event.pointerCount >= 3 && action == 
+            MotionEvent.ACTION_POINTER_DOWN) {
+                ini0 = event.getY(0)
+                ini1 = event.getY(1)
+                ini2 = event.getY(2)
+                reg = true
+        }
+```
+    + Cuando soltamos los dedos, comparamos si se ha realizado la accion de pinza.
+    
+
+```
+        if (action == ACTION_UP && reg) {
+            reg = false
+            if (
+                (ini0 < fin0  && ini1 < fin1  && ini2 > fin2) ||
+                (ini0 > fin0  && ini1 < fin1  && ini2 < fin2) ||
+                (ini0 < fin0  && ini1 > fin1  && ini2 < fin2)
+                )
+                {
+                    activity?.onBackPressed()
+                }
+            }
+```
+    + Si se produce movimiento, registramos la posicion de los 3 dedos.
+```
+        if (action == MotionEvent.ACTION_MOVE && reg && event.pointerCount >= 3) {
+            fin0 = event.getY(0)
+            fin1 = event.getY(1)
+            fin2 = event.getY(2)
+        }
+```
+
 InterestPointMenuFragment
 -------------------------
 
