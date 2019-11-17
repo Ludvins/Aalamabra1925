@@ -18,6 +18,7 @@ MainActivity ..> InterestPointMenuFragment
 
 HomeFragment ..> InterestPointFragment
 HomeFragment ..> InnerMapFragment
+HomeFragment ..> GestureRecognitionDialog
 
 InterestPointFragment ..> DBManager
 InnerMapFragment ..> DBManager

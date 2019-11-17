@@ -1,4 +1,4 @@
-% Created 2019-11-17 dom 11:59
+% Created 2019-11-17 dom 12:05
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,7 +32,7 @@
 \maketitle
 
 \section{Estructura del proyecto}
-\label{sec:org0852c2d}
+\label{sec:orgcea4ad5}
 
 La aplicación \texttt{Alamabra1925} está implementada como un proyecto \texttt{Android} en \texttt{Kotlin}.
 El proyecto se encuentra estructurado en una única actividad \texttt{MainActivity} y una serie de fragmentos, cada uno de ellos encargado de una faceta de la aplicación.
@@ -48,13 +48,15 @@ Estos son:
 
 Todos los fragmentos y las interacciones entre ellos se llevan a cabo utilizando un ``controlador de navegación''. Este nos permite navegar entre los fragmentos desde la barra de navegación lateral. 
 
-Desde esta barra podemos acceder a \texttt{HomeFragment} (Map), \texttt{InnerMapListFragment} (Inside Maps) y \texttt{GameFragment} (Game).
+Desde esta barra podemos acceder a \texttt{HomeFragment} (Map), \texttt{InnerMapListFragment}
+(Inside Maps) y \texttt{GameFragment} (Game).
 
 A continuación mostramos el diagrama correspondiente a las comunicaciones entre cada uno de los fragmentos. 
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./diagrama1.png}
 \end{center}
+
 
 Simbolizaremos con flechas continuas la cantidad de veces que una clase contiene a la otra. Debido a la estructura con fragmentos del proyecto esto solo ocurre con la clase \texttt{InterestPointMenuFragment}. Por esto, hemos decidido simbolizar en el diagrama las comuninaciones entre las clases. Para ello usaremos lineas discontinuas.
 
@@ -64,18 +66,18 @@ Simbolizaremos con flechas continuas la cantidad de veces que una clase contiene
 
 
 \section{Fragmentos}
-\label{sec:org56ff517}
+\label{sec:orge6f137c}
 \subsection{HomeFragment}
-\label{sec:orga43117f}
+\label{sec:org6f24e37}
 
 \subsection{InnerMapFragment}
-\label{sec:org2fe53a6}
+\label{sec:org8240bf4}
 
 \subsection{InnerMapListFragment}
-\label{sec:org41d83db}
+\label{sec:orgedf9294}
 
 \subsection{InterestPointFragment}
-\label{sec:org6bb48d4}
+\label{sec:org27f78a3}
 
 Este fragmento nos permite visualizar toda la información acerca de un punto de interés concreto de nuestra visita. 
 En el método \texttt{onCreateView} del fragmento, esperamos un \texttt{Bundle} con un identificador que nos permita conocer de que fragmento se debe mostrar la información.
@@ -83,7 +85,7 @@ En el método \texttt{onCreateView} del fragmento, esperamos un \texttt{Bundle} 
 Con esto utilizamos la base de datos para rellenar los \texttt{textView} apropiados.
 
 \subsection{InterestPointMenuFragment}
-\label{sec:org0d3ea30}
+\label{sec:orge7ed27d}
 
 A este fragmento se puede acceder desde la barra de navegación lateral bajo el nombre de \texttt{Interest Points Menu}. Aquí obtendremos una lista de todos los puntos de interés de os que se tiene información en la aplicación. Para ello utilizamos un adaptador \texttt{IPAdapter} y la base de datos.
 
@@ -112,15 +114,15 @@ En el método \texttt{onCreateView} hacemos lo siguiente.
 \end{itemize}
 
 \subsection{GameFragment}
-\label{sec:org8c9611b}
+\label{sec:org0e10f51}
 
 En este fragmento el usuario se enfrenta a una serie de preguntas que tendrá que responder lo más rápido posible. 
 
 \section{Otras clases}
-\label{sec:org5a72dbc}
+\label{sec:org22d57bb}
 
 \subsection{InterestPoint}
-\label{sec:orgd5c92b3}
+\label{sec:orgfae7d2e}
 
 Esta clase corresponde a una simple abstracción de la información almacenada en un punto de interés.
 
@@ -134,14 +136,14 @@ data class InterestPoint(
 
 
 \subsection{IPAdapter}
-\label{sec:org9b42399}
+\label{sec:orgbd7fca9}
 
 Esta clase extiende a la clase \texttt{BaseAdapter}. La utilizamos en el fragmento correspondiente a la lista de puntos de interés \texttt{InterestPointMenuFragment} donde mostramos uan lista de todos los puntos de interes que se encuentran en la base de datos.
 El adaptador nos permite mostrar estos elementos en la lista de una forma más cómoda y personalizable. Podriamos haber utilizado un \texttt{ArrayAdapter} como se ha hecho en la lista de mapas interiores \texttt{InnerMapListFragment}, sin embargo, esto bloqueaba la escalabilidad de la aplicación a la hora de querer mostrar mas información en la lista (por ejemplo, imágenes o un resumen del contenido).
 
 
 \subsection{DBManager}
-\label{sec:org1f989f6}
+\label{sec:org292ad2b}
 
 Esta clase nos permite utilizar la API de \texttt{SQLite} para almacenar los puntos de interés de nuestra aplicación. Dado que estos no cambian a lo largo de la ejecución podríamos haber utilizado un vector que los almacenara, sin embargo, vimos mas conveniente este modelo, debido a que todos los fragmentos se pueden valer de la misma base de datos (por tener solo una actividad) y no tenemos que preocuparnos de tener un vector al que todos pudieran acceder.
 
@@ -167,5 +169,5 @@ La clase dispone de 3 métodos importantes, todos ellos nos devuelven un cursor 
 \end{itemize}
 
 \subsection{GestureRecognitionDialog.}
-\label{sec:org295b589}
+\label{sec:org2c169d5}
 \end{document}
