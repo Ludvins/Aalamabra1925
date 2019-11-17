@@ -42,9 +42,6 @@ class GestureRecognitionDialog: DialogFragment(){
                 longitude = location.longitude
             }
 
-            //Toast.makeText(activity, "Localizado", Toast.LENGTH_LONG).show()
-            //Log.d("Gesture_Dialog", "Location:" + latitude + ", " + longitude)
-
             val dbManager = DbManager(context!!)
             val cursor = dbManager.queryByLocationType(0)
 
@@ -79,14 +76,6 @@ class GestureRecognitionDialog: DialogFragment(){
                     val square_dist = dotprod(diff, n).pow(2)
 
                     val isBehind = (dotprod(v, diff) <= 0F)
-                    if (isBehind) {
-                        Log.d("Gesture Dialog", "$id")
-                    }
-
-                    Log.d("Gesture_Dialog", "ID: $id")
-                    Log.d("Gesture_Dialog", "Lat, long, squaredist, lowest: $ip_lat, $ip_long, $square_dist, $lowest_dist")
-                    Log.d("Gesture_Dialog", "Is behind?: $isBehind")
-
 
                     if (lowest_dist > square_dist && !isBehind){
                         nearest_ip = id
@@ -94,7 +83,6 @@ class GestureRecognitionDialog: DialogFragment(){
                     }
                 } while (cursor.moveToNext())
 
-                Toast.makeText(activity, "Punto de interés al que apuntas: $nearest_ip", Toast.LENGTH_LONG).show()
                 val args = bundleOf("id" to nearest_ip)
                 findNavController().navigate(R.id.action_nav_home_to_nav_ip, args)
                 me.dismiss()
