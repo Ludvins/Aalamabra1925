@@ -22,57 +22,6 @@ It gets a bundle with the ID of the interest point to show information about. Lo
 
 class InterestPointFragment : Fragment() {
 
-    /*
-
-    var y0_ini = -1.0F
-    var y0_fin = -1.0F
-    var y1_fin = -1.0F
-    var y1_ini = -1.0F
-    var y2_fin = -1.0F
-    var y2_ini = -1.0F
-    var reg = false
-    val UMBRAL = 300
-
-    private val mSensorListener = object : SensorEventListener {
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        }
-
-        override fun onSensorChanged(event: SensorEvent?) {
-            val action = event!!.actionMasked
-
-            // Al pulsar con dos dedos registramos la posición y inicial de cada dedo
-            if (event!!.sensor.pointerCount >= 3 && action == MotionEvent.ACTION_POINTER_DOWN) {
-                //Toast.makeText(this, "action pointer down", Toast.LENGTH_SHORT).show();
-                y0_ini = event.getY(0)
-                y1_ini = event.getY(1)
-                y2_ini = event.getY(2)
-                reg = true
-            }
-            // Mientras nos movamos actualizamos la posición y final
-            if (action == MotionEvent.ACTION_MOVE && reg) {
-                //Toast.makeText(this, "action move", Toast.LENGTH_SHORT).show();
-                y0_fin = event.getY(0)
-                y1_fin = event.getY(1)
-            }
-            // Si detectamos un movimiento adecuado cambiamos la imagen
-            if (action == MotionEvent.ACTION_POINTER_UP && reg) {
-                //Toast.makeText(this, "action up", Toast.LENGTH_SHORT).show();
-                reg = false
-                // Movimiento hacia arriba
-                if (y0_ini - y0_fin > UMBRAL && y1_ini - y1_fin > UMBRAL) {
-                    //Toast.makeText(this, "arriba", Toast.LENGTH_SHORT).show();
-
-                }
-                if (y0_fin - y0_ini > UMBRAL && y1_fin - y1_ini > UMBRAL) {
-                    //Toast.makeText(this, "abajo", Toast.LENGTH_SHORT).show();
-
-
-                }
-            }
-
-        }
-
-    } */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,8 +44,6 @@ class InterestPointFragment : Fragment() {
                 titleView.text = cursor.getString(cursor.getColumnIndex("Title"))
                 contentView.text = cursor.getString(cursor.getColumnIndex("Content"))
         }
-
-        val sensormanager = context!!.getSystemService(SENSOR_SERVICE) as SensorManager?
 
 
         return root
