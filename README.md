@@ -18,8 +18,7 @@ Utilizaremos los siguiente sensores:
 - GPS
 - Multitouch
 
-
-![](mapa.jpg){width=30%}
+![](mapa.jpg){width=25%}
 
 El usuario puede obtener información acerca de un punto de interés de distintas formas:
 
