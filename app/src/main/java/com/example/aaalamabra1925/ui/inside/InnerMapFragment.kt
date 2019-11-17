@@ -18,7 +18,6 @@ import android.content.res.ColorStateList
 @Suppress("DEPRECATION")
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
-    private val MODOALHAMBRA = true
 
     private fun addFloatingButton(root: View, id : Int, long:Int, lat:Int){
 
@@ -70,17 +69,11 @@ class InnerMapFragment : Fragment() {
             }while(cursor.moveToNext())
         }
 
-        if(MODOALHAMBRA){
-            if(mid == 1)
-                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.puertadelajusticia))
-            else
-                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.palaciocv))
-        }else{
-            if(mid == 1)
-                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapapb))
-            else
-                root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.mapacafeteria))
-        }
+        if(mid == 1)
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.puertadelajusticia))
+        else
+            root.setBackgroundDrawable(ContextCompat.getDrawable(this.context!!, R.drawable.palaciocv))
+
 
         return root
     }
