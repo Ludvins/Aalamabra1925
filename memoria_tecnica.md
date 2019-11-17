@@ -39,7 +39,12 @@ Fragmentos
 HomeFragment
 ------------
 
-Este es el fragmento principal de la aplicación, en ella se implementa el mapa de la aplicación y todas las interacciones con él. En primer lugar se declara un mapa utilizando la librería `osmdroid` donde situamos al usuario.
+Este es el fragmento principal de la aplicación, en ella se implementa el mapa de la aplicación y todas las interacciones con él. En primer lugar se declara un mapa utilizando la librería `osmdroid` donde situamos al usuario. Podriamos haber optado por utilizar la API de GoogleMaps, sin embargo, vimos mas conveniente utilizar la alternativa *open source*.
+Para hacerlo seguimos los siguientes pasos dentro de la función `onCreateView`:
++ Tomamos la vista de "openstreetmap".
++ Añadimos el compas al mapa. Para ello utilizamos `CompassOverlay`.
++ Añadimos la localización actual del usuario con `MyLocationNewOverlay`.
++ Toammos el controlador del mapa y ajustamos ciertos parámetros como, el zoom inicial, la longitud de la barra de escala y el seguimiento.
 
 A continuación añadimos los `markers` de los distintos puntos de interés importados de la base de datos, solo mostramos aquellos con `tipo = 0` ya que en la base de datos se guardan puntos de interes externos (con `tipo = 0`) y puntos de interés internos (con `tipo > 0`).
 
