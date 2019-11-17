@@ -33,4 +33,4 @@ Finalmente, la aplicación dispone de un juego pensado para los más pequeños. 
 
 Tras una serie de preguntas la puntuación total es mostrada en pantalla, permitiendo al usuario volver a jugar para intentar conseguir una puntuación más alta.
 
-![alt text](juegobien.jpg) ![alt text](juegomal.jpg) ![alt text](puntuacion.jpg)
+![alt text](juegotiempo.jpg) ![alt text](juegobien.jpg) ![alt text](juegomal.jpg) ![alt text](puntuacion.jpg)
