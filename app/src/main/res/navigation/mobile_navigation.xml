@@ -22,7 +22,7 @@
     <fragment
     android:id="@+id/nav_ip"
     android:name="com.example.aaalamabra1925.ui.interest_point.InterestPointFragment"
-    android:label="Interest Point"
+    android:label="Punto de interés"
     tools:layout="@layout/fragment_interest_point" >
     <argument
         android:name="id"
