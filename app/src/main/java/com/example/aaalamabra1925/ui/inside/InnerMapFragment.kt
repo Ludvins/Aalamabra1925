@@ -18,7 +18,7 @@ import android.content.res.ColorStateList
 @Suppress("DEPRECATION")
 class InnerMapFragment : Fragment() {
     private lateinit var layout : RelativeLayout
-    private val MODOALHAMBRA = true
+    private val MODOALHAMBRA = false
 
     private fun addFloatingButton(root: View, id : Int, long:Int, lat:Int){
 

@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
                 val senialgps = location.accuracy
                 Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
-                if(senialgps >= 8.00F){
+                if(senialgps >= 12.00F){
                     val id = nearDoor(location)
                     Log.d("Home Fragment", "Id = $id" )
                     Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
@@ -99,36 +99,16 @@ class HomeFragment : Fragment() {
                 return dentro
 
             } else{
-                /*
-                var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
-                var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
-                val distanciaCaf = min(dis1, dis2)
 
-                dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
-                dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
-                val distanciaAul = min(dis1, dis2)
-
-                return if (distanciaAul < distanciaCaf) 1 else 2
-
-                 */
-                Log.d("Home F>ragment", "location: ${location.toString()}")
                 var dentro = 0
                 if(PUERTA_AULARIO_IZQ.latitude < location.latitude && location.latitude < PUERTA_AULARIO_DCH.latitude
-                        && PUERTA_AULARIO_DCH.longitude < location.longitude && location.longitude < PUERTA_AULARIO_IZQ.longitude)
+                        && PUERTA_AULARIO_IZQ.longitude < location.longitude && location.longitude < PUERTA_AULARIO_DCH.longitude)
                     dentro = 1
 
                 if(PUERTA_CAFETERIA_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_CAFETERIA_DCH.latitude
-                        && PUERTA_CAFETERIA_DCH.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_IZQ.longitude)
+                        && PUERTA_CAFETERIA_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_DCH.longitude)
                     dentro = 2
 
-                Log.d("HomeFragment", "Localizacion: ${location.toString()}")
-                Log.d("HomeFragment", "PuertaIzq: ${PUERTA_LUIS_IZQ.toString()}")
-                Log.d("HomeFragment", "PuertaDer: ${PUERTA_LUIS_DCH.toString()}")
-                Log.d("HomeFragment", "Primer término: ${PUERTA_LUIS_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_LUIS_DCH.latitude}")
-                Log.d("HomeFragment", "Segundo término: ${PUERTA_LUIS_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_DCH.longitude}")
-                if(PUERTA_LUIS_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_LUIS_DCH.latitude
-                        && PUERTA_LUIS_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_DCH.longitude)
-                    dentro = 2
 
                 return dentro
             }
