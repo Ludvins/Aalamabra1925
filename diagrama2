@@ -1,0 +1,31 @@
+@startuml
+class MainActivity
+class GestureRecognitionDialog
+class DBManager
+class GameFragment
+class HomeFragment
+class InnerMapFragment
+class InnerMapListFragment
+class InterestPoint
+class InterestPointFragment
+class InterestPointMenuFragment
+class IPAdapter
+
+MainActivity ..> HomeFragment
+MainActivity ..> GameFragment
+MainActivity ..> InnerMapListFragment
+MainActivity ..> InterestPointMenuFragment
+
+HomeFragment ..> InterestPointFragment
+HomeFragment ..> InnerMapFragment
+
+InterestPointFragment ..> DBManager
+InnerMapFragment ..> DBManager
+InnerMapFragment ..> InterestPointFragment
+
+InnerMapListFragment ..> InnerMapFragment
+
+InterestPointMenuFragment ..> DBManager
+InterestPointMenuFragment --> "1" IPAdapter
+InterestPointMenuFragment --> "0..*" InterestPoint
+@enduml

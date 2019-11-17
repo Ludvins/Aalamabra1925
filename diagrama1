@@ -1,0 +1,7 @@
+@startuml
+(InnerMapListFragment) --> (InnerMapFragment) : click
+(HomeFragment) --> (InnerMapFragment) : low_gps_accuracy
+(HomeFragment) --> (InterestPointFragment) : gesture
+(InterestPointMenuFragment) --> (InterestPointFragment) : click
+(InnerMapFragment) --> (InterestPointFragment) : click
+@enduml

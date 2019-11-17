@@ -1,3 +1,13 @@
+
+#+options: toc:nil date:nil
+#+BIND: org-latex-image-default-width 0.98\linewidth
+#+TITLE: Memoria técnica
+#+AUTHOR: Luis Antonio Ortega Andrés @@latex: \\@@Guillermo Galindo Ortuño @@latex: \\@@ Johanna Capote Robayna
+
+#+LATEX_HEADER:\setlength{\parindent}{0in}
+#+LATEX_HEADER: \usepackage[margin=1.0in]{geometry}
+#+LATEX_HEADER: \usepackage{mathtools}
+
 * Estructura del proyecto
 
 La aplicación =Alamabra1925= está implementada como un proyecto =Android= en ~Kotlin~.
@@ -16,47 +26,11 @@ Desde esta barra podemos acceder a =HomeFragment= (Map), =InnerMapListFragment= 
 
 A continuación mostramos el diagrama correspondiente a las comunicaciones entre cada uno de los fragmentos. 
 
-#+BEGIN_UML
-InnerMapListFragment --> InnerMapFragment : click
-HomeFragment --> InnerMapFragment : low_gps_accuracy
-HomeFragment --> InterestPointFragment : gesture
-InterestPointMenuFragment --> InterestPointFragment : click
-InnerMapFragment --> InterestPointFragment : click
-#+END_UML
+[[./diagrama1.png]]
 
 Simbolizaremos con flechas continuas la cantidad de veces que una clase contiene a la otra. Debido a la estructura con fragmentos del proyecto esto solo ocurre con la clase =InterestPointMenuFragment=. Por esto, hemos decidido simbolizar en el diagrama las comuninaciones entre las clases. Para ello usaremos lineas discontinuas.
 
-#+BEGIN_UML
-class MainActivity
-class GestureRecognitionDialog
-class DBManager
-class GameFragment
-class HomeFragment
-class InnerMapFragment
-class InnerMapListFragment
-class InterestPoint
-class InterestPointFragment
-class InterestPointMenuFragment
-class IPAdapter
-
-MainActivity ..> HomeFragment
-MainActivity ..> GameFragment
-MainActivity ..> InnerMapListFragment
-MainActivity ..> InterestPointMenuFragment
-
-HomeFragment ..> InterestPointFragment
-HomeFragment ..> InnerMapFragment
-
-InterestPointFragment ..> DBManager
-InnerMapFragment ..> DBManager
-InnerMapFragment ..> InterestPointFragment
-
-InnerMapListFragment ..> InnerMapFragment
-
-InterestPointMenuFragment ..> DBManager
-InterestPointMenuFragment --> "1" IPAdapter
-InterestPointMenuFragment --> "0..*" InterestPoint
-#+END_UML
+[[./diagrama2.png]]
 
 
 * Fragmentos
