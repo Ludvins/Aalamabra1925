@@ -11,11 +11,13 @@ El objetivo de la práctica es confeccionar un software capaz de complementar un
 La principal característica de la aplicación es que permite proveer al usuario de un mapa donde su localización se encuentra reflejada en tiempo real. Como perseguimos que el usuario no se pierda ningún monumento importante de la Alhambra, también quedan reflejados en el mapa aquellos puntos de interés de una visita a la Alhambra.
 
 Utilizaremos los siguiente sensores:
+
 - Acelerómetro (`TYPE_ACCELEROMETER`)
 - Campo magnético (`TYPE_MAGNETIC_FIELD`)
 - Aceleración lineal (`TYPE_LINEAR_ACCELERATION`)
 - GPS
 - Multitouch
+
 
 ![](mapa.jpg){width=30%}
 
