@@ -165,3 +165,12 @@ cursor iterable sobre las filas resultantes en la base de datos.
 
 GestureRecognitionDialog.
 -------------------------
+Esta es la clase que abre el diálogo al pulsar el botón para reconocer
+un punto de interés al hacer el gesto de [apuntar]{.underline}, y que
+gestiona dicho gesto y su funcionalidad.
+
+En primer lugar, para reconocer el gesto utilizamos dos sensores, el **acelerómetro**, y el sensor de **campo magnético**. Para ello, definimos el *listener* `mPositionListener`. Este, una vez que posee datos no nulos de ambos sensores, comprueba que el movil está en posición horizontal o más inclinado (como si apuntaras al suelo), lo que nos indica que el usuario ha realizado el gesto. Una vez reconocido el gesto, almacena el ángulo del movil respecto al polo norte, lo que nos permitirá luego reconocer el punto de interés señalado. Tras esto, hace una petición de ubicación, y el *listener* de la ubicación será el encargado de identificar dicho punto de interés.
+
+El *listener* encargado de obtener la ubicación actual del usuario es `mLocationListener`. Trataremos los valores de latitud y longitud como si fueran coordenadas sobre un plano. Dicho esto, una vez que conocemos la posición actual, calculamos el vector director de la semirecta que comienza en nuestra localización, y apunta en la dirección en la que apunta el movil (utilizando el ángulo entre el eje X del teléfono y el polo norte almacenado anteriormente). Entonces, para reconocer a qué punto de interés estamos apuntando, descartamos los puntos que se quedan por detrás, calculamos la distancia a la semirrecta del resto y almacenamos el identificador del punto de interés que esté mas cerca de esta.
+
+Por último, cerramos el diálogo y abrimos la vista asociada a la información de dicho punto de interés.
