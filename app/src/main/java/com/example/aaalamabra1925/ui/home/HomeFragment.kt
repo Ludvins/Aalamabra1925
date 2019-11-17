@@ -55,12 +55,12 @@ class HomeFragment : Fragment() {
         override fun onLocationChanged(location: Location?) {
             if (location != null){
                 val senialgps = location.accuracy
-                Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
+                //Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
                 if(senialgps >= UMBRAL){
                     val id = nearDoor(location)
                     Log.d("Home Fragment", "Id = $id" )
-                    Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context,  id.toString() , Toast.LENGTH_LONG).show()
                     if(id != 0){
                         mLocationManager!!.removeUpdates(this)
                         val bundle = bundleOf("id" to id)
