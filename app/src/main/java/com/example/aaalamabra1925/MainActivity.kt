@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
         // Force orientation.
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -49,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         if (permissionsList.size > 0){
             ActivityCompat.requestPermissions(this, permissionsArray, 0)
         }
+
+        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)

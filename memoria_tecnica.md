@@ -14,20 +14,20 @@ ellos encargado de una faceta de la aplicación. Estos son:
 -   `GameFragment`.
 
 Todos los fragmentos y las interacciones entre ellos se llevan a cabo
-utilizando un \"controlador de navegación\". Este nos permite navegar
-entre los fragmentos desde la barra de navegación lateral.
+utilizando un \"controlador de navegación\" (`navController`). Este nos permite navegar
+entre los fragmentos desde la barra de navegación lateral y entre ellos utilizando `actions`. Estas acciones se pueden comprobar en el fichero `res/navigation/mobileNavigation.xml`.
 
-Desde esta barra podemos acceder a `HomeFragment` (Map),
-`InnerMapListFragment` (Inside Maps) y `GameFragment` (Game).
-
-A continuación mostramos el diagrama correspondiente a las
-comunicaciones entre cada uno de los fragmentos.
+El siguiente diagrama muestra información equivalente.
 
 ![](./diagrama1.png)
 
-Simbolizaremos con flechas continuas la cantidad de veces que una clase
-contiene a la otra. Debido a la estructura con fragmentos del proyecto
-esto solo ocurre con la clase `InterestPointMenuFragment`. Por esto,
+Desde esta barra lateral podemos acceder a `HomeFragment` (Map),
+`InnerMapListFragment` (Inside Maps) y `GameFragment` (Game).
+
+Ahora mostramos el diagrama de clases de la aplicación, sin tener en cuenta atributos o métodos de cada uno de ellas. 
+
+Debido a la estructura con fragmentos del proyecto
+las clases no contienen instancias de otras clases, salvo por  `InterestPointMenuFragment`. Por esto,
 hemos decidido simbolizar en el diagrama las comuninaciones entre las
 clases. Para ello usaremos lineas discontinuas.
 
@@ -45,7 +45,15 @@ A continuación añadimos los `markers` de los distintos puntos de interés impo
 
 Para añadirlos se utiliza la funcion `addMarker`, a la que se le pasa la **longitud** y **latitud** del punto y su identificador de la base de datos. En la función se crea un punto en el mapa y se le añade un ClickListener, el cual cambia de vista al pulsarse mostrando la información del punto de interés.
 
-Por otro lado se añade también un locationListener, que se actualiza cada segundo o cuando el usuario se ha desplazado un metro. Cuando el listener detecta que la posición cambia llama a la función *onLocationChanged*, dentro de esta se comprueba si la señal de GPS es mayor que un cierto UMBRAL lo que se indica pérdida de señal GPS. En este caso se puede considerar que el usuario está entrando a un monumento, por lo que se verifica si se encuentra dentro de los edificios de mapa interior. Para realizar esta comprobación se ha implementado la funcion *nearDoor*, la cual recibe una localización y en base a dos puntos del mapa elegidos estratégicamente, uno en la esquina inferior izquierda y otro en la esquina superior derecha del edificio, se comprueba si la localización actual del usuario se encuentra entre el cuadrado formado por esas dos esquinas y se devuelve el identificador del edificio dentro del cual se encuentra. Cuando esto ocurre se desactiva el locationlistener y cambia de vista al fragmento inner_map con el id del mapa interior que se mostrará.
+Por otro lado se añade también un `locationListener`, que se actualiza cada segundo o cuando el usuario se ha desplazado un metro. Cuando el listener detecta que la posición cambia llama a la función `onLocationChanged`, dentro de esta se comprueba si la señal de GPS es mayor que un cierto `UMBRAL` lo que se indica pérdida de señal GPS. 
+
+En este caso se puede considerar que el usuario está entrando a un monumento, por lo que se verifica si se encuentra dentro de los edificios de mapa interior. Para ello, la función `nearDoor` realiza lo siguiente: 
+
++ Para cada uno de los monumentos, buscamos un cuadrado en el espacio que encierre toda la estructura.
++ Aprovechamos que en los primeros momentos de andentrarse en la estructura la señal de GPS aún no desaparece, para calcular la posición del usuario.
++ Comprobamos si el usuario se encuentra dentro de alguno de los cuadrados definidos antes (vemos la latitud y la longitud como las coordenadas de un punto en un plano).
+
+Cuando esto ocurre se desactiva el `locationlistener` y cambia de vista al fragmento del mapa interior con el identificador correspondiente.
 
 InnerMapFragment
 ----------------
