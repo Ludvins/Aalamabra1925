@@ -50,7 +50,7 @@ Por otro lado se añade también un locationListener, que se actualiza cada segu
 InnerMapFragment
 ----------------
 
-En este fragmento se implementan los mapas internos junto con sus puntos de interés. 
+En este fragmento se implementan los mapas internos junto con sus puntos de interés.
 A este podemos llegar desde `HomeFragment` o `InnerMapListFragment`, en ambos casos será necesario añadir un identificador `id` al `bundle` de la navegación, este simbolizará cual de los mapas interiores queremos cargar.
 
 Para esto utilizamos
@@ -73,7 +73,6 @@ InnerMapListFragment
 En este fragmento alojaremos una lista de `String`, donde cada uno de ellos simboliza un mapa interior de la Alhambra. Para ello utilizamos una `listView` y un `ArrayAdapter`.
 
 En cada uno de los elementos de la lista, sobrecargamos la pulsación para que añada al `bundle` el identificador correspondiente.
-
 
 InterestPointFragment
 ---------------------
@@ -125,8 +124,18 @@ loadQueryAll()
 GameFragment
 ------------
 
-Otras clases
-============
+Este fragmente implementa el juego de preguntas sobre la Alhambra.
+
+En primer lugar, al crear la vista del fragmento, se abre un diáologo definido en la función *explainDialog*, que muestra las intrucciones del juego. Al cerrar dicho diálogo, activamos la cuenta atrás , comenzamos a recibir datos del acelerómetro, y en el *listener* `mAccelerometerListener` comenzamos a esperar por uno de los dos gestos.
+
+La cuenta atrás la gestiona `mCountDownTimer`. Este objeto tiene dos funciones, `onTick` que actualiza la barra de progreso cada 200ms, y `onFinish` que deshabilita el sensor para no recibir más respuestas, y muestra un mensaje informando de que el tiempo se ha acabado y los resultados.
+
+Los dos gestos son mover el teléfono hacia adelante y atrás, y hacia los lados para el sí y el no respectivamente. Para reconocer estos gestos, comprobamos que el valor absoluto de la aceleración sea mayor a una determinada constante, respecto al eje Z para el si, y respecto al X para el no. Una vez reconocido alguno de los dos gestos, deja de escuchar para no mandar más de una respuesta involuntariamente, y se llama a la función `manageAnswer` con la respuesta correcta y la respuesta del usuario.
+
+En primer lugar, la función `manageAnswer` comprueba si la respuesta es correcta o incorrecta comparando los dos booleanos que recibe, y muestra un mensaje acorde para informar al usuario. Tras esto, si todavía quedan preguntas, actualiza la pregunta actual, refresca la vista, y espera medio segundo. A continuación, vuelve a activar el `listener` para recibir la siguiente respuesta. En caso de no quedar preguntas disponibles, muestra el resultado final, y para la cuenta atrás.
+
+Otras clase
+===========
 
 InterestPoint
 -------------
