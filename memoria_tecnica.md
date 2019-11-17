@@ -36,6 +36,14 @@ Ahora mostramos el diagrama de clases de la aplicación, sin tener en cuenta atr
 
 ![](./diagrama2.png)
 
+En el proyecto utilizamos los siguientes sensores:
+
+- Acelerómetro (`TYPE_ACCELEROMETER`)
+- Campo magnético (`TYPE_MAGNETIC_FIELD`)
+- Aceleración lineal (`TYPE_LINEAR_ACCELERATION`)
+- GPS
+- Multitouch
+
 Fragmentos
 ==========
 
@@ -97,18 +105,15 @@ punto de interés concreto de nuestra visita. En el método `onCreateView`
 del fragmento, esperamos un `Bundle` con un identificador que nos
 permita conocer de qué fragmento se debe mostrar la información.
 
-Con esto utilizamos la base de datos para rellenar los `textView`
-apropiados.
-
-En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volver al mapa. Para hacer esto, seguimos los siguientes pasos.
+En este fragmento, utilizamos la detección de un gesto de "pinza" de 3 dedos para volver al mapa. Para hacer esto, seguimos los siguientes pasos.
 
 + Declaramos el objeto *listener*.
-```{.Kotlin}
+    ```{.Kotlin}
     private val mOnTouchListener = object : View.OnTouchListener {}
-```
+    ```
 + Sobrecargamos el método `onTouch` con el siguiente código con tres eventos.
     + Cuando detectamos 3 dedos, tomamos sus alturas iniciales.
-```    {.Kotlin}
+    ```    {.Kotlin}
         val action = event!!.actionMasked
         if (event.pointerCount >= 3 && action == 
             MotionEvent.ACTION_POINTER_DOWN) {
@@ -117,11 +122,21 @@ En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volve
                 ini2 = event.getY(2)
                 reg = true
         }
-```
+    ```
+    + Si se produce movimiento, registramos la posicion de los 3 dedos.
+
+    ```{.Kotlin}
+        if (action == MotionEvent.ACTION_MOVE && reg 
+        && event.pointerCount >= 3) {
+            fin0 = event.getY(0)
+            fin1 = event.getY(1)
+            fin2 = event.getY(2)
+        }
+    ```
     + Cuando soltamos los dedos, comparamos si se ha realizado la accion de pinza.
     
 
-```{.Kotlin}
+    ```{.Kotlin}
         if (action == ACTION_UP && reg) {
             reg = false
             if (
@@ -135,18 +150,8 @@ En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volve
 
                 }
             }
-```
+    ```
 
-    + Si se produce movimiento, registramos la posicion de los 3 dedos.
-
-```{.Kotlin}
-        if (action == MotionEvent.ACTION_MOVE && reg 
-        && event.pointerCount >= 3) {
-            fin0 = event.getY(0)
-            fin1 = event.getY(1)
-            fin2 = event.getY(2)
-        }
-```
 
 InterestPointMenuFragment
 -------------------------
