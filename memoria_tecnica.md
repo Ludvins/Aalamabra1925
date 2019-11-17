@@ -95,12 +95,12 @@ apropiados.
 En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volver al mapa. Para hacer esto, seguimos los siguientes pasos.
 
 + Declaramos el objeto *listener*.
-```
+```{.Kotlin}
     private val mOnTouchListener = object : View.OnTouchListener {}
 ```
 + Sobrecargamos el método `onTouch` con el siguiente código con tres eventos.
     + Cuando detectamos 3 dedos, tomamos sus alturas iniciales.
-```    
+```    {.Kotlin}
         val action = event!!.actionMasked
         if (event.pointerCount >= 3 && action == 
             MotionEvent.ACTION_POINTER_DOWN) {
@@ -113,7 +113,7 @@ En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volve
     + Cuando soltamos los dedos, comparamos si se ha realizado la accion de pinza.
     
 
-```
+```{.Kotlin}
         if (action == ACTION_UP && reg) {
             reg = false
             if (
@@ -128,9 +128,12 @@ En este fragmento, utilizamos la detección de una "pinza" de 3 dedos para volve
                 }
             }
 ```
+
     + Si se produce movimiento, registramos la posicion de los 3 dedos.
-```
-        if (action == MotionEvent.ACTION_MOVE && reg && event.pointerCount >= 3) {
+
+```{.Kotlin}
+        if (action == MotionEvent.ACTION_MOVE && reg 
+        && event.pointerCount >= 3) {
             fin0 = event.getY(0)
             fin1 = event.getY(1)
             fin2 = event.getY(2)
