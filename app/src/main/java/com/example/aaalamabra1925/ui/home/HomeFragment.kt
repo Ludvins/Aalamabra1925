@@ -29,9 +29,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
-import kotlin.math.min
-import kotlin.math.pow
-
 
 class HomeFragment : Fragment() {
 
@@ -98,12 +95,11 @@ class HomeFragment : Fragment() {
 
                 return dentro
 
-            }else{
+            } else{
                 /*
                 var dis1 = ((location.longitude - PUERTA_CAFETERIA_1.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_1.altitude).pow(2))
                 var dis2 = ((location.longitude - PUERTA_CAFETERIA_2.longitude).pow(2) + (location.altitude - PUERTA_CAFETERIA_2.altitude).pow(2))
                 val distanciaCaf = min(dis1, dis2)
-
 
                 dis1 = ((location.longitude - PUERTA_AULARIO_1.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_1.altitude).pow(2))
                 dis2 = ((location.longitude - PUERTA_AULARIO_2.longitude).pow(2) + (location.altitude - PUERTA_AULARIO_2.altitude).pow(2))
@@ -121,14 +117,18 @@ class HomeFragment : Fragment() {
                         && PUERTA_CAFETERIA_DCH.longitude <= location.longitude && location.longitude <= PUERTA_CAFETERIA_IZQ.longitude)
                     dentro = 2
 
+                Log.d("HomeFragment", "Localizacion: ${location.toString()}")
+                Log.d("HomeFragment", "PuertaIzq: ${PUERTA_LUIS_IZQ.toString()}")
+                Log.d("HomeFragment", "PuertaDer: ${PUERTA_LUIS_DCH.toString()}")
+                Log.d("HomeFragment", "Primer término: ${PUERTA_LUIS_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_LUIS_DCH.latitude}")
+                Log.d("HomeFragment", "Segundo término: ${PUERTA_LUIS_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_DCH.longitude}")
                 if(PUERTA_LUIS_IZQ.latitude <= location.latitude && location.latitude <= PUERTA_LUIS_DCH.latitude
-                        && PUERTA_LUIS_DCH.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_IZQ.longitude)
+                        && PUERTA_LUIS_IZQ.longitude <= location.longitude && location.longitude <= PUERTA_LUIS_DCH.longitude)
                     dentro = 2
 
                 return dentro
             }
         }
-
 
     }
 
@@ -182,7 +182,6 @@ class HomeFragment : Fragment() {
         mLocationOverlay!!.isOptionsMenuEnabled = true
         mCompassOverlay!!.enableCompass()
 
-
         val dbManager = DbManager(context!!)
 
         val cursor = dbManager.queryByLocationType(0)
@@ -226,14 +225,9 @@ class HomeFragment : Fragment() {
 
     }
 
-
     override fun onStop() {
         super.onStop()
         // Unregister listener on stop.
         mLocationManager!!.removeUpdates(mLocationListener)
     }
 }
-
-
-
-

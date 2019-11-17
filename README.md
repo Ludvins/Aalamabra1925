@@ -21,7 +21,7 @@ El usuario puede obtener información acerca de un punto de interes de distintas
 El usuario no tendrá que preocuparse por la señal GPS recibida por la aplicación cuando se adentre en un lugar cubierto.
 La aplicación detectará el descenso de señal GPS y cargará un mapa interior del lugar donde, aunque el usuario no pueda saber su localización exacta, también aparecerán distintos puntos de interés.
 
-La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deverán responderse en un corto periodo de tiempo (30 segundos). Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
+La aplicación dispone de un juego pensado para los mas pequeños, en este se nos mostrarán diversas preguntas de respues rápida sobre la visita a la Alhambra, estas preguntas deberán responderse en un corto periodo de tiempo (30 segundos). Para aumentar la sensación de frenesí, las preguntas se deberán responder utilizando un gesto con el dispositivo.
 - En caso de querer responder afirmativamente a la pregunta, se deberá mover el dispositivo hacia adelante y hacia atrás.
 - En caso de querer responder negativamente, se utilizará un movimiento de lado a lado.
 
