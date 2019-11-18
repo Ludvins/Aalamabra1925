@@ -114,7 +114,7 @@ class HomeFragment : Fragment() {
 
         val test: FloatingActionButton = root.findViewById(R.id.test)
         test.setOnClickListener {
-            UMBRAL = if (bool)  1000f else  12f
+            UMBRAL = if (bool)  1000F else  12F
         }
         // Get map view
         mapView = root.findViewById(R.id.openmapview)
