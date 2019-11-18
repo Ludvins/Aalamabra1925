@@ -60,6 +60,7 @@ class GestureRecognitionDialog: DialogFragment(){
             rotation_m = rotationMatrix(90F, 0F, 0F)
             rotation_m.mapVectors(n)
 
+            Log.d("Azimuth", "$azimuth, $degree_azimuth")
             Log.d("Vector director", "${v[0]}, ${v[1]}")
             Log.d("Vector normal", "${n[0]}, ${n[1]}")
             Log.d("Localización", "${location!!.longitude}, ${location.latitude}")
@@ -171,6 +172,8 @@ class GestureRecognitionDialog: DialogFragment(){
     override fun onStop() {
         super.onStop()
         mSensorManager.unregisterListener(mPositionListener)
+        mGravity = null
+        mGeomagnetic = null
     }
 
 }

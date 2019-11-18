@@ -71,7 +71,7 @@ class DbManager(context: Context) {
     // Fills the database with the given interest points
     fun fillDatabase(): Long{
             val id = insert(createCV(1, "Alcazaba", "La Alcazaba de la Alhambra que junto a las Torres Bermejas, es la parte más antigua del recinto monumental, fue dedicada a la vigilancia y control de la ciudad, data del siglo IX. Del mismo modo, el rey estableció en esta parte la residencia habitual de su ejército de élite.\n" + "\n" + "No sólo servía para la defensa contra los enemigos sino también contra sublevaciones internas. Esta gran muralla defensiva permitía que, incluso con la caída de la ciudad protegida, la ciudadela resistiera durante un largo periodo.\n\n Dentro de este recinto podemos encontrar las torres de la Quebrada, la del Homenaje y la famosa torre de la Vela.",
-                    0, 37.176970, -3.592357))
+                    0, 37.196831, -3.623759))
             insert(createCV(2, "Palacios Nazaríes", "Residencia habitual de los reyes de Granada, su construcción comenzó a principios del siglo XIV. Los Palacios Nazaríes son un conjunto palacial compuesto por tres edificaciones:\n\n- El Mexuar, es la sala más antigua. Usada para reuniones de los ministros del rey así como lugar donde se impartía justicia.\n\n -A continuación llegamos al palacio de Comares, su construcción data de la época de Yusuf I, esta residencia fue constituida entorno al patio de los Arrayanes, de tal forma que en los laterales puedes encontrar las salas de los Embajadores y la de la Barca. La sala de los Embajadores se encuentra dentro de la torre de Comares.\n\n- El palacio de los Leones, de la época de Mohamed V, son también estancias reales. Está compuesto por un patio central, el Patio de los Leones, y en cada lateral una sala,  la de los Mocárabes, los Reyes, Dos Hermanas, Ajimeces, mirador de Daraxa, los Abencerrajes y el Harén.",
                     0,37.177345, -3.589746))
             insert(createCV(3, "Palacio de Carlos V", "La iniciativa para la construcción del palacio partió del emperador Carlos a partir de su boda con Isabel de Portugal, celebrada en Sevilla en 1526. Tras el enlace, la pareja residió varios meses en la Alhambra, quedando profundamente impresionado por los Palacios nazaríes, dejando encargada la construcción del nuevo palacio con la intención de establecer su residencia en la Alhambra granadina",
@@ -95,15 +95,14 @@ class DbManager(context: Context) {
                     2,900.0 ,200.0))
             insert(createCV(12, "Escaleras", "Por estas escaleras subia Carlos V hacia la torre.",
                     2,300.0 ,200.0))
-
-            //insert(createCV(13, "Palacio de Carlos V", "La iniciativa para la construcción del palacio partió del emperador Carlos a partir de su boda con Isabel de Portugal, celebrada en Sevilla en 1526. Tras el enlace, la pareja residió varios meses en la Alhambra, quedando profundamente impresionado por los Palacios nazaríes, dejando encargada la construcción del nuevo palacio con la intención de establecer su residencia en la Alhambra granadina",
-              //  0, 37.197329, -3.623969))
-            //insert(createCV(14, "Puerta del vino", "La Puerta del Vino sirve de inicio y final en el itinerario de visita a la Alcazaba. En cierto modo esta Puerta, mantiene una función semejante a la que tuvo en la época nazarí. Es la Puerta principal de acceso a la Medina de la Alhambra, la que encierra, dentro del común recinto amurallado de la fortaleza, el sector residencial y artesano al servicio de la corte.\n\nAl ser puerta interior su acceso es directo, a diferencia de las puertas exteriores que debían estar más protegidas y eran construidas en recodo. No obstante, en su ámbito interior conserva el espacio necesario y los bancos para la guardia que controlaba el paso.",
-              //  0, 37.196942, -3.624586))
-            insert(createCV(15, "Esquina derecha Aulario","", 0,37.197418, -3.623827))
-            insert(createCV(16, "Esquina izquierda Aulario","", 0,37.197260, -3.624796))
-            insert(createCV(17, "Esquina derecha Cafeteria","", 0,37.197103, -3.624330))
-            insert(createCV(18, "Esquina izquierda Cafeteria","", 0,37.196880, -3.624733))
+            insert(createCV(13, "Palacio de Carlos V", "La iniciativa para la construcción del palacio partió del emperador Carlos a partir de su boda con Isabel de Portugal, celebrada en Sevilla en 1526. Tras el enlace, la pareja residió varios meses en la Alhambra, quedando profundamente impresionado por los Palacios nazaríes, dejando encargada la construcción del nuevo palacio con la intención de establecer su residencia en la Alhambra granadina",
+                0, 37.197329, -3.623969))
+            insert(createCV(14, "Puerta del vino", "La Puerta del Vino sirve de inicio y final en el itinerario de visita a la Alcazaba. En cierto modo esta Puerta, mantiene una función semejante a la que tuvo en la época nazarí. Es la Puerta principal de acceso a la Medina de la Alhambra, la que encierra, dentro del común recinto amurallado de la fortaleza, el sector residencial y artesano al servicio de la corte.\n\nAl ser puerta interior su acceso es directo, a diferencia de las puertas exteriores que debían estar más protegidas y eran construidas en recodo. No obstante, en su ámbito interior conserva el espacio necesario y los bancos para la guardia que controlaba el paso.",
+                0, 37.196942, -3.624586))
+            //insert(createCV(15, "Esquina derecha Aulario","", 0,37.197418, -3.623827))
+            //insert(createCV(16, "Esquina izquierda Aulario","", 0,37.197260, -3.624796))
+            //insert(createCV(17, "Esquina derecha Cafeteria","", 0,37.197103, -3.624330))
+            //insert(createCV(18, "Esquina izquierda Cafeteria","", 0,37.196880, -3.624733))
 
 
 
