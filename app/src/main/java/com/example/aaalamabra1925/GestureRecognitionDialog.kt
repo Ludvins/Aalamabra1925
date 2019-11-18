@@ -60,6 +60,10 @@ class GestureRecognitionDialog: DialogFragment(){
             rotation_m = rotationMatrix(90F, 0F, 0F)
             rotation_m.mapVectors(n)
 
+            Log.d("Vector director", "${v[0]}, ${v[1]}")
+            Log.d("Vector normal", "${n[0]}, ${n[1]}")
+            Log.d("Localización", "${location!!.longitude}, ${location.latitude}")
+
             var lowest_dist = Float.MAX_VALUE
             var nearest_ip : Int? = null
 
@@ -76,6 +80,10 @@ class GestureRecognitionDialog: DialogFragment(){
                     val square_dist = dotprod(diff, n).pow(2)
 
                     val isBehind = (dotprod(v, diff) <= 0F)
+
+                    Log.d("Punto evaluando", "$ip_long, $ip_lat")
+                    Log.d("Distancia", "$square_dist")
+                    Log.d("Está detrás", "$isBehind")
 
                     if (lowest_dist > square_dist && !isBehind){
                         nearest_ip = id
