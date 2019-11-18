@@ -30,7 +30,8 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 
-private const val UMBRAL : Float = 12.0F
+private var UMBRAL : Float = 12.0F
+private var bool = true
 private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197103, -3.624330)
 private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
 private val PUERTA_AULARIO_DCH = GeoPoint(37.197418, -3.623827)
@@ -111,6 +112,10 @@ class HomeFragment : Fragment() {
             gestureRecognitionDialog.show(activity!!.supportFragmentManager, "gestures")
         }
 
+        val test: FloatingActionButton = root.findViewById(R.id.test)
+        test.setOnClickListener {
+            UMBRAL = if (bool)  1000f else  12f
+        }
         // Get map view
         mapView = root.findViewById(R.id.openmapview)
         Configuration.getInstance().userAgentValue = context!!.packageName
@@ -169,6 +174,7 @@ class HomeFragment : Fragment() {
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1.0F, mLocationListener, null)
         }
+
 
         return root
     }
