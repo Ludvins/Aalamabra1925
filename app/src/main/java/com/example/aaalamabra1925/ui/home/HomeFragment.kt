@@ -31,7 +31,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 
 private const val UMBRAL : Float = 12.0F
-private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197225, -3.624302)
+private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197103, -3.624330)
 private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
 private val PUERTA_AULARIO_DCH = GeoPoint(37.197418, -3.623827)
 private val PUERTA_AULARIO_IZQ = GeoPoint(37.197260, -3.624796)
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         override fun onLocationChanged(location: Location?) {
             if (location != null){
                 val senialgps = location.accuracy
-                //Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
+                Toast.makeText(context,  senialgps.toString() , Toast.LENGTH_LONG).show()
 
                 if(senialgps >= UMBRAL){
                     val id = nearDoor(location)
