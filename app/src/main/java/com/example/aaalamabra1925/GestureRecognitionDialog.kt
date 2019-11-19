@@ -66,7 +66,7 @@ class GestureRecognitionDialog: DialogFragment(){
             Log.d("Localización", "${location!!.longitude}, ${location.latitude}")
 
             var lowest_dist = Float.MAX_VALUE
-            var nearest_ip : Int? = null
+            var nearest_ip  = 1
 
             // Implements dot product
             val dotprod: (FloatArray, FloatArray) -> Float = {x, y -> x[0]*y[0] + x[1]*y[1]}
