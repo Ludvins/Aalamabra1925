@@ -104,6 +104,7 @@ class GameFragment : Fragment() {
         super.onStop()
         // Unregister listener on stop.
         mSensorManager.unregisterListener(mAccelerometerListener)
+        mCountDownTimer.cancel()
     }
 
     // Initialize questions and shuffle them.
@@ -141,11 +142,11 @@ class GameFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun manageAnswer(a:Boolean, b:Boolean){
         if (a == b){
-            Toast.makeText(context!!, "Correcto!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Correcto!!", Toast.LENGTH_SHORT).show()
             points++
         }
         else{
-            Toast.makeText(context!!, "Mal!!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context!!, "Mal!!", Toast.LENGTH_SHORT).show()
         }
 
         if (currentQuestion < questions.size-1) {
