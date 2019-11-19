@@ -31,7 +31,6 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 
 private var UMBRAL : Float = 12.0F
-private var bool = true
 private val PUERTA_CAFETERIA_DCH = GeoPoint(37.197103, -3.624330)
 private val PUERTA_CAFETERIA_IZQ = GeoPoint(37.196880, -3.624733)
 private val PUERTA_AULARIO_DCH = GeoPoint(37.197418, -3.623827)
@@ -114,7 +113,8 @@ class HomeFragment : Fragment() {
 
         val test: FloatingActionButton = root.findViewById(R.id.test)
         test.setOnClickListener {
-            UMBRAL = if (bool)  1000F else  12F
+            UMBRAL = if (UMBRAL == 12F)  1000F else  12F
+            Toast.makeText(context!!, "Umbral a $UMBRAL", Toast.LENGTH_SHORT).show()
         }
         // Get map view
         mapView = root.findViewById(R.id.openmapview)
